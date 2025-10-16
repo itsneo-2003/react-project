@@ -1,0 +1,146 @@
+/* Sidebar Container */
+.sidebar-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #212529;
+    color: white;
+    padding: 1.5rem 0;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  
+  /* Brand Section */
+  .sidebar-brand {
+    padding: 0 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #495057;
+    padding-bottom: 1rem;
+  }
+  
+  .sidebar-brand-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+  }
+  
+  .sidebar-brand-subtitle {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #adb5bd;
+  }
+  
+  /* Navigation List */
+  .sidebar-nav-list {
+    padding: 0;
+    margin: 0;
+    display: block;
+  }
+  
+  .sidebar-nav-item {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Navigation Links */
+  .sidebar-nav-link {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: #adb5bd;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-left: 3px solid transparent;
+  }
+  
+  .sidebar-nav-link:hover {
+    background-color: #343a40;
+    color: white;
+    border-left: 3px solid #0d6efd;
+  }
+  
+  .sidebar-nav-link i {
+    width: 20px;
+  }
+  
+  /* User Section */
+  .sidebar-user-section {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #495057;
+    background-color: #212529;
+  }
+  
+  .sidebar-user-info {
+    margin-bottom: 0.5rem;
+  }
+  
+  .sidebar-user-icon {
+    font-size: 2rem;
+    color: #adb5bd;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+  
+  .sidebar-user-details {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .sidebar-user-name {
+    display: block;
+    font-weight: 600;
+    color: white;
+    font-size: 0.95rem;
+  }
+  
+  .sidebar-user-role {
+    display: block;
+    font-size: 0.75rem;
+    color: #6c757d;
+  }
+  
+  /* User Dropdown */
+  .sidebar-user-dropdown {
+    margin-top: 0.5rem;
+  }
+  
+  .sidebar-dropdown-item {
+    display: block;
+    padding: 0.5rem 0;
+    color: #adb5bd;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+  }
+  
+  .sidebar-dropdown-item:hover {
+    color: white;
+  }
+  
+  .sidebar-dropdown-item i {
+    width: 18px;
+  }
+  
+  /* Scrollbar Styling */
+  .sidebar-container::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .sidebar-container::-webkit-scrollbar-track {
+    background: #212529;
+  }
+  
+  .sidebar-container::-webkit-scrollbar-thumb {
+    background: #495057;
+    border-radius: 3px;
+  }
+  
+  .sidebar-container::-webkit-scrollbar-thumb:hover {
+    background: #6c757d;
+  }

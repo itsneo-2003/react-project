@@ -1,4 +1,4 @@
-/* Sidebar Container */
+
 .sidebar-container {
     position: fixed;
     left: 0;
@@ -12,7 +12,7 @@
     overflow-y: auto;
   }
   
-  /* Brand Section */
+  
   .sidebar-brand {
     padding: 0 1.5rem;
     margin-bottom: 2rem;
@@ -33,7 +33,7 @@
     color: #adb5bd;
   }
   
-  /* Navigation List */
+  
   .sidebar-nav-list {
     padding: 0;
     margin: 0;
@@ -45,7 +45,7 @@
     margin-bottom: 0.5rem;
   }
   
-  /* Navigation Links */
+
   .sidebar-nav-link {
     display: block;
     padding: 0.75rem 1.5rem;
@@ -65,7 +65,7 @@
     width: 20px;
   }
   
-  /* User Section */
+  
   .sidebar-user-section {
     position: absolute;
     bottom: 0;
@@ -105,7 +105,7 @@
     color: #6c757d;
   }
   
-  /* User Dropdown */
+  
   .sidebar-user-dropdown {
     margin-top: 0.5rem;
   }
@@ -127,7 +127,7 @@
     width: 18px;
   }
   
-  /* Scrollbar Styling */
+
   .sidebar-container::-webkit-scrollbar {
     width: 6px;
   }

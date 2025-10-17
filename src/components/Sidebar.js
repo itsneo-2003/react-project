@@ -6,13 +6,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Sidebar = () => {
   return (
     <div className="sidebar-container">
-      {/* Brand Section */}
+      
       <div className="sidebar-brand">
         <h4 className="sidebar-brand-title">RW Tool</h4>
         <p className="sidebar-brand-subtitle">Bank Portal</p>
       </div>
 
-      {/* Navigation Menu */}
+      
       <div className="sidebar-nav-list">
         <div className="sidebar-nav-item">
           <Link to="/" className="sidebar-nav-link">
@@ -33,9 +33,6 @@ const Sidebar = () => {
           </Link>
         </div>
       </div>
-
-      {/* User Section at Bottom */}
-      
     </div>
   );
 };

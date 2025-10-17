@@ -3,7 +3,7 @@ import './Subscription_Status.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Subscription_Status = () => {
-  // Mock data for subscription requests
+  
   const [subscriptionRequests] = useState([
     { id: 1, groupName: 'Credit Card Group', dateRequested: '2025-10-01', status: 'approved' },
     { id: 2, groupName: 'Risk Compliance Group', dateRequested: '2025-10-05', status: 'pending' },
@@ -17,12 +17,12 @@ const Subscription_Status = () => {
 
   const [activeFilter, setActiveFilter] = useState('all');
 
-  // Filter subscription requests based on active filter
+  
   const filteredRequests = activeFilter === 'all' 
     ? subscriptionRequests 
     : subscriptionRequests.filter(request => request.status === activeFilter);
 
-  // Function to get status badge class
+
   const getStatusClass = (status) => {
     switch(status) {
       case 'pending': return 'status-pending';
@@ -32,7 +32,7 @@ const Subscription_Status = () => {
     }
   };
 
-  // Function to capitalize first letter
+  
   const capitalizeStatus = (status) => {
     return status.charAt(0).toUpperCase() + status.slice(1);
   };
@@ -70,7 +70,7 @@ const Subscription_Status = () => {
       </div>
       <br></br>
 
-      {/* Filter Buttons */}
+      
       <div className="filter-buttons-container">
         <button 
           className={`filter-btn filter-all ${activeFilter === 'all' ? 'active' : ''}`}
@@ -134,7 +134,7 @@ const Subscription_Status = () => {
         </table>
       </div>
 
-      {/* Summary section */}
+    
       
     </div>
   );

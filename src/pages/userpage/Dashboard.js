@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Dashboard.css';
-import ReportSearch from '../../components/ReportSearch';  // Changed from '../components/ReportSearch'
+import ReportSearch from '../../components/ReportSearch';
 
 const Dashboard = () => {
-  // Mock data for subscribed groups (10 groups for demonstration)
   const subscribedGroups = [
     { id: 1, name: 'Credit Card Group', icon: '💳' },
     { id: 2, name: 'Risk Compliance Group', icon: '⚖️' },
@@ -19,7 +18,6 @@ const Dashboard = () => {
     { id: 10, name: 'Operations Group', icon: '⚙️' },
   ];
 
-  // Mock data for recently opened reports
   const recentReports = [
     { id: 1, reportName: 'Q4 Credit Card Analysis', groupName: 'Credit Card Group', dateAccessed: '2025-10-10' },
     { id: 2, reportName: 'Risk Assessment Report 2025', groupName: 'Risk Compliance Group', dateAccessed: '2025-10-09' },
@@ -33,7 +31,6 @@ const Dashboard = () => {
   const groupsPerPage = 4;
   const totalPages = Math.ceil(subscribedGroups.length / groupsPerPage);
 
-  // Get current groups to display
   const currentGroups = subscribedGroups.slice(
     currentIndex * groupsPerPage,
     (currentIndex + 1) * groupsPerPage
@@ -47,7 +44,6 @@ const Dashboard = () => {
     setCurrentIndex((prev) => (prev < totalPages - 1 ? prev + 1 : prev));
   };
 
-  // Handle individual checkbox selection
   const handleCheckboxChange = (reportId) => {
     if (selectedReports.includes(reportId)) {
       setSelectedReports(selectedReports.filter(id => id !== reportId));
@@ -56,7 +52,6 @@ const Dashboard = () => {
     }
   };
 
-  // Handle select all checkbox
   const handleSelectAll = (e) => {
     if (e.target.checked) {
       const allReportIds = recentReports.map(report => report.id);
@@ -66,7 +61,6 @@ const Dashboard = () => {
     }
   };
 
-  // Handle download selected reports
   const handleDownloadSelected = () => {
     if (selectedReports.length > 0) {
       console.log('Downloading reports with IDs:', selectedReports);
@@ -74,13 +68,11 @@ const Dashboard = () => {
     }
   };
 
-  // Handle bookmark/favourite
   const handleBookmark = (reportId, reportName) => {
     console.log('Bookmarking report:', reportId);
     alert(`Report "${reportName}" bookmarked!`);
   };
 
-  // Handle individual report download
   const handleIndividualDownload = (reportId, reportName) => {
     console.log('Downloading report:', reportId);
     alert(`Downloading report: "${reportName}"`);
@@ -88,7 +80,6 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      {/* Header with Title and Search */}
       <div className="dashboard-header">
         <div className="dashboard-header-left">
           <h3 className="groups-title">My Subscribed Groups</h3>
@@ -98,10 +89,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Subscribed Groups Section */}
       <div className="groups-section">
         <div className="groups-carousel">
-          {/* Previous Button */}
           <button
             className="btn carousel-btn carousel-btn-prev"
             onClick={handlePrevious}
@@ -110,7 +99,6 @@ const Dashboard = () => {
             &#8249;
           </button>
 
-          {/* Groups Container */}
           <div className="groups-grid-container">
             <div className="row g-3">
               {currentGroups.map((group) => (
@@ -125,7 +113,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Next Button */}
           <button
             className="btn carousel-btn carousel-btn-next"
             onClick={handleNext}
@@ -134,8 +121,7 @@ const Dashboard = () => {
             &#8250;
           </button>
         </div>
-        
-        {/* Page Indicator */}
+
         <div className="page-indicator">
           <small className="text-muted">
             Page {currentIndex + 1} of {totalPages}
@@ -143,7 +129,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Recently Opened Reports Section */}
       <div className="reports-section">
         <div className="reports-header">
           <h3 className="reports-title">Recently Opened Reports</h3>

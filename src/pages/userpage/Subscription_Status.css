@@ -1,4 +1,4 @@
-/* Subscription Status Container */
+
 .subscription-status-container {
     padding: 2rem;
     width: 100%;
@@ -6,7 +6,7 @@
     overflow-y: auto;
     overflow-x: hidden;
   }
-  /* Header Section */
+
   .subscription-status-header {
     margin-bottom: 2rem;
   }
@@ -21,7 +21,7 @@
     color: #6c757d;
     font-size: 1rem;
   }
-  /* Table Wrapper */
+  
   .table-wrapper {
     background: white;
     border-radius: 8px;
@@ -29,7 +29,7 @@
     overflow: hidden;
     margin-bottom: 2rem;
   }
-  /* Table Styling */
+  
   .subscription-table {
     margin-bottom: 0;
   }
@@ -46,7 +46,7 @@
   .subscription-table tbody tr:hover {
     background-color: #f8f9fa;
   }
-  /* Status Badge Styling */
+  
   .status-badge {
     display: inline-block;
     padding: 0.35rem 0.75rem;
@@ -56,7 +56,7 @@
     text-align: center;
     min-width: 90px;
   }
-  /* Status Colors - Industry Standard */
+
   .status-pending {
     background-color: #FFF3CD;
     color: #856404;
@@ -72,7 +72,7 @@
     color: #721C24;
     border: 1px solid #DC3545;
   }
-  /* Summary Section */
+  
   .subscription-summary {
     background: white;
     padding: 0.5rem;
@@ -108,7 +108,7 @@
     font-size: 1.25rem;
     font-weight: 700;
   }
-  /* Summary Label Colors */
+  
   .summary-item:nth-child(1) .summary-label {
     color: #495057;
   }
@@ -134,7 +134,7 @@
     color: #DC3545;
   }
   
-  /* Filter Buttons Container */
+  
   .filter-buttons-container {
     text-align: right ;
     margin: 1rem 0;
@@ -143,7 +143,7 @@
     margin-right: 10px !important;
   }
   
-  /* Filter Buttons */
+  
   .filter-btn {
     padding: 0.35rem 0.75rem;
     margin: 0 0.5rem 0.5rem 0;
@@ -168,7 +168,7 @@
     outline: none;
   }
   
-  /* All Filter Button */
+  
   .filter-btn.filter-all {
     color: #495057;
     border-color: #495057;
@@ -182,8 +182,6 @@
     background: #495057;
     color: white;
   }
-  
-  /* Pending Filter Button */
   .filter-btn.filter-pending {
     color: #856404;
     border-color: #FFC107;
@@ -198,7 +196,7 @@
     color: #856404;
   }
   
-  /* Approved Filter Button */
+  
   .filter-btn.filter-approved {
     color: #155724;
     border-color: #28A745;
@@ -212,8 +210,7 @@
     background: #28A745;
     color: white;
   }
-  
-  /* Rejected Filter Button */
+
   .filter-btn.filter-rejected {
     color: #721C24;
     border-color: #DC3545;
@@ -228,7 +225,7 @@
     color: white;
   }
   
-  /* Responsive Design */
+  
   @media (max-width: 768px) {
     .subscription-status-container {
       padding: 1rem;

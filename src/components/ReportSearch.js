@@ -46,7 +46,7 @@ function ReportSearch() {
         </div>
       </div>
 
-      {/* Results Table */}
+      
       <div className="search-results-wrapper">
         {results.length > 0 ? (
           <table className="table table-bordered search-results-table">

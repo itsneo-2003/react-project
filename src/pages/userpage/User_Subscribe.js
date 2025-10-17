@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './User_Subscribe.css';
 
 const User_Subscribe = () => {
-  // Mock data for available groups (not subscribed)
+  
   const availableGroups = [
     { 
       id: 1, 
@@ -81,26 +81,26 @@ const User_Subscribe = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Filter groups based on search query
+  
   const filteredGroups = availableGroups.filter(group =>
     group.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleSubscribe = (groupId, groupName) => {
-    // Placeholder for subscribe functionality
+  
     console.log('Subscribing to group:', groupId);
     alert(`Subscription request sent for: ${groupName}`);
   };
 
   return (
     <div className="subscribe-container">
-      {/* Page Header */}
+      
       <div className="subscribe-header">
         <h2>Explore Groups</h2>
         <p>Browse and subscribe to groups to access their reports</p>
       </div>
 
-      {/* Search Bar */}
+      
       <div className="subscribe-search">
         <div className="input-group subscribe-search-box">
           <span className="input-group-text">
@@ -116,14 +116,14 @@ const User_Subscribe = () => {
         </div>
       </div>
 
-      {/* Results Count */}
+      
       <div className="subscribe-results-count">
         <small>
           Showing {filteredGroups.length} of {availableGroups.length} groups
         </small>
       </div>
 
-      {/* Groups Grid */}
+      
       <div className="row g-4">
         {filteredGroups.length > 0 ? (
           filteredGroups.map((group) => (

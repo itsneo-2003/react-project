@@ -68,3 +68,46 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+import pandas as pd
+import os
+
+INPUT_FOLDER = "data"               # folder containing Excel files
+OUTPUT_FILE = "output_unique.xlsx"  # final output file
+
+seen = set()
+output_chunks = []
+
+for file_name in os.listdir(INPUT_FOLDER):
+    if not file_name.endswith(".xlsx"):
+        continue
+
+    file_path = os.path.join(INPUT_FOLDER, file_name)
+    print(f"Processing {file_name}...")
+
+    df = pd.read_excel(file_path)
+
+    keep_mask = []
+
+    for b, d, e in zip(df["B"], df["D"], df["E"]):
+        key = (b, d, e)
+        if key in seen:
+            keep_mask.append(False)
+        else:
+            seen.add(key)
+            keep_mask.append(True)
+
+    unique_rows = df[keep_mask]
+
+    if not unique_rows.empty:
+        output_chunks.append(unique_rows)
+
+# Combine all unique rows
+final_df = pd.concat(output_chunks, ignore_index=True)
+
+# Write to Excel
+final_df.to_excel(OUTPUT_FILE, index=False)
+
+print("✅ Unique rows file created:", OUTPUT_FILE)

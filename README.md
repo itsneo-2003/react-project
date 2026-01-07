@@ -70,12 +70,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 
-
 import pandas as pd
 import os
 
-INPUT_FOLDER = "data"               # folder containing Excel files
-OUTPUT_FILE = "output_unique.xlsx"  # final output file
+INPUT_FOLDER = "data"
+OUTPUT_FILE = "output_unique.xlsx"
 
 seen = set()
 output_chunks = []
@@ -91,7 +90,8 @@ for file_name in os.listdir(INPUT_FOLDER):
 
     keep_mask = []
 
-    for b, d, e in zip(df["B"], df["D"], df["E"]):
+    # B, D, E  →  indexes 1, 3, 4
+    for b, d, e in zip(df.iloc[:, 1], df.iloc[:, 3], df.iloc[:, 4]):
         key = (b, d, e)
         if key in seen:
             keep_mask.append(False)
@@ -107,7 +107,7 @@ for file_name in os.listdir(INPUT_FOLDER):
 # Combine all unique rows
 final_df = pd.concat(output_chunks, ignore_index=True)
 
-# Write to Excel
+# Write output
 final_df.to_excel(OUTPUT_FILE, index=False)
 
-print("✅ Unique rows file created:", OUTPUT_FILE)
+print("✅ Unique rows written to", OUTPUT_FILE)

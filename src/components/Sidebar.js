@@ -57,3 +57,95 @@ else:
     print("\n❌ No valid data to write")
 
 print("🏁 Script finished")
+
+
+
+
+
+*********
+
+
+
+    import pandas as pd
+import os
+from collections import Counter
+
+INPUT_FOLDER = "data"
+UNIQUE_FILE = "output_unique.xlsx"
+OUTPUT_VERIFY_FILE = "verification.xlsx"
+
+print("🚀 Verification started")
+
+# ----------------------------
+# Step 1: Read unique output
+# ----------------------------
+unique_df = pd.read_excel(UNIQUE_FILE)
+print("📄 Unique rows read:", len(unique_df))
+
+# Extract unique keys (B, D, E)
+unique_keys = list(
+    zip(
+        unique_df.iloc[:, 1],
+        unique_df.iloc[:, 3],
+        unique_df.iloc[:, 4]
+    )
+)
+
+# Prepare counter for occurrences
+occurrence_counter = Counter()
+
+total_original_rows = 0
+
+# ----------------------------
+# Step 2: Count occurrences in original data
+# ----------------------------
+files = os.listdir(INPUT_FOLDER)
+print("📂 Files found:", files)
+
+for file_name in files:
+    if not file_name.endswith(".csv"):
+        continue
+
+    file_path = os.path.join(INPUT_FOLDER, file_name)
+    print(f"📄 Scanning {file_name}")
+
+    df = pd.read_csv(file_path)
+    total_original_rows += len(df)
+
+    # Safety check
+    if len(df.columns) < 5:
+        print("   ⚠ Skipped (less than 5 columns)")
+        continue
+
+    keys = zip(df.iloc[:, 1], df.iloc[:, 3], df.iloc[:, 4])
+    occurrence_counter.update(keys)
+
+# ----------------------------
+# Step 3: Build verification table
+# ----------------------------
+verify_df = unique_df.copy()
+verify_df["occurrence_count"] = [
+    occurrence_counter.get(key, 0) for key in unique_keys
+]
+
+# ----------------------------
+# Step 4: Validation check
+# ----------------------------
+sum_of_occurrences = verify_df["occurrence_count"].sum()
+
+print("\n🧮 Verification summary")
+print("Total original rows:", total_original_rows)
+print("Sum of occurrence counts:", sum_of_occurrences)
+
+if sum_of_occurrences == total_original_rows:
+    print("✅ PASS: Deduplication is correct")
+else:
+    print("❌ FAIL: Mismatch detected")
+
+# ----------------------------
+# Step 5: Write verification output
+# ----------------------------
+verify_df.to_excel(OUTPUT_VERIFY_FILE, index=False)
+print("📊 Verification file written to:", OUTPUT_VERIFY_FILE)
+
+print("🏁 Verification finished")

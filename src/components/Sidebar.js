@@ -188,3 +188,52 @@ print("Done!")
 print(f"Original rows: {len(df)}")
 print(f"IPv6 rows kept: {len(df_ipv6)}")
 print(f"IPv4/invalid rows removed: {len(df) - len(df_ipv6)}")
+
+
+
+
+**************
+
+import pandas as pd
+from openpyxl import load_workbook
+from openpyxl.styles import PatternFill
+
+# -------- CONFIG --------
+sheet1_file = "sheet1.xlsx"     # file with ~1200 IPs
+sheet2_file = "sheet2.xlsx"     # baseline IPs
+sheet1_output = "sheet1_highlighted.xlsx"
+
+sheet1_col_index = 0            # first column
+sheet2_col_index = 0            # first column
+# ------------------------
+
+# Read both Excel files
+df1 = pd.read_excel(sheet1_file)
+df2 = pd.read_excel(sheet2_file)
+
+# Convert baseline IPs to a set for fast lookup
+baseline_ips = set(df2.iloc[:, sheet2_col_index].astype(str).str.strip())
+
+# Load workbook for styling
+wb = load_workbook(sheet1_file)
+ws = wb.active
+
+# Define highlight style (light red)
+highlight = PatternFill(
+    start_color="FFFF9999",
+    end_color="FFFF9999",
+    fill_type="solid"
+)
+
+# Iterate through Sheet 1 IPs (skip header row)
+for row_idx, ip in enumerate(df1.iloc[:, sheet1_col_index].astype(str).str.strip(), start=2):
+    if ip not in baseline_ips:
+        ws.cell(row=row_idx, column=sheet1_col_index + 1).fill = highlight
+
+# Save highlighted file
+wb.save(sheet1_output)
+
+print("Done!")
+print(f"Total IPs checked: {len(df1)}")
+print(f"IPs missing from baseline: {sum(df1.iloc[:,0].astype(str).str.strip().apply(lambda x: x not in baseline_ips))}")
+print(f"Output written to: {sheet1_output}")

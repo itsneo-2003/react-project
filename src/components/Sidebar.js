@@ -149,3 +149,42 @@ verify_df.to_excel(OUTPUT_VERIFY_FILE, index=False)
 print("📊 Verification file written to:", OUTPUT_VERIFY_FILE)
 
 print("🏁 Verification finished")
+
+
+
+
+
+
+
+*************
+import pandas as pd
+import ipaddress
+
+# -------- CONFIG --------
+input_file = "input.csv"            # your CSV file
+output_file = "output_ipv6_only.csv"
+ip_column_index = 1                 # 0-based index (1 = second column)
+# ------------------------
+
+def is_ipv6(ip):
+    try:
+        return isinstance(
+            ipaddress.ip_address(str(ip).strip()),
+            ipaddress.IPv6Address
+        )
+    except ValueError:
+        return False  # IPv4, invalid, or empty values
+
+# Read CSV
+df = pd.read_csv(input_file)
+
+# Keep only rows with IPv6 in column 2
+df_ipv6 = df[df.iloc[:, ip_column_index].apply(is_ipv6)]
+
+# Write CSV
+df_ipv6.to_csv(output_file, index=False)
+
+print("Done!")
+print(f"Original rows: {len(df)}")
+print(f"IPv6 rows kept: {len(df_ipv6)}")
+print(f"IPv4/invalid rows removed: {len(df) - len(df_ipv6)}")

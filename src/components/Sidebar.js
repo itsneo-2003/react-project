@@ -199,41 +199,57 @@ from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 
 # -------- CONFIG --------
-sheet1_file = "sheet1.xlsx"     # file with ~1200 IPs
-sheet2_file = "sheet2.xlsx"     # baseline IPs
-sheet1_output = "sheet1_highlighted.xlsx"
+sheet1_file = "sheet1.xlsx"          # full IPv4s
+sheet2_file = "sheet2.xlsx"          # baseline (2 octets only)
+output_file = "sheet1_highlighted.xlsx"
 
-sheet1_col_index = 0            # first column
-sheet2_col_index = 0            # first column
+col_index = 0                        # first column
 # ------------------------
 
-# Read both Excel files
+def first_two_octets(ip):
+    try:
+        parts = str(ip).strip().split(".")
+        if len(parts) == 4:
+            return f"{parts[0]}.{parts[1]}"
+    except:
+        pass
+    return None
+
+# Read files
 df1 = pd.read_excel(sheet1_file)
 df2 = pd.read_excel(sheet2_file)
 
-# Convert baseline IPs to a set for fast lookup
-baseline_ips = set(df2.iloc[:, sheet2_col_index].astype(str).str.strip())
+# Baseline prefixes (already 2 octets)
+baseline_prefixes = set(
+    df2.iloc[:, col_index]
+    .astype(str)
+    .str.strip()
+)
 
-# Load workbook for styling
+# Load workbook for highlighting
 wb = load_workbook(sheet1_file)
 ws = wb.active
 
-# Define highlight style (light red)
+# Highlight style
 highlight = PatternFill(
     start_color="FFFF9999",
     end_color="FFFF9999",
     fill_type="solid"
 )
 
-# Iterate through Sheet 1 IPs (skip header row)
-for row_idx, ip in enumerate(df1.iloc[:, sheet1_col_index].astype(str).str.strip(), start=2):
-    if ip not in baseline_ips:
-        ws.cell(row=row_idx, column=sheet1_col_index + 1).fill = highlight
+missing = 0
 
-# Save highlighted file
-wb.save(sheet1_output)
+# Compare and highlight
+for row_idx, ip in enumerate(df1.iloc[:, col_index], start=2):
+    prefix = first_two_octets(ip)
+    if prefix and prefix not in baseline_prefixes:
+        ws.cell(row=row_idx, column=col_index + 1).fill = highlight
+        missing += 1
+
+# Save result
+wb.save(output_file)
 
 print("Done!")
 print(f"Total IPs checked: {len(df1)}")
-print(f"IPs missing from baseline: {sum(df1.iloc[:,0].astype(str).str.strip().apply(lambda x: x not in baseline_ips))}")
-print(f"Output written to: {sheet1_output}")
+print(f"IPs with missing prefixes: {missing}")
+print(f"Output file created: {output_file}")

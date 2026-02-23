@@ -1,62 +1,32 @@
-[2/13, 4:34 PM] Jp SCB: Use Case Name: Automated Email Notifications for Country Coverage Review
+🔔 New Email Template – COI
 
-Description:
-This use case ensures that Country Coverage representatives, Project Managers (PM), and Risk Framework Owners (RFO) receive automated email notifications at key stages of the COI risk assessment workflow. Notifications are triggered when a draft is submitted for review, when an assessment is endorsed or referred back, and when the assessment is fully endorsed and completed. The system also sends reminder and overdue emails to prevent delays and support timely governance actions.
+9. RFO Endorsement Completed (Business/Function Level Notification)
 
-Target Output:
-Automated and timely email notifications are successfully delivered to the appropriate stakeholders based on workflow events, enabling prompt review, endorsement, or feedback and ensuring smooth progression of the risk assessment process without bottlenecks.
-[2/13, 4:40 PM] Jp SCB: ✅ Conduct Risk Flow (Replace your COI copy with this)
+Trigger:
 
-1. Landing Page – Conduct Risk
-→ User views all cases (In progress, Pending endorsement, Refer back, Completed)
+When one assigned RFO endorses a COI assessment for a specific Impacted Business/Function, thereby completing the required endorsement for that Business/Function.
 
-⬇️
+Recipient:
 
-2. Initiate Conduct Risk Assessment (Project Manager / Risk Maker)
-→ Enter scope, country, business function
-→ Provide initiative / programme details
-→ Add description of change
-
-⬇️
-
-3. Conduct Risk Questionnaire
-→ User answers structured risk questions
-→ System captures inherent risk indicators
-
-⬇️
-
-4. Perform Conduct Risk Assessment
-→ Risk level determined based on responses
-→ Key conduct risks identified
-
-⬇️
-
-5. Create Mitigation Plan
-→ Add actions
-→ Assign owners
-→ Set target dates
-
-⬇️
-
-6. Submit for RFO / Coverage Review
-
-Decision Node:
-
-👉 Endorsed?
-
-YES ↓
-
-7. Final Endorsed Conduct Risk Assessment
-→ Confirmation checks completed
-→ Case marked completed
+Other assigned RFO(s) under the same Impacted Business/Function whose endorsement is no longer required.
 
 ⸻
 
-NO ↓
+Email
 
-Refer Back to Project Manager
-→ Reviewer provides feedback
-→ PM updates assessment / mitigation
-→ Resubmit for endorsement
+Subject: COI Notification: Endorsement Completed for Selected Business/Function
 
-(loop continues until endorsed)
+⸻
+
+Hello COI RFO,
+
+Please be informed that the endorsement requirement for the below Impacted Business/Function has been completed.
+
+An assigned RFO has already recorded the endorsement.
+Your endorsement for this Business/Function is therefore no longer required.
+
+
+Click HERE to access COI for reference.
+
+Regards,
+COI System

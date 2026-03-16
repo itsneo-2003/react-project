@@ -1,22 +1,38 @@
-[3/13, 12:18 PM] Jp SCB: Hi Vivek,
+1. SAY
 
-Please find attached the updated export samples for COI and FRA.
+(What the user says out loud)
+	•	“I want quick access to configure authentication.”
+	•	“Where do I enable Entra onboarding?”
+	•	“Why are there so many tabs like ICS Controls and User Groups?”
+	•	“I don’t know which step comes first.”
 
-The samples have now been updated to include all the workflow steps available in COI and FRA.
+⸻
 
-With respect to the other suggestions mentioned in the previous email (such as including additional fields like Case ID, Initiative ID, Initiative Name, revised sheet structure, etc.), these are currently not part of the existing export format.
+2. THINK
 
-Kindly review the updated samples and let us know if any further changes are required.
+(What the user thinks internally)
+	•	“Maybe I’m looking at the wrong page.”
+	•	“If I configure this incorrectly, authentication may fail.”
+	•	“Is Entra onboarding part of ICS Controls or another section?”
+	•	“There should be a clear step-by-step guide.”
 
-Thanks.
-[3/13, 12:25 PM] Jp SCB: Hi Vivek,
+⸻
 
-Please find attached the updated export samples for COI and FRA.
+3. DO
 
-The samples have been updated to include all the workflow steps available in COI and FRA.
+(What the user actually does)
+	•	Opens ICS Controls tab
+	•	Navigates through User Group / Authentication Service
+	•	Searches documentation
+	•	Checks other portals or guides
+	•	Tries different configuration options
 
-Thank you for the additional suggestions shared earlier (such as including Case ID, Initiative ID, Initiative Name and the revised sheet structure). These have been noted and will be looked into.
+⸻
 
-Kindly review the attached samples and let us know if there are any further comments or changes required.
+4. FEEL
 
-Thanks.
+(Emotions)
+	•	Confused because navigation is unclear
+	•	Stressed about making wrong configuration
+	•	Frustrated due to too many tabs
+	•	Relieved when the correct step is found

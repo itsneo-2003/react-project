@@ -1,38 +1,36 @@
-1. SAY
+SAY
 
-(What the user says out loud)
-	•	“I want quick access to configure authentication.”
-	•	“Where do I enable Entra onboarding?”
-	•	“Why are there so many tabs like ICS Controls and User Groups?”
-	•	“I don’t know which step comes first.”
-
-⸻
-
-2. THINK
-
-(What the user thinks internally)
-	•	“Maybe I’m looking at the wrong page.”
-	•	“If I configure this incorrectly, authentication may fail.”
-	•	“Is Entra onboarding part of ICS Controls or another section?”
-	•	“There should be a clear step-by-step guide.”
+What the user says
+	•	“I just want to add a repository.”
+	•	“Why can’t I click Add New Repository directly?”
+	•	“Why do I have to click Edit first?”
+	•	“Did my repository actually get added?”
 
 ⸻
 
-3. DO
+THINK
 
-(What the user actually does)
-	•	Opens ICS Controls tab
-	•	Navigates through User Group / Authentication Service
-	•	Searches documentation
-	•	Checks other portals or guides
-	•	Tries different configuration options
+What the user thinks
+	•	“Maybe I’m missing a step.”
+	•	“Is the button disabled or am I doing something wrong?”
+	•	“Why do I have to press Update after adding the repo?”
 
 ⸻
 
-4. FEEL
+DO
 
-(Emotions)
-	•	Confused because navigation is unclear
-	•	Stressed about making wrong configuration
-	•	Frustrated due to too many tabs
-	•	Relieved when the correct step is found
+What the user does
+	•	Opens Repository Settings
+	•	Searches for Add repository
+	•	Clicks Edit
+	•	Then Add new repository
+	•	Enters details
+	•	Clicks Update
+
+⸻
+
+FEEL
+	•	Confused about workflow
+	•	Frustrated by extra steps
+	•	Unsure if repo is saved
+	•	Relieved when repo finally appears

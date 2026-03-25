@@ -1,11 +1,13 @@
 $url = "https://config.zscaler.com/zscloud.net/cenr"
 
-$response = Invoke-WebRequest -Uri $url
+$response = Invoke-WebRequest -Uri $url -UseBasicParsing
 $content = $response.Content
 
-# Extract only the target section
-$section = ($content -split "Zscaler Aggregate IP Address Ranges")[1]
-$section = ($section -split "</table>")[0]
+# Extract only the section more safely
+$startIndex = $content.IndexOf("Zscaler Aggregate IP Address Ranges")
+$endIndex   = $content.IndexOf("</table>", $startIndex)
+
+$section = $content.Substring($startIndex, $endIndex - $startIndex)
 
 # Extract IPv4 CIDR ranges
 $ipv4Ranges = ($section | Select-String -Pattern '\b(?:\d{1,3}\.){3}\d{1,3}/\d{1,2}\b' -AllMatches).Matches.Value
@@ -13,13 +15,11 @@ $ipv4Ranges = ($section | Select-String -Pattern '\b(?:\d{1,3}\.){3}\d{1,3}/\d{1
 # Remove duplicates
 $ipv4Ranges = $ipv4Ranges | Sort-Object -Unique
 
-# Get Downloads path dynamically
+# Save to Downloads
 $downloadsPath = [Environment]::GetFolderPath("UserProfile") + "\Downloads"
-
-# Output file
 $outputPath = Join-Path $downloadsPath "Zscaler_IPv4.txt"
 
-# Save file
 $ipv4Ranges | Out-File -FilePath $outputPath -Encoding utf8
 
 Write-Host "Saved to $outputPath"
+Write-Host "Count:" $ipv4Ranges.Count

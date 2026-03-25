@@ -1,25 +1,13 @@
-Dear All,
+$url = "https://config.zscaler.com/zscloud.net/cenr"
 
-The Risk Framework Owner (RFO) assignment for the following Conflict of Interest (COI) risk assessment has been updated.
-Case ID
-Initiative ID
-Initiative Name
-Programme ID
-Programme Name
-Business/Function
+# Fetch page content
+$response = Invoke-WebRequest -Uri $url
 
+# Extract IPv4 CIDR ranges using regex
+$ipv4Ranges = ($response.Content | Select-String -Pattern '\b(?:\d{1,3}\.){3}\d{1,3}/\d{1,2}\b' -AllMatches).Matches.Value
 
-RFO Changes Summary:
-	•	Added RFO(s): {{addedRfoList}}
-	•	Removed RFO(s): {{removedRfoList}}
+# Remove duplicates (just in case)
+$ipv4Ranges = $ipv4Ranges | Sort-Object -Unique
 
-Please note that endorsement is required only from the currently assigned RFO(s).
-
-Please click HERE to access the COI system and view the latest details of the assessment.
-
-If you are receiving this email as part of CC, this update is for your information.
-
-Regards,
-COI System
-
-Note: This is a system-generated email. Please do not reply
+# Output
+$ipv4Ranges

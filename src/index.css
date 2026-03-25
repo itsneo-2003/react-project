@@ -1,13 +1,19 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+$url = "https://config.zscaler.com/zscloud.net/cenr"
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+$response = Invoke-WebRequest -Uri $url
+$content = $response.Content
+
+# Extract only the section containing "Zscaler Aggregate IP Address Ranges"
+$section = ($content -split "Zscaler Aggregate IP Address Ranges")[1]
+
+# Stop at next major section (safe cutoff)
+$section = ($section -split "</table>")[0]
+
+# Extract only IPv4 CIDR ranges
+$ipv4Ranges = ($section | Select-String -Pattern '\b(?:\d{1,3}\.){3}\d{1,3}/\d{1,2}\b' -AllMatches).Matches.Value
+
+# Remove duplicates
+$ipv4Ranges = $ipv4Ranges | Sort-Object -Unique
+
+# Output
+$ipv4Ranges

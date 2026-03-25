@@ -3,17 +3,23 @@ $url = "https://config.zscaler.com/zscloud.net/cenr"
 $response = Invoke-WebRequest -Uri $url
 $content = $response.Content
 
-# Extract only the section containing "Zscaler Aggregate IP Address Ranges"
+# Extract only the target section
 $section = ($content -split "Zscaler Aggregate IP Address Ranges")[1]
-
-# Stop at next major section (safe cutoff)
 $section = ($section -split "</table>")[0]
 
-# Extract only IPv4 CIDR ranges
+# Extract IPv4 CIDR ranges
 $ipv4Ranges = ($section | Select-String -Pattern '\b(?:\d{1,3}\.){3}\d{1,3}/\d{1,2}\b' -AllMatches).Matches.Value
 
 # Remove duplicates
 $ipv4Ranges = $ipv4Ranges | Sort-Object -Unique
 
-# Output
-$ipv4Ranges
+# Get Downloads path dynamically
+$downloadsPath = [Environment]::GetFolderPath("UserProfile") + "\Downloads"
+
+# Output file
+$outputPath = Join-Path $downloadsPath "Zscaler_IPv4.txt"
+
+# Save file
+$ipv4Ranges | Out-File -FilePath $outputPath -Encoding utf8
+
+Write-Host "Saved to $outputPath"

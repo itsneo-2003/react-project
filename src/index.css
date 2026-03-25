@@ -2,7 +2,7 @@ $url = "https://config.zscaler.com/api/zscloud.net/future/json"
 
 $response = Invoke-RestMethod -Uri $url
 
-# Extract only IPv4 (ignore IPv6)
+# Extract only IPv4
 $ipv4Ranges = $response.prefixes | Where-Object {
     $_ -match '^\d{1,3}(\.\d{1,3}){3}/\d{1,2}$'
 }
@@ -10,11 +10,18 @@ $ipv4Ranges = $response.prefixes | Where-Object {
 # Remove duplicates
 $ipv4Ranges = $ipv4Ranges | Sort-Object -Unique
 
+# Convert to objects (needed for CSV)
+$csvData = $ipv4Ranges | ForEach-Object {
+    [PSCustomObject]@{
+        IPRange = $_
+    }
+}
+
 # Save to Downloads
 $downloadsPath = [Environment]::GetFolderPath("UserProfile") + "\Downloads"
-$outputPath = Join-Path $downloadsPath "Zscaler_IPv4.txt"
+$outputPath = Join-Path $downloadsPath "Zscaler_IPv4.csv"
 
-$ipv4Ranges | Out-File -FilePath $outputPath -Encoding utf8
+$csvData | Export-Csv -Path $outputPath -NoTypeInformation
 
 Write-Host "Saved to $outputPath"
 Write-Host "Count:" $ipv4Ranges.Count

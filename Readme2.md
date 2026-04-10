@@ -1,24 +1,12 @@
-Hey, I’m seeing some inconsistencies in the export between COI and FRA — can you check and align?
+Glad to share that I’ve completed the Creative Design Engineering Practice program.
 
-1. RFO Coverage Status (partial stage)
-- COI: shows “Pending” with RFOs populated (looks correct)
-- FRA: sheet is blank
-→ FRA should also show pending RFO details similar to COI
+This experience strengthened my approach to structured problem-solving through design thinking.
 
-2. Evidence of Endorsement
-- COI (completed): no column/data
-- FRA: present and populated
-→ Need to standardize this across both (either include in both or remove from both)
+While I had earlier explored different paths, I’m now increasingly drawn toward the Business Analyst space, where I can combine analytical thinking with problem-solving and stakeholder collaboration.
 
-3. Final endorsed risk assessment (FRA)
-- Currently showing “No” for completed case
-→ This should be “Yes” once fully endorsed
+As I continue my Apprenticeship, I’m actively looking to learn, contribute, and grow in this direction of    Business Analyst space Grateful for the support and opportunities to explore and evolve, where I can combine analytical thinking with real-world problem solving and stakeholder collaboration.
 
-4. RFO Coverage Status (completed FRA)
-- For fully completed FRA, status is still showing as “Pending”
-→ This should be “Endorsed”
+Looking forward to learning, contributing, and growing further 🚀  
+#BusinessAnalysis #Learning #CareerGrowth
 
-5. Overall consistency
-→ Export behavior should be same for COI and FRA for both partial and completed stages
-
-Can you take a look and align this?
+.

@@ -1,58 +1,24 @@
-🔹 1. Use Case Name
+Hey, I’m seeing some inconsistencies in the export between COI and FRA — can you check and align?
 
-Review and Submit RFO Decision by Country Coverage (Endorse / Refer Back)
+1. RFO Coverage Status (partial stage)
+- COI: shows “Pending” with RFOs populated (looks correct)
+- FRA: sheet is blank
+→ FRA should also show pending RFO details similar to COI
 
-⸻
+2. Evidence of Endorsement
+- COI (completed): no column/data
+- FRA: present and populated
+→ Need to standardize this across both (either include in both or remove from both)
 
-🔹 2. Description
+3. Final endorsed risk assessment (FRA)
+- Currently showing “No” for completed case
+→ This should be “Yes” once fully endorsed
 
-Risk Framework Owners (RFOs) assigned for different country coverages should be able to independently review the Conflict of Interest (COI) risk assessment submitted by the PM and provide their decision.
+4. RFO Coverage Status (completed FRA)
+- For fully completed FRA, status is still showing as “Pending”
+→ This should be “Endorsed”
 
-The system should ensure:
-	•	Users can navigate through the assessment stages in read-only mode
-	•	Users can view responses provided by PM
-	•	Users can enter comments
-	•	Users can take action via:
-	•	Endorse
-	•	Refer Back (with mandatory comment)
+5. Overall consistency
+→ Export behavior should be same for COI and FRA for both partial and completed stages
 
-Stage visibility control:
-	•	Stage 3a → visible only to RFOs (for review and comments)
-	•	Stage 3b → visible only to PM/1LOD
-	•	UI should display both as a single stage labeled “Stage 3” for all users
-
-Decision behavior:
-	•	Each RFO (per country coverage) must independently review and submit their decision
-	•	System must not auto-trigger decisions based on other RFO actions
-
-Status logic:
-	•	Default → Pending Endorsement
-	•	If all RFOs endorse → status updates to Endorsed by RFO
-	•	If any RFO refers back → status updates to Referred Back
-
-Action behavior:
-	•	On clicking Endorse, a confirmation popup should appear (Submit / Cancel)
-	•	On clicking Refer Back, mandatory comment validation must be enforced
-
-Additional rules:
-	•	If endorsement includes conditions → RFO must refer back instead of endorsing
-	•	All actions must be captured in audit logs
-
-⸻
-
-🔹 3. Target Output
-	•	RFO (country-specific) is able to:
-	•	Navigate assessment stages in read-only mode
-	•	View PM responses
-	•	Provide comments
-	•	Submit decision (Endorse / Refer Back)
-	•	System ensures:
-	•	Stage-based visibility (3a vs 3b)
-	•	Independent decision submission by each RFO
-	•	Confirmation popup for endorse
-	•	Mandatory comment validation for refer back
-	•	Workflow outcome:
-	•	If all RFOs endorse → moves to next stage / PM queue
-	•	If any RFO refers back → routed back to PM with comments
-	•	Audit:
-	•	All actions (endorse, refer back, comments) are logged with user and timestamp
+Can you take a look and align this?

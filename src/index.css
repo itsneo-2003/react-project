@@ -1,27 +1,20 @@
-$url = "https://config.zscaler.com/api/zscloud.net/future/json"
 
-$response = Invoke-RestMethod -Uri $url
+import pandas as pd
 
-# Extract only IPv4
-$ipv4Ranges = $response.prefixes | Where-Object {
-    $_ -match '^\d{1,3}(\.\d{1,3}){3}/\d{1,2}$'
-}
+# Load Excel file
+input_file = "excel1.xlsx"   # change this to your file path
+output_file = "filtered_excel.xlsx"
 
-# Remove duplicates
-$ipv4Ranges = $ipv4Ranges | Sort-Object -Unique
+# Read the Excel sheet
+df = pd.read_excel(input_file)
 
-# Convert to objects (needed for CSV)
-$csvData = $ipv4Ranges | ForEach-Object {
-    [PSCustomObject]@{
-        IPRange = $_
-    }
-}
+# Column Q = 17th column → index 16 (0-based index)
+col_index = 16
 
-# Save to Downloads
-$downloadsPath = [Environment]::GetFolderPath("UserProfile") + "\Downloads"
-$outputPath = Join-Path $downloadsPath "Zscaler_IPv4.csv"
+# Keep only rows where value ends with 'GROUP'
+filtered_df = df[df.iloc[:, col_index].astype(str).str.strip().str.endswith("GROUP")]
 
-$csvData | Export-Csv -Path $outputPath -NoTypeInformation
+# Save result to new Excel file
+filtered_df.to_excel(output_file, index=False)
 
-Write-Host "Saved to $outputPath"
-Write-Host "Count:" $ipv4Ranges.Count
+print("Filtering complete. Saved as:", output_file)

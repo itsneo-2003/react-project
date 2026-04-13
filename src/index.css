@@ -1,20 +1,20 @@
-
 import pandas as pd
 
-# Load Excel file
-input_file = "excel1.xlsx"   # change this to your file path
-output_file = "filtered_excel.xlsx"
+print("Step 1: Starting script")
 
-# Read the Excel sheet
+input_file = "my7.xlsx"
+output_file = "remove_country.xlsx"
+
+print("Step 2: Reading file...")
+
 df = pd.read_excel(input_file)
 
-# Column Q = 17th column → index 16 (0-based index)
-col_index = 16
+print("Step 3: File loaded")
 
-# Keep only rows where value ends with 'GROUP'
-filtered_df = df[df.iloc[:, col_index].astype(str).str.strip().str.endswith("GROUP")]
+filtered_df = df[df.iloc[:, 0].astype(str).str.strip().str.upper().str.endswith("GROUP")]
 
-# Save result to new Excel file
+print("Step 4: Filtering done")
+
 filtered_df.to_excel(output_file, index=False)
 
-print("Filtering complete. Saved as:", output_file)
+print("Step 5: Saved file")

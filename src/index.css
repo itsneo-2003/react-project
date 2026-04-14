@@ -1,24 +1,23 @@
 import pandas as pd
 
 input_file = "excel2.xlsx"
-output_file = "deduplicated_multi.xlsx"
+output_file = "deduplicated_col1_col2.xlsx"
 
+# Read Excel
 df = pd.read_excel(input_file)
 
 print("Rows before:", len(df))
 
-# ✅ Fill merged cells (forward fill)
-df[df.columns[0]] = df[df.columns[0]].ffill()
-
-# Optional cleanup
+# Optional cleanup (recommended)
 df[df.columns[0]] = df[df.columns[0]].astype(str).str.strip()
-df[df.columns[2]] = df[df.columns[2]].astype(str).str.strip()
+df[df.columns[1]] = df[df.columns[1]].astype(str).str.strip()
 
-# ✅ Remove duplicates based on Column 1 + Column 3
-df_cleaned = df.drop_duplicates(subset=[df.columns[0], df.columns[2]])
+# Remove duplicates based on Column 1 + Column 2
+df_cleaned = df.drop_duplicates(subset=[df.columns[0], df.columns[1]])
 
 print("Rows after:", len(df_cleaned))
 
+# Save result
 df_cleaned.to_excel(output_file, index=False)
 
 print("Done")

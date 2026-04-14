@@ -1,20 +1,19 @@
 import pandas as pd
 
-print("Step 1: Starting script")
+input_file = "remove_country.xlsx"   # your filtered file
+output_file = "deduplicated.xlsx"
 
-input_file = "my7.xlsx"
-output_file = "remove_country.xlsx"
-
-print("Step 2: Reading file...")
-
+# Read Excel
 df = pd.read_excel(input_file)
 
-print("Step 3: File loaded")
+print("Rows before:", len(df))
 
-filtered_df = df[df.iloc[:, 0].astype(str).str.strip().str.upper().str.endswith("GROUP")]
+# Remove duplicates based on first column (index 0)
+df_cleaned = df.drop_duplicates(subset=df.columns[0])
 
-print("Step 4: Filtering done")
+print("Rows after:", len(df_cleaned))
 
-filtered_df.to_excel(output_file, index=False)
+# Save result
+df_cleaned.to_excel(output_file, index=False)
 
-print("Step 5: Saved file")
+print("Duplicates removed. Saved as:", output_file)

@@ -1,6 +1,6 @@
 import pandas as pd
 
-# File paths
+# Files
 excel1_file = "excel1.xlsx"
 excel2_file = "excel2.xlsx"
 output_file = "output_highlighted.xlsx"
@@ -12,16 +12,13 @@ df1 = pd.read_excel(excel1_file)
 
 def extract_org(value):
     value = str(value)
-
     # Remove suffix
     value = value.split("|")[0].strip()
+    # Remove prefix (first word)
+    parts = value.split(" ", 1)
+    return parts[1] if len(parts) > 1 else parts[0]
 
-    # Remove first token (code)
-    parts = value.split()
-
-    return " ".join(parts[1:]) if len(parts) > 1 else value
-
-# Extract clean org name
+# Extract org name
 df1["org_clean"] = df1.iloc[:, 0].apply(extract_org).str.upper().str.strip()
 df1["col3"] = df1.iloc[:, 2].astype(str).str.upper().str.strip()
 
@@ -44,12 +41,12 @@ df2["col3"] = df2.iloc[:, 2].astype(str).str.upper().str.strip()
 df2["key"] = list(zip(df2["col1"], df2["col3"]))
 
 # -------------------------
-# Step 3: Find mismatches
+# Step 3: Identify mismatches
 # -------------------------
 df2["is_missing"] = ~df2["key"].isin(excel1_keys)
 
 # -------------------------
-# Step 4: Write with highlight
+# Step 4: Save with highlight
 # -------------------------
 with pd.ExcelWriter(output_file, engine='xlsxwriter') as writer:
     df2.drop(columns=["col1", "col3", "key", "is_missing"]).to_excel(writer, index=False, sheet_name="Sheet1")
@@ -57,10 +54,10 @@ with pd.ExcelWriter(output_file, engine='xlsxwriter') as writer:
     workbook = writer.book
     worksheet = writer.sheets["Sheet1"]
 
-    # Light red highlight
+    # Light red format
     red_format = workbook.add_format({'bg_color': '#FFC7CE'})
 
-    # Highlight Column 3 (index 2)
+    # Apply highlight on Column 3 (index 2)
     for row_num, val in enumerate(df2["is_missing"], start=1):
         if val:
             worksheet.write(row_num, 2, df2.iloc[row_num-1, 2], red_format)

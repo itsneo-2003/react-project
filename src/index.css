@@ -1,66 +1,53 @@
 import pandas as pd
-import re
 
 # File paths
 excel1_file = "excel1.xlsx"
 excel2_file = "excel2.xlsx"
-output_file = "comparison_keys.xlsx"
+output_file = "output_highlighted.xlsx"
 
 # -------------------------
-# Step 1: Process Excel 1
+# Step 1: Excel 1 (no extraction)
 # -------------------------
 df1 = pd.read_excel(excel1_file)
 
-def extract_org(value):
-    value = str(value)
-
-    # Remove suffix
-    value = re.sub(r"\s*\|\s*NA\s*\|\s*GROUP\s*$", "", value, flags=re.IGNORECASE).strip()
-
-    parts = value.split()
-
-    # Remove prefix ONLY if it looks like code
-    if len(parts) > 1 and (parts[0].startswith("L1-") or parts[0].isdigit()):
-        return " ".join(parts[1:])
-    else:
-        return value
-
-# Clean Excel 1
-df1["org"] = df1.iloc[:, 0].apply(extract_org).str.upper().str.strip()
+df1["col1"] = df1.iloc[:, 0].astype(str).str.upper().str.strip()
 df1["col3"] = df1.iloc[:, 2].astype(str).str.upper().str.strip()
 
-df1_keys = df1[["org", "col3"]].drop_duplicates().reset_index(drop=True)
+excel1_keys = set(zip(df1["col1"], df1["col3"]))
 
 # -------------------------
-# Step 2: Process Excel 2
+# Step 2: Excel 2
 # -------------------------
 df2 = pd.read_excel(excel2_file)
 
+# Fill merged cells
 df2.iloc[:, 0] = df2.iloc[:, 0].ffill()
 
-df2["org"] = df2.iloc[:, 0].astype(str).str.upper().str.strip()
+df2["col1"] = df2.iloc[:, 0].astype(str).str.upper().str.strip()
 df2["col3"] = df2.iloc[:, 2].astype(str).str.upper().str.strip()
 
-df2_keys = df2[["org", "col3"]].drop_duplicates().reset_index(drop=True)
+df2["key"] = list(zip(df2["col1"], df2["col3"]))
 
 # -------------------------
-# Step 3: Combine
+# Step 3: Find mismatches
 # -------------------------
-max_len = max(len(df1_keys), len(df2_keys))
-
-df1_keys = df1_keys.reindex(range(max_len))
-df2_keys = df2_keys.reindex(range(max_len))
-
-result = pd.DataFrame({
-    "Excel1_Org": df1_keys["org"],
-    "Excel1_Col3": df1_keys["col3"],
-    "Excel2_Org": df2_keys["org"],
-    "Excel2_Col3": df2_keys["col3"]
-})
+df2["is_missing"] = ~df2["key"].isin(excel1_keys)
 
 # -------------------------
-# Step 4: Save
+# Step 4: Write + Highlight
 # -------------------------
-result.to_excel(output_file, index=False)
+with pd.ExcelWriter(output_file, engine='xlsxwriter') as writer:
+    df2.drop(columns=["col1", "col3", "key", "is_missing"]).to_excel(writer, index=False, sheet_name="Sheet1")
 
-print("✅ Done:", output_file)
+    workbook = writer.book
+    worksheet = writer.sheets["Sheet1"]
+
+    # Light red format
+    red_format = workbook.add_format({'bg_color': '#FFC7CE'})
+
+    # Highlight Column 3 (index 2)
+    for row_num, val in enumerate(df2["is_missing"], start=1):
+        if val:
+            worksheet.write(row_num, 2, df2.iloc[row_num-1, 2], red_format)
+
+print("✅ Done. Output saved as:", output_file)

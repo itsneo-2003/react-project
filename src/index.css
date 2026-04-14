@@ -1,23 +1,65 @@
 import pandas as pd
 
-input_file = "excel2.xlsx"
-output_file = "deduplicated_col1_col2.xlsx"
+# Files
+excel1_file = "excel1.xlsx"
+excel2_file = "excel2.xlsx"
+output_file = "output_highlighted.xlsx"
 
-# Read Excel
-df = pd.read_excel(input_file)
+# -------------------------
+# Step 1: Process Excel 1
+# -------------------------
+df1 = pd.read_excel(excel1_file)
 
-print("Rows before:", len(df))
+def extract_org(value):
+    value = str(value)
+    # Remove suffix
+    value = value.split("|")[0].strip()
+    # Remove prefix (first word)
+    parts = value.split(" ", 1)
+    return parts[1] if len(parts) > 1 else parts[0]
 
-# Optional cleanup (recommended)
-df[df.columns[0]] = df[df.columns[0]].astype(str).str.strip()
-df[df.columns[1]] = df[df.columns[1]].astype(str).str.strip()
+# Extract org name
+df1["org_clean"] = df1.iloc[:, 0].apply(extract_org).str.upper().str.strip()
+df1["col3"] = df1.iloc[:, 2].astype(str).str.upper().str.strip()
 
-# Remove duplicates based on Column 1 + Column 2
-df_cleaned = df.drop_duplicates(subset=[df.columns[0], df.columns[1]])
+# Create key set
+excel1_keys = set(zip(df1["org_clean"], df1["col3"]))
 
-print("Rows after:", len(df_cleaned))
+# -------------------------
+# Step 2: Process Excel 2
+# -------------------------
+df2 = pd.read_excel(excel2_file)
 
-# Save result
-df_cleaned.to_excel(output_file, index=False)
+# Fill merged cells
+df2.iloc[:, 0] = df2.iloc[:, 0].ffill()
 
-print("Done")
+# Clean values
+df2["col1"] = df2.iloc[:, 0].astype(str).str.upper().str.strip()
+df2["col3"] = df2.iloc[:, 2].astype(str).str.upper().str.strip()
+
+# Create key
+df2["key"] = list(zip(df2["col1"], df2["col3"]))
+
+# -------------------------
+# Step 3: Identify mismatches
+# -------------------------
+df2["is_missing"] = ~df2["key"].isin(excel1_keys)
+
+# -------------------------
+# Step 4: Save with highlight
+# -------------------------
+with pd.ExcelWriter(output_file, engine='xlsxwriter') as writer:
+    df2.drop(columns=["col1", "col3", "key", "is_missing"]).to_excel(writer, index=False, sheet_name="Sheet1")
+
+    workbook = writer.book
+    worksheet = writer.sheets["Sheet1"]
+
+    # Light red format
+    red_format = workbook.add_format({'bg_color': '#FFC7CE'})
+
+    # Apply highlight on Column 3 (index 2)
+    for row_num, val in enumerate(df2["is_missing"], start=1):
+        if val:
+            worksheet.write(row_num, 2, df2.iloc[row_num-1, 2], red_format)
+
+print("Done. Output saved as:", output_file)

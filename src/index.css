@@ -1,33 +1,42 @@
 import pandas as pd
+import re
 
-# Files
+# File paths
 excel1_file = "excel1.xlsx"
 excel2_file = "excel2.xlsx"
 output_file = "comparison_keys.xlsx"
 
 # -------------------------
-# Step 1: Excel 1
+# Step 1: Process Excel 1
 # -------------------------
 df1 = pd.read_excel(excel1_file)
 
 def extract_org(value):
     value = str(value)
-    value = value.split("|")[0].strip()
+
+    # Remove suffix " | NA | GROUP"
+    value = re.sub(r"\s*\|\s*NA\s*\|\s*GROUP\s*$", "", value, flags=re.IGNORECASE)
+
+    # Remove prefix (first token)
     parts = value.split()
+
     return " ".join(parts[1:]) if len(parts) > 1 else value
 
+# Clean Excel 1 columns
 df1["org"] = df1.iloc[:, 0].apply(extract_org).str.upper().str.strip()
 df1["col3"] = df1.iloc[:, 2].astype(str).str.upper().str.strip()
 
 df1_keys = df1[["org", "col3"]].drop_duplicates().reset_index(drop=True)
 
 # -------------------------
-# Step 2: Excel 2
+# Step 2: Process Excel 2
 # -------------------------
 df2 = pd.read_excel(excel2_file)
 
+# Fill merged cells
 df2.iloc[:, 0] = df2.iloc[:, 0].ffill()
 
+# Clean Excel 2 columns
 df2["org"] = df2.iloc[:, 0].astype(str).str.upper().str.strip()
 df2["col3"] = df2.iloc[:, 2].astype(str).str.upper().str.strip()
 
@@ -53,4 +62,4 @@ result = pd.DataFrame({
 # -------------------------
 result.to_excel(output_file, index=False)
 
-print("Comparison file created:", output_file)
+print("✅ Comparison file created:", output_file)

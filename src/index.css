@@ -2,8 +2,10 @@ Get-ADSyncConnector | Where-Object { $_.Type -eq "AD" } | ForEach-Object {
     Write-Host "`nConnector: $($_.Name)" -ForegroundColor Cyan
     $_.Partitions | ForEach-Object {
         Write-Host "Partition: $($_.Name)" -ForegroundColor Yellow
-        $_.ContainerInclusions | ForEach-Object {
-            Write-Host "  Synced OU: $_" -ForegroundColor Green
+        Write-Host "  Inclusions: $($_.ContainerInclusions.Count)"
+        Write-Host "  Exclusions: $($_.ContainerExclusions.Count)"
+        $_.ContainerExclusions | ForEach-Object {
+            Write-Host "  Excluded OU: $_" -ForegroundColor Red
         }
     }
 }

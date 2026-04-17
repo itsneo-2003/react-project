@@ -1,14 +1,9 @@
-Import-Module ADSync
-
-Get-ADSyncConnector |
-Where-Object {$_.Type -eq "AD"} |
-ForEach-Object {
-    $connector = $_
-
-    Get-ADSyncConnectorPartition -Connector $connector |
-    ForEach-Object {
-        Get-ADSyncConnectorPartitionScope -ConnectorPartitionId $_.Identifier |
-        Select-Object @{Name="Connector";Expression={$connector.Name}},
-                      @{Name="OU";Expression={$_.DistinguishedName}}
+Get-ADSyncConnector | Where-Object { $_.Type -eq "AD" } | ForEach-Object {
+    Write-Host "`nConnector: $($_.Name)" -ForegroundColor Cyan
+    $_.Partitions | ForEach-Object {
+        Write-Host "Partition: $($_.Name)" -ForegroundColor Yellow
+        $_.ContainerInclusions | ForEach-Object {
+            Write-Host "  Synced OU: $_" -ForegroundColor Green
+        }
     }
 }

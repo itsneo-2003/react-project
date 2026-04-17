@@ -4,7 +4,8 @@ Get-ADSyncConnector |
 Where-Object {$_.Type -eq "AD"} |
 ForEach-Object {
     $connector = $_
-    Get-ADSyncConnectorPartition -ConnectorId $connector.Identifier |
+
+    Get-ADSyncConnectorPartition -Connector $connector |
     ForEach-Object {
         Get-ADSyncConnectorPartitionScope -ConnectorPartitionId $_.Identifier |
         Select-Object @{Name="Connector";Expression={$connector.Name}},

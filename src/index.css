@@ -1,53 +1,13 @@
-import pandas as pd
+Import-Module ADSync
 
-# File paths
-excel1_file = "excel1.xlsx"
-excel2_file = "excel2.xlsx"
-output_file = "output_highlighted.xlsx"
-
-# -------------------------
-# Step 1: Excel 1 (no extraction)
-# -------------------------
-df1 = pd.read_excel(excel1_file)
-
-df1["col1"] = df1.iloc[:, 0].astype(str).str.upper().str.strip()
-df1["col3"] = df1.iloc[:, 2].astype(str).str.upper().str.strip()
-
-excel1_keys = set(zip(df1["col1"], df1["col3"]))
-
-# -------------------------
-# Step 2: Excel 2
-# -------------------------
-df2 = pd.read_excel(excel2_file)
-
-# Fill merged cells
-df2.iloc[:, 0] = df2.iloc[:, 0].ffill()
-
-df2["col1"] = df2.iloc[:, 0].astype(str).str.upper().str.strip()
-df2["col3"] = df2.iloc[:, 2].astype(str).str.upper().str.strip()
-
-df2["key"] = list(zip(df2["col1"], df2["col3"]))
-
-# -------------------------
-# Step 3: Find mismatches
-# -------------------------
-df2["is_missing"] = ~df2["key"].isin(excel1_keys)
-
-# -------------------------
-# Step 4: Write + Highlight
-# -------------------------
-with pd.ExcelWriter(output_file, engine='xlsxwriter') as writer:
-    df2.drop(columns=["col1", "col3", "key", "is_missing"]).to_excel(writer, index=False, sheet_name="Sheet1")
-
-    workbook = writer.book
-    worksheet = writer.sheets["Sheet1"]
-
-    # Light red format
-    red_format = workbook.add_format({'bg_color': '#FFC7CE'})
-
-    # Highlight Column 3 (index 2)
-    for row_num, val in enumerate(df2["is_missing"], start=1):
-        if val:
-            worksheet.write(row_num, 2, df2.iloc[row_num-1, 2], red_format)
-
-print("✅ Done. Output saved as:", output_file)
+Get-ADSyncConnector |
+Where-Object {$_.Type -eq "AD"} |
+ForEach-Object {
+    $connector = $_
+    Get-ADSyncConnectorPartition -ConnectorId $connector.Identifier |
+    ForEach-Object {
+        Get-ADSyncConnectorPartitionScope -ConnectorPartitionId $_.Identifier |
+        Select-Object @{Name="Connector";Expression={$connector.Name}},
+                      @{Name="OU";Expression={$_.DistinguishedName}}
+    }
+}

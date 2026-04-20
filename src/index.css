@@ -1,15 +1,18 @@
-# Step 1: Get the synced OU list from Entra Connect
+# Step 1: Get synced OUs
 $SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
 $SyncedOUs = $SyncConnector.Partitions.ConnectorPartitionScope.ContainerInclusionList
 
-# Step 2: For each synced OU, get all sub-OUs beneath it
+# Step 2: Expand sub-OUs with correct server per domain
 $AllSyncedOUs = foreach ($OU in $SyncedOUs) {
-    # Skip domain root entries (DC= only, no OU=)
     if ($OU -notmatch "^OU=") { continue }
-    
-    Get-ADOrganizationalUnit -Filter * -SearchBase $OU -SearchScope Subtree |
-        Select-Object -ExpandProperty DistinguishedName
-}
 
-# Step 3: Display results
-$AllSyncedOUs | Sort-Object | Get-Unique
+    # Extract domain from the OU string (e.g. zone1.scbdev.net)
+    $domain = ($OU -replace '^.*?(DC=.+)$','$1') -replace 'DC=','' -replace ',','.'
+
+    try {
+        Get-ADOrganizationalUnit -Filter * -SearchBase $OU -SearchScope Subtree -Server $domain |
+            Select-Object -ExpandProperty DistinguishedName
+    } catch {
+        Write-Warning "Could not query: $OU — $_"
+    }
+}

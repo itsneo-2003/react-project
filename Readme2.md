@@ -8,9 +8,10 @@ Regarding export behavior:
 - Post submission, export becomes available in subsequent stages (RFO/Coverage and Final Endorsed Risk Assessment)
 
 - The export always includes all workflow steps (all tabs), irrespective of where it is triggered  
+- Data for incomplete stages will remain blank while column structure is retained  
 
 - After Maker submission:  
-  Stages 1–3 are populated, and in RFO/Coverage (1LoD), all RFOs are listed with status “Pending Endorsement”  
+  Stages 1–3 are populated, and in RFO/Coverage (1LoD), all RFOs are listed with status “Pending Endorsement” (comments/inputs remain blank)
 
 - At Checker stage (before action):  
   Stages 1–3 remain populated; Checker section appears with only column structure  

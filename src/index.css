@@ -1,11 +1,15 @@
-Get-ADSyncConnector | Where-Object { $_.Type -eq "AD" } | ForEach-Object {
-    Write-Host "`nConnector: $($_.Name)" -ForegroundColor Cyan
-    $_.Partitions | ForEach-Object {
-        Write-Host "Partition: $($_.Name)" -ForegroundColor Yellow
-        Write-Host "  Inclusions: $($_.ContainerInclusions.Count)"
-        Write-Host "  Exclusions: $($_.ContainerExclusions.Count)"
-        $_.ContainerExclusions | ForEach-Object {
-            Write-Host "  Excluded OU: $_" -ForegroundColor Red
-        }
-    }
+# Step 1: Get the synced OU list from Entra Connect
+$SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
+$SyncedOUs = $SyncConnector.Partitions.ConnectorPartitionScope.ContainerInclusionList
+
+# Step 2: For each synced OU, get all sub-OUs beneath it
+$AllSyncedOUs = foreach ($OU in $SyncedOUs) {
+    # Skip domain root entries (DC= only, no OU=)
+    if ($OU -notmatch "^OU=") { continue }
+    
+    Get-ADOrganizationalUnit -Filter * -SearchBase $OU -SearchScope Subtree |
+        Select-Object -ExpandProperty DistinguishedName
 }
+
+# Step 3: Display results
+$AllSyncedOUs | Sort-Object | Get-Unique

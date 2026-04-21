@@ -1,18 +1,29 @@
-# Step 1: Get synced OUs
-$SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
-$SyncedOUs = $SyncConnector.Partitions.ConnectorPartitionScope.ContainerInclusionList
+import pandas as pd
+import re
 
-# Step 2: Expand sub-OUs with correct server per domain
-$AllSyncedOUs = foreach ($OU in $SyncedOUs) {
-    if ($OU -notmatch "^OU=") { continue }
+# File paths
+input_file = "input.xlsx"
+output_file = "output_cleaned.xlsx"
 
-    # Extract domain from the OU string (e.g. zone1.scbdev.net)
-    $domain = ($OU -replace '^.*?(DC=.+)$','$1') -replace 'DC=','' -replace ',','.'
+# Read Excel
+df = pd.read_excel(input_file)
 
-    try {
-        Get-ADOrganizationalUnit -Filter * -SearchBase $OU -SearchScope Subtree -Server $domain |
-            Select-Object -ExpandProperty DistinguishedName
-    } catch {
-        Write-Warning "Could not query: $OU — $_"
-    }
-}
+# Function to remove prefix
+def remove_prefix(value):
+    if pd.isna(value):
+        return value
+    
+    value = str(value)
+    
+    # Remove prefix like L1-12345678 OR just numbers at start
+    cleaned = re.sub(r'^[A-Za-z]*\d+-?\d*\s+', '', value)
+    
+    return cleaned.strip()
+
+# Apply on Column 2 (index 1)
+df.iloc[:, 1] = df.iloc[:, 1].apply(remove_prefix)
+
+# Save output
+df.to_excel(output_file, index=False)
+
+print("✅ Prefix removed. Output saved as:", output_file)

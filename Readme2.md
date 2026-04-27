@@ -1,23 +1,12 @@
-Hi Vivek,
+Hi Stephen,
 
-Thanks for the confirmation.
+Hope you’re doing well.
 
-Regarding export behavior:
+As discussed, we will be including the Service Bench Admin contact in the email templates.
 
-- Export is enabled only after the Maker completes and submits the initial stages (Background, FRA sheet, Risk Assessment)  
-- Post submission, export becomes available in subsequent stages (RFO/Coverage and Final Endorsed Risk Assessment)
+Could you please share the criteria/considerations for identifying the appropriate Service Bench Admin contact? This will help us proceed offline and finalize the correct contact details.
 
-- The export always includes all workflow steps (all tabs), irrespective of where it is triggered  
-- Data for incomplete stages will remain blank while column structure is retained  
-
-- After Maker submission:  
-  Stages 1–3 are populated, and in RFO/Coverage (1LoD), all RFOs are listed with status “Pending Endorsement” (comments/inputs remain blank)
-
-- At Checker stage (before action):  
-  Stages 1–3 remain populated; Checker section appears with only column structure  
-
-- After Checker endorsement:  
-  Comments (if provided) are captured; endorsed RFOs show “Endorsed” while others remain “Pending”  
+Thanks in advance.
 
 Regards,  
 Jothi

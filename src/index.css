@@ -1,8 +1,7 @@
 $SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
 $SyncedOUs = $SyncConnector.Partitions.ConnectorPartitionScope.ContainerInclusionList
 
-foreach ($OU in $SyncedOUs) {
-    # Only process zone1 OUs
+$Zone1OUs = foreach ($OU in $SyncedOUs) {
     if ($OU -notmatch "DC=zone1") { continue }
     if ($OU -notmatch "^OU=") { continue }
 
@@ -12,4 +11,6 @@ foreach ($OU in $SyncedOUs) {
     } catch {
         Write-Warning "Could not query: $OU — $_"
     }
-} | Sort-Object | Get-Unique
+}
+
+$Zone1OUs | Sort-Object | Get-Unique

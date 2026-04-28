@@ -173,11 +173,19 @@ $SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad'
 $RootPartition = $SyncConnector.Partitions | Where-Object { $_.Name -eq "scbdev.net" }
 
 $IncludedOUs = $RootPartition.ConnectorPartitionScope.ContainerInclusionList | Where-Object { $_ -match "^OU=" }
+$ExcludedOUs = $RootPartition.ConnectorPartitionScope.ContainerExclusionList
 
 $RootOUs = foreach ($OU in $IncludedOUs) {
     try {
         Get-ADOrganizationalUnit -Filter * -SearchBase $OU -SearchScope Subtree -Server "scbdev.net" |
-            Select-Object -ExpandProperty DistinguishedName
+            Select-Object -ExpandProperty DistinguishedName |
+            Where-Object {
+                $current = $_
+                # Only exclude if NOT explicitly included
+                $isExcluded = $ExcludedOUs | Where-Object { $current -eq $_ -or $current -like "*,$_" }
+                $isIncluded = $IncludedOUs | Where-Object { $current -eq $_ -or $current -like "*,$_" }
+                -not $isExcluded -or $isIncluded
+            }
     } catch {
         Write-Warning "Could not query: $OU — $_"
     }

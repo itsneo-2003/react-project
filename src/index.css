@@ -142,3 +142,26 @@ $Zone2OUs = Get-ADOrganizationalUnit -Filter * -SearchBase "DC=zone2,DC=scbdev,D
     }
 
 $Zone2OUs | Sort-Object | Get-Unique
+
+
+
+$SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
+$RootPartition = $SyncConnector.Partitions | Where-Object { $_.Name -eq "scbdev.net" }
+
+$IncludedOUs = $RootPartition.ConnectorPartitionScope.ContainerInclusionList | Where-Object { $_ -match "^OU=" }
+$ExcludedOUs = $RootPartition.ConnectorPartitionScope.ContainerExclusionList
+
+$RootOUs = foreach ($OU in $IncludedOUs) {
+    try {
+        Get-ADOrganizationalUnit -Filter * -SearchBase $OU -SearchScope Subtree -Server "scbdev.net" |
+            Select-Object -ExpandProperty DistinguishedName |
+            Where-Object {
+                $current = $_
+                -not ($ExcludedOUs | Where-Object { $current -eq $_ -or $current -like "*,$_" })
+            }
+    } catch {
+        Write-Warning "Could not query: $OU — $_"
+    }
+}
+
+$RootOUs | Sort-Object | Get-Unique

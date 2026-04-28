@@ -1,29 +1,15 @@
-import pandas as pd
-import re
+$SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
+$SyncedOUs = $SyncConnector.Partitions.ConnectorPartitionScope.ContainerInclusionList
 
-# File paths
-input_file = "input.xlsx"
-output_file = "output_cleaned.xlsx"
+foreach ($OU in $SyncedOUs) {
+    # Only process zone1 OUs
+    if ($OU -notmatch "DC=zone1") { continue }
+    if ($OU -notmatch "^OU=") { continue }
 
-# Read Excel
-df = pd.read_excel(input_file)
-
-# Function to remove prefix
-def remove_prefix(value):
-    if pd.isna(value):
-        return value
-    
-    value = str(value)
-    
-    # Remove prefix like L1-12345678 OR just numbers at start
-    cleaned = re.sub(r'^[A-Za-z]*\d+-?\d*\s+', '', value)
-    
-    return cleaned.strip()
-
-# Apply on Column 2 (index 1)
-df.iloc[:, 1] = df.iloc[:, 1].apply(remove_prefix)
-
-# Save output
-df.to_excel(output_file, index=False)
-
-print("✅ Prefix removed. Output saved as:", output_file)
+    try {
+        Get-ADOrganizationalUnit -Filter * -SearchBase $OU -SearchScope Subtree -Server "zone1.scbdev.net" |
+            Select-Object -ExpandProperty DistinguishedName
+    } catch {
+        Write-Warning "Could not query: $OU — $_"
+    }
+} | Sort-Object | Get-Unique

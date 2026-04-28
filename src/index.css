@@ -1,4 +1,16 @@
-$Zone3OUs = Get-ADOrganizationalUnit -Filter * -SearchBase "DC=zone3,DC=scbdev,DC=net" -SearchScope Subtree -Server "zone3.scbdev.net" |
-    Select-Object -ExpandProperty DistinguishedName
+$SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
+$SyncedOUs = $SyncConnector.Partitions.ConnectorPartitionScope.ContainerInclusionList
+
+$Zone3OUs = foreach ($OU in $SyncedOUs) {
+    if ($OU -notmatch "DC=zone3") { continue }
+
+    # Zone3 syncs entire domain so search from domain root
+    try {
+        Get-ADOrganizationalUnit -Filter * -SearchBase "DC=zone3,DC=scbdev,DC=net" -SearchScope Subtree -Server "zone3.scbdev.net" |
+            Select-Object -ExpandProperty DistinguishedName
+    } catch {
+        Write-Warning "Could not query: $OU — $_"
+    }
+}
 
 $Zone3OUs | Sort-Object | Get-Unique

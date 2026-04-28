@@ -110,3 +110,23 @@ $Zone1OUs = Get-ADOrganizationalUnit -Filter * -SearchBase "DC=zone1,DC=scbdev,D
     }
 
 $Zone1OUs | Sort-Object | Get-Unique
+
+
+
+
+
+
+
+$SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
+$Zone2Partition = $SyncConnector.Partitions | Where-Object { $_.Name -match "zone2" }
+
+$ExcludedOUs = $Zone2Partition.ConnectorPartitionScope.ContainerExclusionList
+
+$Zone2OUs = Get-ADOrganizationalUnit -Filter * -SearchBase "DC=zone2,DC=scbdev,DC=net" -SearchScope Subtree -Server "zone2.scbdev.net" |
+    Select-Object -ExpandProperty DistinguishedName |
+    Where-Object {
+        $current = $_
+        -not ($ExcludedOUs | Where-Object { $current -eq $_ -or $current -like "*,$_" })
+    }
+
+$Zone2OUs | Sort-Object | Get-Unique

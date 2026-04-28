@@ -1,13 +1,16 @@
 $SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
-$Zone3Partition = $SyncConnector.Partitions | Where-Object { $_.Name -match "zone3" }
+$Zone1Partition = $SyncConnector.Partitions | Where-Object { $_.Name -match "zone1" }
 
-$ExcludedOUs = $Zone3Partition.ConnectorPartitionScope.ContainerExclusionList
+$IncludedOUs = $Zone1Partition.ConnectorPartitionScope.ContainerInclusionList | Where-Object { $_ -match "^OU=" }
+$ExcludedOUs = $Zone1Partition.ConnectorPartitionScope.ContainerExclusionList
 
-$Zone3OUs = Get-ADOrganizationalUnit -Filter * -SearchBase "DC=zone3,DC=scbdev,DC=net" -SearchScope Subtree -Server "zone3.scbdev.net" |
-    Select-Object -ExpandProperty DistinguishedName |
-    Where-Object {
-        $OU = $_
-        -not ($ExcludedOUs | Where-Object { $OU -eq $_ -or $OU -like "*,$_" })
-    }
+$Zone1OUs = foreach ($OU in $IncludedOUs) {
+    Get-ADOrganizationalUnit -Filter * -SearchBase $OU -SearchScope Subtree -Server "zone1.scbdev.net" |
+        Select-Object -ExpandProperty DistinguishedName |
+        Where-Object {
+            $current = $_
+            -not ($ExcludedOUs | Where-Object { $current -eq $_ -or $current -like "*,$_" })
+        }
+}
 
-$Zone3OUs | Sort-Object | Get-Unique
+$Zone1OUs | Sort-Object | Get-Unique

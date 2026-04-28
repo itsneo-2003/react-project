@@ -165,3 +165,22 @@ $RootOUs = foreach ($OU in $IncludedOUs) {
 }
 
 $RootOUs | Sort-Object | Get-Unique
+
+
+
+
+$SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
+$RootPartition = $SyncConnector.Partitions | Where-Object { $_.Name -eq "scbdev.net" }
+
+$IncludedOUs = $RootPartition.ConnectorPartitionScope.ContainerInclusionList | Where-Object { $_ -match "^OU=" }
+
+$RootOUs = foreach ($OU in $IncludedOUs) {
+    try {
+        Get-ADOrganizationalUnit -Filter * -SearchBase $OU -SearchScope Subtree -Server "scbdev.net" |
+            Select-Object -ExpandProperty DistinguishedName
+    } catch {
+        Write-Warning "Could not query: $OU — $_"
+    }
+}
+
+$RootOUs | Sort-Object | Get-Unique

@@ -62,3 +62,18 @@ $Zone1OUs = foreach ($OU in $IncludedOUs) {
 }
 
 $Zone1OUs | Sort-Object | Get-Unique
+
+
+
+
+
+
+
+$SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
+$Zone1Partition = $SyncConnector.Partitions | Where-Object { $_.Name -match "zone1" }
+
+Write-Host "Inclusions:" -ForegroundColor Green
+$Zone1Partition.ConnectorPartitionScope.ContainerInclusionList
+
+Write-Host "Exclusions:" -ForegroundColor Red
+$Zone1Partition.ConnectorPartitionScope.ContainerExclusionList

@@ -94,6 +94,18 @@ $Zone2Partition.ConnectorPartitionScope.ContainerExclusionList
 
 
 
+$SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
+$RootPartition = $SyncConnector.Partitions | Where-Object { $_.Name -eq "scbdev.net" }
+
+Write-Host "Inclusions:" -ForegroundColor Green
+$RootPartition.ConnectorPartitionScope.ContainerInclusionList
+
+Write-Host "Exclusions:" -ForegroundColor Red
+$RootPartition.ConnectorPartitionScope.ContainerExclusionList
+
+
+
+
 
 
 

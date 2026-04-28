@@ -1,7 +1,13 @@
 $SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
-$SyncConnector.Partitions | Where-Object { $_.Name -match "zone3" } | ForEach-Object {
-    Write-Host "Inclusions:" -ForegroundColor Green
-    $_.ConnectorPartitionScope.ContainerInclusionList
-    Write-Host "Exclusions:" -ForegroundColor Red
-    $_.ConnectorPartitionScope.ContainerExclusionList
-}
+$Zone3Partition = $SyncConnector.Partitions | Where-Object { $_.Name -match "zone3" }
+
+$ExcludedOUs = $Zone3Partition.ConnectorPartitionScope.ContainerExclusionList
+
+$Zone3OUs = Get-ADOrganizationalUnit -Filter * -SearchBase "DC=zone3,DC=scbdev,DC=net" -SearchScope Subtree -Server "zone3.scbdev.net" |
+    Select-Object -ExpandProperty DistinguishedName |
+    Where-Object {
+        $OU = $_
+        -not ($ExcludedOUs | Where-Object { $OU -eq $_ -or $OU -like "*,$_" })
+    }
+
+$Zone3OUs | Sort-Object | Get-Unique

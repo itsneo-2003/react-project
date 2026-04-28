@@ -82,6 +82,19 @@ $Zone1Partition.ConnectorPartitionScope.ContainerExclusionList
 
 
 
+$SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
+$Zone2Partition = $SyncConnector.Partitions | Where-Object { $_.Name -match "zone2" }
+
+Write-Host "Inclusions:" -ForegroundColor Green
+$Zone2Partition.ConnectorPartitionScope.ContainerInclusionList
+
+Write-Host "Exclusions:" -ForegroundColor Red
+$Zone2Partition.ConnectorPartitionScope.ContainerExclusionList
+
+
+
+
+
 
 
 $SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }

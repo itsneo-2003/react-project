@@ -1,16 +1,16 @@
 $SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
 $SyncedOUs = $SyncConnector.Partitions.ConnectorPartitionScope.ContainerInclusionList
 
-$Zone1OUs = foreach ($OU in $SyncedOUs) {
-    if ($OU -notmatch "DC=zone1") { continue }
+$Zone2OUs = foreach ($OU in $SyncedOUs) {
+    if ($OU -notmatch "DC=zone2") { continue }
     if ($OU -notmatch "^OU=") { continue }
 
     try {
-        Get-ADOrganizationalUnit -Filter * -SearchBase $OU -SearchScope Subtree -Server "zone1.scbdev.net" |
+        Get-ADOrganizationalUnit -Filter * -SearchBase $OU -SearchScope Subtree -Server "zone2.scbdev.net" |
             Select-Object -ExpandProperty DistinguishedName
     } catch {
         Write-Warning "Could not query: $OU — $_"
     }
 }
 
-$Zone1OUs | Sort-Object | Get-Unique
+$Zone2OUs | Sort-Object | Get-Unique

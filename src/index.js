@@ -1,19 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css'; 
+$SyncConnector = Get-ADSyncConnector | Where-Object { $_.Name -notmatch ' - aad' }
+$Zone1Partition = $SyncConnector.Partitions | Where-Object { $_.Name -match "zone1" }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+$IncludedOUs = $Zone1Partition.ConnectorPartitionScope.ContainerInclusionList | Where-Object { $_ -match "^OU=" }
+$ExcludedOUs = $Zone1Partition.ConnectorPartitionScope.ContainerExclusionList
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+$Zone1OUs = Get-ADOrganizationalUnit -Filter * -SearchBase "DC=zone1,DC=scbdev,DC=net" -SearchScope Subtree -Server "zone1.scbdev.net" |
+    Select-Object -ExpandProperty DistinguishedName |
+    Where-Object {
+        $current = $_
+        $isExcluded = $ExcludedOUs | Where-Object { $current -eq $_ -or $current -like "*,$_" }
+        $isIncluded = $IncludedOUs | Where-Object { $current -eq $_ -or $current -like "*,$_" }
+        -not $isExcluded -or $isIncluded
+    }
+
+$Zone1OUs | Sort-Object | Get-Unique

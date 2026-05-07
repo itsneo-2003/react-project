@@ -1,28 +1,18 @@
-Hi Seb / Stephen / Vivek,  
+Reminder 2 to PM/1LoD/Maker
 
-Thank you for the feedback and suggestions.  
+Subject: Reminder: Immediate action required – Fraud Risk Assessment (FRA) Request referred back by RFO
 
-Please find below the updates/clarifications from our end:  
+Dear PM,
 
-- The term “Created state” will be updated to “In Progress” in the reminders, as this aligns with the status displayed in the UI.  
+This is a reminder that the following FRA request has been referred back and is pending your action.
 
-- The wording in the overdue communications has been refined to emphasize immediate action (e.g., replacing “urgent” references with “immediate action” wording) for both PMs and RFOs.  
+Please review the RFO’s comments, update the assessment, and resubmit for review / endorsement before the due date.
+Overdue to PM/1LoD/Maker
 
-- Regarding the overdue notification timeline, ideally the overdue communication should be triggered after completion of the 30-day due period (i.e., on Day 31).  
+Subject: Overdue: Immediate action required – Fraud Risk Assessment (FRA) Request referred back by RFO
 
-@Stephen – kindly confirm if the above updates align with the suggested changes.  
+Dear PM,
 
-- As discussed with Vivek, the expectation is for the overdue notification to be triggered by EOD of the due date. However, from a technical implementation perspective, separate execution timings for different email types are currently not feasible, since all scheduler-based emails follow a common execution time. Additionally, EOD may vary across countries/time zones.  
+The following FRA request referred back by the RFO is now overdue and requires your immediate action.
 
-@Vivek – please confirm if this understanding is correct from your end.  
-
-- The development team is therefore proposing to align the scheduler timing with the CRA plugin approach and trigger notifications at 2 PM IST for all scheduler-based emails.  
-
-@Seb / @Stephen – kindly let us know if we can proceed with this proposed scheduler alignment.  
-
-Regards,  
-[Your Name]
-
-
-As discussed with Vivek, the due date calculation is considered from the assessment creation stage.  
-Additionally, based on Seb’s suggestion, the overdue notification timeline is being updated to trigger on the 31st day (post completion of the 30-day due period).
+Please review the RFO’s comments, update the assessment, and resubmit for review / endorsement as soon as possible.

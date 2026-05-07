@@ -1,18 +1,12 @@
-Reminder 2 to PM/1LoD/Maker
+Hi Stephen,
 
-Subject: Reminder: Immediate action required – Fraud Risk Assessment (FRA) Request referred back by RFO
+Noted on the additional reminder scenarios for Refer Back cases and the inclusion of Added PM notifications under FRA Admin Notifications.
 
-Dear PM,
+We will incorporate the additional templates/updates accordingly and share the revised draft by tomorrow.
 
-This is a reminder that the following FRA request has been referred back and is pending your action.
+Additionally, Vivek and I will review the scenarios against the existing templates to ensure all required notification cases are adequately covered and that no scenarios have been inadvertently missed.
 
-Please review the RFO’s comments, update the assessment, and resubmit for review / endorsement before the due date.
-Overdue to PM/1LoD/Maker
+We will also review the trigger-related changes and validate them against the proposed notification scenarios/templates.
 
-Subject: Overdue: Immediate action required – Fraud Risk Assessment (FRA) Request referred back by RFO
-
-Dear PM,
-
-The following FRA request referred back by the RFO is now overdue and requires your immediate action.
-
-Please review the RFO’s comments, update the assessment, and resubmit for review / endorsement as soon as possible.
+Regards,  
+Prakashh

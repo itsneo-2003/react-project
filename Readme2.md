@@ -6,7 +6,7 @@ Please find below the updates/clarifications from our end:
 
 - The term “Created state” will be updated to “In Progress” in the reminders, as this aligns with the status displayed in the UI.  
 
-- The emphasis/underlining for immediate action items has been incorporated in both FRA and COI templates as suggested.  
+- The wording in the overdue communications has been refined to emphasize immediate action (e.g., replacing “urgent” references with “immediate action” wording) for both PMs and RFOs.  
 
 - Regarding the overdue notification timeline, ideally the overdue communication should be triggered after completion of the 30-day due period (i.e., on Day 31).  
 
@@ -22,3 +22,7 @@ Please find below the updates/clarifications from our end:
 
 Regards,  
 [Your Name]
+
+
+As discussed with Vivek, the due date calculation is considered from the assessment creation stage.  
+Additionally, based on Seb’s suggestion, the overdue notification timeline is being updated to trigger on the 31st day (post completion of the 30-day due period).

@@ -1,37 +1,16 @@
-1. First Reminder to PM/1LoD/Maker
+Hi Seb / Stephen / Vivek,
 
-Trigger: Send 14 days before due date when PM didn’t complete the assessment after all the Assigned RFO(s)’ endorsements.
+Please find attached the updated COI and FRA draft templates incorporating the discussed changes.
 
-Recipient: PM/1LoD/Maker
+The updates include:
+- Addition of 2nd Reminder and Overdue notifications for PM Refer Back scenarios.
+- Addition of 1st and 2nd reminder notifications for the final PM completion step (post all RFO endorsements).
 
-Email
+Additionally, Vivek and I connected to review the scenarios against Vivek’s table and the existing email templates to ensure all required notification cases are adequately covered.
 
-Subject: 1st Reminder: Action Required – Fraud Risk Assessment (FRA) Request
+Regarding the “Added PM” section under FRA Admin Notifications, this has been noted separately for future release consideration, as the functionality is not currently supported from the admin side.
 
-Dear PM,
+Kindly review and let us know if any further changes are required.
 
-The following FRA requires your action to complete the assessment.
-
-| Case ID | Programme ID | Programme Name | Initiative ID | Initiative Name |
-
-Click HERE for further details of the FRA request.
-
-⸻
-
-2. Second Reminder to PM/1LoD/Maker
-
-Trigger: Send 7 days before due date when PM didn’t complete the assessment after all the Assigned RFO(s)’ endorsements.
-
-Recipient: PM/1LoD/Maker
-
-Email
-
-Subject: 2nd Reminder: Action Required – Fraud Risk Assessment (FRA) Request
-
-Dear PM,
-
-The following FRA still requires your action to complete the assessment.
-
-| Case ID | Programme ID | Programme Name | Initiative ID | Initiative Name |
-
-Click HERE for further details of the FRA request.
+Regards,  
+Prakashh

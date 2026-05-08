@@ -1,17 +1,37 @@
-Hi Seb / Stephen / Vivek,
+1. First Reminder to PM/1LoD/Maker
 
-Thank you for the confirmations and feedback.
+Trigger: Send 14 days before due date when PM didn’t complete the assessment after all the Assigned RFO(s)’ endorsements.
 
-We will proceed with the proposed scheduler timing of 9 AM SGT (6:30 AM IST) for the scheduler-based notifications.
+Recipient: PM/1LoD/Maker
 
-Additionally, the below highlighted updates have been incorporated based on Seb’s suggestions:
-- “Created state” updated to “In Progress” in reminders.
-- Overdue communication wording refined to emphasize immediate action.
-- Overdue notifications proposed to trigger after completion of the 30-day due period (Day 31).
+Email
 
-@Seb – kindly confirm if the above aligns with your suggested changes.
+Subject: 1st Reminder: Action Required – Fraud Risk Assessment (FRA) Request
 
-@Stephen – kindly review and confirm if the above is okay from your perspective as well.
+Dear PM,
 
-Regards,  
-Prakashh
+The following FRA requires your action to complete the assessment.
+
+| Case ID | Programme ID | Programme Name | Initiative ID | Initiative Name |
+
+Click HERE for further details of the FRA request.
+
+⸻
+
+2. Second Reminder to PM/1LoD/Maker
+
+Trigger: Send 7 days before due date when PM didn’t complete the assessment after all the Assigned RFO(s)’ endorsements.
+
+Recipient: PM/1LoD/Maker
+
+Email
+
+Subject: 2nd Reminder: Action Required – Fraud Risk Assessment (FRA) Request
+
+Dear PM,
+
+The following FRA still requires your action to complete the assessment.
+
+| Case ID | Programme ID | Programme Name | Initiative ID | Initiative Name |
+
+Click HERE for further details of the FRA request.

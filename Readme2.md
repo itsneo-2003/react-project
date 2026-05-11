@@ -1,22 +1,15 @@
-Updated Step Content
-
 1
 
-Login to the Service Bench instance using your bank ID and password.
+Users can view the “Role Switch” option from the top-right navigation banner. This option allows users to switch between different roles assigned within the COI application.
 
 2
 
-Post login, navigate to the “Explore” section and search for the “Change Risk Assessment (CRA)” application.
+Users can toggle between the default role and current role assigned. Users can view the list of available roles along with the corresponding role description.
 
 3
 
-Select the “Change Risk Assessment (CRA)” application to add it to the left navigation panel/home page.
+Users can switch between the “Default Role” and “Current Role” based on the assigned COI access permissions.
 
 4
 
-Navigate to the “Change Risk Assessment (CRA)” application and click on the “Conflict of Interest (COI)” card from the Strategic CFCR Risk Assessment Tool landing page.
-
-
-5
-
-Conflict of Interest (COI) module is displayed successfully.
+Users log in using their default role. After logging in, users can switch to any entitled role. The selected role applies only for the current session, and the COI application screens, actions, and permissions update dynamically based on the selected role.

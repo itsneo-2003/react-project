@@ -1,16 +1,22 @@
-Hi Seb / Stephen / Vivek,
+Updated Step Content
 
-Please find attached the updated COI and FRA draft templates incorporating the discussed changes.
+1
 
-The updates include:
-- Addition of 2nd Reminder and Overdue notifications for PM Refer Back scenarios.
-- Addition of 1st and 2nd reminder notifications for the final PM completion step (post all RFO endorsements).
+Login to the Service Bench instance using your bank ID and password.
 
-Additionally, Vivek and I connected to review the scenarios against Vivek’s table and the existing email templates to ensure all required notification cases are adequately covered.
+2
 
-Regarding the “Added PM” section under FRA Admin Notifications, this has been noted separately for future release consideration, as the functionality is not currently available for admin users.
+Post login, navigate to the “Explore” section and search for the “Change Risk Assessment (CRA)” application.
 
-Kindly review and let us know if any further changes are required.
+3
 
-Regards,  
-Prakashh
+Select the “Change Risk Assessment (CRA)” application to add it to the left navigation panel/home page.
+
+4
+
+Navigate to the “Change Risk Assessment (CRA)” application and click on the “Conflict of Interest (COI)” card from the Strategic CFCR Risk Assessment Tool landing page.
+
+
+5
+
+Conflict of Interest (COI) module is displayed successfully.

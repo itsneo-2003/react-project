@@ -12,3 +12,11 @@ New-MgSiteListItem `
     -SiteId $SiteId `
     -ListId $MasterListId `
     -BodyParameter $params
+
+
+
+
+Get-MgSiteListColumn `
+    -SiteId $SiteId `
+    -ListId $MasterListId |
+Select-Object Name, DisplayName

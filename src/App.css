@@ -20,3 +20,22 @@ Get-MgSiteListColumn `
     -SiteId $SiteId `
     -ListId $MasterListId |
 Select-Object Name, DisplayName
+
+
+
+
+$json = @{
+    fields = @{
+        Title   = "EntraConnect"
+        field_1 = "Baseline"
+        field_2 = "BP-005"
+        field_3 = "ADSYNC - Logon Service account"
+        field_5 = "$Service_Account"
+    }
+} | ConvertTo-Json -Depth 5
+
+Invoke-MgGraphRequest `
+    -Method POST `
+    -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$MasterListId/items" `
+    -Body $json `
+    -ContentType "application/json"

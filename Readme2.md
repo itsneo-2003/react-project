@@ -1,62 +1,122 @@
-COI Risk Assessment – End-to-End Flow
+Title
 
-Intro Text
-
-This slide shows a simplified journey of COI Assessment from initiation stage till final assessment completion.
+COI Landing Page – Assessment Dashboard View
 
 ⸻
 
-COLUMN 1 — Assessment Stage (PM)
+Top Description Box
 
-Points:
+Screen Navigation:
 
-* Initiates or clones COI risk assessment.
-* Fills questionnaire and background details.
-* Uploads supporting documents and mitigation plan.
-* Submits COI assessment for RFO review.
+CRA → COI → Landing Page
 
-⸻
+Screen Usage:
 
-COLUMN 2 — Review & Challenge Stage (RFO)
-
-Points:
-
-* RFO reviews submitted COI assessment details.
-* RFO can provide comments and endorse the assessment.
-* Refer back comments are mandatory during refer back action.
-* PM has edit access only for PM-owned sections during reassessment.
-* Assessment moves to Endorsement stage once all required RFOs endorse.
+This screen provides users with a consolidated dashboard view of COI risk assessments, enabling users to initiate, track, review, and manage assessments based on their role access.
 
 ⸻
 
-COLUMN 3 — Endorsement & Submission Stage (PM & RFO)
+Screenshot Annotations Placement
 
-Points:
+Annotation 1
 
-* PM can obtain offline endorsement from RFO(s) and upload supporting evidence.
-* PM can mark the RFO as “Endorsed Offline”.
-* RFO status updates to “Endorsed by RFO”.
-* PM reviews the endorsed assessment and submits the final draft.
+(Point to “Initiate Risk Assessment” button)
 
-⸻
-
-COLUMN 4 — Closure
-
-Points:
-
-* Assessment status is marked as “Completed”.
-* Final endorsed COI assessment is submitted successfully.
-* Workflow audit trail is preserved.
+Text:
+Users can initiate a new COI risk assessment using the “Initiate Risk Assessment” option.
 
 ⸻
 
-Bottom Notes Section (Very Important)
+Annotation 2
 
-Keep only concise business rules here.
+(Point to My Cases / All Cases toggle)
 
-Suggested Notes:
+Text:
 
-* Refer back comments are mandatory for refer back action.
-* Each selected Business Function should have at least one mapped RFO.
-* RFO mapping is populated based on selected Business Functions.
-* COI Admin can update RFO mapping and Business Function details.
+* My Cases displays COI assessments associated with the logged-in user.
+* All Cases displays all available COI assessments accessible to the user.
+
+⸻
+
+Annotation 3
+
+(Point to Summary status tiles)
+
+Text:
+The summary section categorizes COI assessments based on workflow status such as:
+
+* In Progress
+* Pending Endorsement
+* Refer Back
+* Endorsed by RFO
+* Completed
+
+⸻
+
+Annotation 4
+
+(Point to assessment table/grid)
+
+Text:
+The assessment dashboard displays COI assessment details including:
+
+* Case ID
+* Initiative ID
+* Programme Information
+* RFO Status
+* Scope
+* Assessment Status
+* Description of Change
+
+⸻
+
+Annotation 5
+
+(Point to “Click to View” / Action column)
+
+Text:
+Users can view and continue COI assessments based on assessment status and role permissions.
+
+⸻
+
+Right Side Panel Content
+
+(Like DRM side panel)
+
+1
+
+Menu option to initiate a new COI risk assessment.
+
+⸻
+
+2
+
+Toggle option to switch between:
+
+* My Cases
+* All Cases
+
+⸻
+
+3
+
+Summary dashboard displaying assessment status-wise categorization of COI assessments.
+
+⸻
+
+4
+
+Assessment dashboard displaying initiative details, RFO status, assessment progress, and workflow status.
+
+⸻
+
+5
+
+Users can access assessment details and perform assessment actions using the available action options.
+
+⸻
+
+Optional Note (Bottom of Panel)
+
+Note:
+Users can search, filter, and sort COI assessments directly from the landing page dashboard.

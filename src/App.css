@@ -7,3 +7,53 @@ $Enabled.PSObject.Properties | ForEach-Object {
 }
 
 $JsonValue = $CleanEnabled | ConvertTo-Json -Depth 5
+
+
+
+# Get Enabled Features from Entra Connect
+
+$Enabled = Get-MgDirectoryOnPremiseSynchronization |
+Select-Object -ExpandProperty Features
+
+
+# Clean object and remove Graph metadata
+
+$CleanEnabled = @{}
+
+$Enabled.PSObject.Properties | ForEach-Object {
+    if ($_.Name -ne "AdditionalProperties") {
+        $CleanEnabled[$_.Name] = $_.Value
+    }
+}
+
+
+# Convert to readable multiline text
+
+$Formatted = (
+    $CleanEnabled.GetEnumerator() |
+    ForEach-Object {
+        "$($_.Key) : $($_.Value)"
+    }
+) -join "`r`n"
+
+
+# Create JSON body for SharePoint
+
+$json = @{
+    fields = @{
+        Title   = "EntraConnect"
+        field_1 = "Baseline"
+        field_2 = "BP-010"
+        field_3 = "Enabled Features in Entra"
+        field_5 = $Formatted
+    }
+} | ConvertTo-Json -Depth 5
+
+
+# Push to SharePoint
+
+Invoke-MgGraphRequest `
+    -Method POST `
+    -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$MasterListId/items" `
+    -Body $json `
+    -ContentType "application/json"

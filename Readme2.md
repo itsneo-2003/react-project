@@ -1,15 +1,62 @@
-1
+COI Risk Assessment – End-to-End Flow
 
-Users can view the “Role Switch” option from the top-right navigation banner. This option allows users to switch between different roles assigned within the COI application.
+Intro Text
 
-2
+This slide shows a simplified journey of COI Assessment from initiation stage till final assessment completion.
 
-Users can toggle between the default role and current role assigned. Users can view the list of available roles along with the corresponding role description.
+⸻
 
-3
+COLUMN 1 — Assessment Stage (PM)
 
-Users can switch between the “Default Role” and “Current Role” based on the assigned COI access permissions.
+Points:
 
-4
+* Initiates or clones COI risk assessment.
+* Fills questionnaire and background details.
+* Uploads supporting documents and mitigation plan.
+* Submits COI assessment for RFO review.
 
-Users log in using their default role. After logging in, users can switch to any entitled role. The selected role applies only for the current session, and the COI application screens, actions, and permissions update dynamically based on the selected role.
+⸻
+
+COLUMN 2 — Review & Challenge Stage (RFO)
+
+Points:
+
+* RFO reviews submitted COI assessment details.
+* RFO can provide comments and endorse the assessment.
+* Refer back comments are mandatory during refer back action.
+* PM has edit access only for PM-owned sections during reassessment.
+* Assessment moves to Endorsement stage once all required RFOs endorse.
+
+⸻
+
+COLUMN 3 — Endorsement & Submission Stage (PM & RFO)
+
+Points:
+
+* PM can obtain offline endorsement from RFO(s) and upload supporting evidence.
+* PM can mark the RFO as “Endorsed Offline”.
+* RFO status updates to “Endorsed by RFO”.
+* PM reviews the endorsed assessment and submits the final draft.
+
+⸻
+
+COLUMN 4 — Closure
+
+Points:
+
+* Assessment status is marked as “Completed”.
+* Final endorsed COI assessment is submitted successfully.
+* Workflow audit trail is preserved.
+
+⸻
+
+Bottom Notes Section (Very Important)
+
+Keep only concise business rules here.
+
+Suggested Notes:
+
+* Refer back comments are mandatory for refer back action.
+* Each selected Business Function should have at least one mapped RFO.
+* RFO mapping is populated based on selected Business Functions.
+* COI Admin can update RFO mapping and Business Function details.

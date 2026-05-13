@@ -66,3 +66,14 @@ $FormattedADSync = (
         "$($_.Name) : $($_.Value)"
     }
 ) -join "`r`n"
+
+
+
+
+
+$FormattedTLS = (
+    $TLS.PSObject.Properties |
+    ForEach-Object {
+        "$($_.Name) : $($_.Value)"
+    }
+) -join "`r`n"

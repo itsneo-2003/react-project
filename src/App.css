@@ -57,3 +57,12 @@ Invoke-MgGraphRequest `
     -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$MasterListId/items" `
     -Body $json `
     -ContentType "application/json"
+
+
+
+$FormattedADSync = (
+    $ADSync.PSObject.Properties |
+    ForEach-Object {
+        "$($_.Name) : $($_.Value)"
+    }
+) -join "`r`n"

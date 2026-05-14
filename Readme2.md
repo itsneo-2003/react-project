@@ -1,14 +1,14 @@
-Slide 14
+Slide 17
 
-COI Risk Assessment – PM Rework & Resubmission
+COI Risk Assessment – Final Endorsed Risk Assessment Completion
 
 Screen Navigation:
 
-CRA → COI → My Cases → Refer back → Case ID hyperlink
+CRA → COI → My Cases → Endorsed by RFO Assessment → Case ID hyperlink
 
 Screen Usage:
 
-This screen enables PM users to review RFO refer back feedback, update assessment details, and resubmit the COI assessment for endorsement review.
+This screen enables PM/Maker users to complete the COI assessment workflow after all assigned RFO users have successfully completed the endorsement process.
 
 ⸻
 
@@ -16,37 +16,38 @@ Annotations
 
 1
 
-Assessments referred back by RFO users are displayed with “Refer back” workflow status for PM review and rework.
+The “Final endorsed risk assessment” stage is enabled only after all assigned RFO users are marked as “Endorsed by RFO”.
 
-(point to Refer back status)
+(point to completed workflow stages)
 
 ⸻
 
 2
 
-PM users can review RFO feedback comments and update:
+PM/Maker users must confirm that all RFO/Coverage comments and endorsement requirements have been addressed before completing the assessment.
 
-* Risk assessment responses
-* Mitigation plans
-* Supporting assessment details
-
-(point to workflow steps / feedback comments)
+(point to confirmation checkbox)
 
 ⸻
 
 3
 
-PM users can resubmit the updated assessment for endorsement review after completing required modifications.
+Selecting the confirmation checkbox enables the assessment completion action.
 
-(point to Submit/Resubmit action)
+(point to checkbox + Complete button)
 
 ⸻
 
 4
 
-Resubmitted assessments are routed back to assigned RFO users for endorsement processing.
+Upon successful completion, the overall assessment workflow status is updated to “Completed”.
 
-(point to workflow stage progression)
-RFO users can continue to review resubmitted assessments and may either endorse or refer back the assessment again until all required updates are satisfactorily completed.
+(point to status in detail panel)
 
-(point to endorsement workflow progression)
+⸻
+
+5
+
+Completed assessments are available in the landing page for future tracking, review, and export activities.
+
+(point to completed assessment status in landing page)

@@ -1,116 +1,92 @@
-[5/14, 12:24 PM] Jp SCB: ⸻
+$CleanEnabled = @{}
 
-Slide 15
+$Enabled.PSObject.Properties | ForEach-Object {
+    if ($_.Name -ne "AdditionalProperties") {
+        $CleanEnabled[$_.Name] = $_.Value
+    }
+}
 
-COI Risk Assessment – Offline Endorsement Evidence Upload
+$JsonValue = $CleanEnabled | ConvertTo-Json -Depth 5
 
-Screen Navigation:
 
-CRA → COI → My Cases → Pending Endorsement Assessment → Case ID hyperlink
 
-Screen Usage:
+# Get Enabled Features from Entra Connect
 
-This screen enables PM/Maker users to track individual RFO endorsement statuses and upload supporting evidence for endorsements received outside the Service Bench workflow.
+$Enabled = Get-MgDirectoryOnPremiseSynchronization |
+Select-Object -ExpandProperty Features
 
-⸻
 
-Annotations
+# Clean object and remove Graph metadata
 
-1
+$CleanEnabled = @{}
 
-PM/Maker users can monitor endorsement status for each assigned RFO user.
+$Enabled.PSObject.Properties | ForEach-Object {
+    if ($_.Name -ne "AdditionalProperties") {
+        $CleanEnabled[$_.Name] = $_.Value
+    }
+}
 
-(point to RFO status column)
 
-⸻
+# Convert to readable multiline text
 
-2
+$Formatted = (
+    $CleanEnabled.GetEnumerator() |
+    ForEach-Object {
+        "$($_.Key) : $($_.Value)"
+    }
+) -join "`r`n"
 
-The “Endorsed offline” toggle allows PM users to indicate that endorsement was received outside the Service Bench application.
 
-(point to Yes/No toggle)
+# Create JSON body for SharePoint
 
-⸻
+$json = @{
+    fields = @{
+        Title   = "EntraConnect"
+        field_1 = "Baseline"
+        field_2 = "BP-010"
+        field_3 = "Enabled Features in Entra"
+        field_5 = $Formatted
+    }
+} | ConvertTo-Json -Depth 5
 
-3
 
-Selecting “Yes” enables the evidence upload option for the corresponding RFO entry.
+# Push to SharePoint
 
-(point to Browse link)
+Invoke-MgGraphRequest `
+    -Method POST `
+    -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$MasterListId/items" `
+    -Body $json `
+    -ContentType "application/json"
 
-⸻
 
-4
 
-System requires mandatory document upload and acknowledgement confirmation before submission of offline endorsement evidence.
+$FormattedADSync = (
+    $ADSync.PSObject.Properties |
+    ForEach-Object {
+        "$($_.Name) : $($_.Value)"
+    }
+) -join "`r`n"
 
-(point to upload popup + checkbox + Submit button)
 
-⸻
 
-5
 
-After successful evidence submission, the corresponding RFO status is updated to “Endorsed by RFO”.
 
-(point to updated status)
+$FormattedTLS = (
+    $TLS.PSObject.Properties |
+    ForEach-Object {
+        "$($_.Name) : $($_.Value)"
+    }
+) -join "`r`n"
 
-⸻
 
-6
 
-The assessment can proceed to the final workflow stage only after all assigned RFO users are marked as “Endorsed by RFO”.
 
-(point to enabled Next button / workflow progression)
-[5/14, 12:26 PM] Jp SCB: Slide 16
 
-COI Risk Assessment – Assessment Status Updated to “Endorsed by RFO”
 
-Screen Navigation:
+$FormattedInOut = (
+    $InOut | ForEach-Object {
 
-CRA → COI → My Cases → Endorsed by RFO Assessment → Case ID hyperlink
+        "AD: $($_.AD) ; Metaverse: $($_.Metaverse) ; AAD: $($_.AAD)"
 
-Screen Usage:
-
-This screen displays the updated assessment workflow status after all assigned RFO users have successfully completed endorsement activities, including online endorsement and offline evidence submission where applicable.
-
-⸻
-
-Annotations
-
-1
-
-Assessment workflow status is automatically updated to “Endorsed by RFO” once all assigned RFO endorsements are completed.
-
-(point to assessment status in detail panel)
-
-⸻
-
-2
-
-The updated “Endorsed by RFO” status is reflected in the assessment listing page for tracking and workflow visibility.
-
-(point to landing page status column)
-
-⸻
-
-3
-
-Assessments with completed RFO endorsements can be accessed from the “My Cases” section for further workflow progression.
-
-(point to My Cases / status tab)
-
-⸻
-
-4
-
-Both direct system endorsements and validated offline endorsement evidence contribute toward completion of the RFO endorsement stage.
-
-(point to RFO status section/workflow stage)
-
-⸻
-
-5
-
-After all RFO endorsements are completed, the assessment progresses to the final endorsement stage of the workflow.
-
-(point to enabled next workflow step)
+    }
+) -join "`r`n"

@@ -1,122 +1,52 @@
-Title
+Slide 14
 
-COI Landing Page – Assessment Dashboard View
-
-⸻
-
-Top Description Box
+COI Risk Assessment – PM Rework & Resubmission
 
 Screen Navigation:
 
-CRA → COI → Landing Page
+CRA → COI → My Cases → Refer back → Case ID hyperlink
 
 Screen Usage:
 
-This screen provides users with a consolidated dashboard view of COI risk assessments, enabling users to initiate, track, review, and manage assessments based on their role access.
+This screen enables PM users to review RFO refer back feedback, update assessment details, and resubmit the COI assessment for endorsement review.
 
 ⸻
 
-Screenshot Annotations Placement
-
-Annotation 1
-
-(Point to “Initiate Risk Assessment” button)
-
-Text:
-Users can initiate a new COI risk assessment using the “Initiate Risk Assessment” option.
-
-⸻
-
-Annotation 2
-
-(Point to My Cases / All Cases toggle)
-
-Text:
-
-* My Cases displays COI assessments associated with the logged-in user.
-* All Cases displays all available COI assessments accessible to the user.
-
-⸻
-
-Annotation 3
-
-(Point to Summary status tiles)
-
-Text:
-The summary section categorizes COI assessments based on workflow status such as:
-
-* In Progress
-* Pending Endorsement
-* Refer Back
-* Endorsed by RFO
-* Completed
-
-⸻
-
-Annotation 4
-
-(Point to assessment table/grid)
-
-Text:
-The assessment dashboard displays COI assessment details including:
-
-* Case ID
-* Initiative ID
-* Programme Information
-* RFO Status
-* Scope
-* Assessment Status
-* Description of Change
-
-⸻
-
-Annotation 5
-
-(Point to “Click to View” / Action column)
-
-Text:
-Users can view and continue COI assessments based on assessment status and role permissions.
-
-⸻
-
-Right Side Panel Content
-
-(Like DRM side panel)
+Annotations
 
 1
 
-Menu option to initiate a new COI risk assessment.
+Assessments referred back by RFO users are displayed with “Refer back” workflow status for PM review and rework.
+
+(point to Refer back status)
 
 ⸻
 
 2
 
-Toggle option to switch between:
+PM users can review RFO feedback comments and update:
 
-* My Cases
-* All Cases
+* Risk assessment responses
+* Mitigation plans
+* Supporting assessment details
+
+(point to workflow steps / feedback comments)
 
 ⸻
 
 3
 
-Summary dashboard displaying assessment status-wise categorization of COI assessments.
+PM users can resubmit the updated assessment for endorsement review after completing required modifications.
+
+(point to Submit/Resubmit action)
 
 ⸻
 
 4
 
-Assessment dashboard displaying initiative details, RFO status, assessment progress, and workflow status.
+Resubmitted assessments are routed back to assigned RFO users for endorsement processing.
 
-⸻
+(point to workflow stage progression)
+RFO users can continue to review resubmitted assessments and may either endorse or refer back the assessment again until all required updates are satisfactorily completed.
 
-5
-
-Users can access assessment details and perform assessment actions using the available action options.
-
-⸻
-
-Optional Note (Bottom of Panel)
-
-Note:
-Users can search, filter, and sort COI assessments directly from the landing page dashboard.
+(point to endorsement workflow progression)

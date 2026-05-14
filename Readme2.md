@@ -1,53 +1,68 @@
-Slide 17
+hSlide 1 — COI Risk Assessment – Edit Risk Assessment Access
 
-COI Risk Assessment – Final Endorsed Risk Assessment Completion
+Screen Navigation
 
-Screen Navigation:
+CRA → COI → Home → Edit Risk Assessment
 
-CRA → COI → My Cases → Endorsed by RFO Assessment → Case ID hyperlink
+Screen Usage
 
-Screen Usage:
+This screen enables COI Admin users to edit existing non-completed risk assessments by updating:
 
-This screen enables PM/Maker users to complete the COI assessment workflow after all assigned RFO users have successfully completed the endorsement process.
-
-⸻
+* Business Function (BF) mappings
+* Assigned RFO mappings
 
 Annotations
 
-1
-
-The “Final endorsed risk assessment” stage is enabled only after all assigned RFO users are marked as “Endorsed by RFO”.
-
-(point to completed workflow stages)
+1. “Edit Risk Assessment” option is available from the COI Home screen for admin users.
+2. Admin can search using the Case ID of assessments that are not yet completed.
 
 ⸻
 
-2
+Slide 2 — COI Risk Assessment – Search and Load Existing Assessment
 
-PM/Maker users must confirm that all RFO/Coverage comments and endorsement requirements have been addressed before completing the assessment.
+Screen Navigation
 
-(point to confirmation checkbox)
+CRA → COI → Edit Risk Assessment → Enter Case ID
 
-⸻
+Screen Usage
 
-3
+This screen allows the admin to retrieve an existing non-completed assessment for modification.
 
-Selecting the confirmation checkbox enables the assessment completion action.
+Annotations
 
-(point to checkbox + Complete button)
-
-⸻
-
-4
-
-Upon successful completion, the overall assessment workflow status is updated to “Completed”.
-
-(point to status in detail panel)
+1. Admin must enter the valid Case ID and press Enter/Search to load the assessment details.
+2. Once retrieved, the assessment opens in editable mode with existing BF and RFO mappings pre-populated.
 
 ⸻
 
-5
+Slide 3 — COI Risk Assessment – Edit BF and RFO Mapping
 
-Completed assessments are available in the landing page for future tracking, review, and export activities.
+Screen Navigation
 
-(point to completed assessment status in landing page)
+CRA → COI → Edit Risk Assessment → Loaded Assessment
+
+Screen Usage
+
+This screen enables admins to modify BF and RFO mappings within an existing assessment.
+
+Annotations
+
+1. Admin can add or remove Business Functions and assigned RFO users as required.
+2. Only BF and RFO mappings are editable; other assessment details remain unchanged.
+
+⸻
+
+Slide 4 — COI Risk Assessment – Validation During RFO Removal
+
+Screen Navigation
+
+CRA → COI → Edit Risk Assessment → RFO Mapping Validation
+
+Screen Usage
+
+This screen validates mandatory RFO mapping rules during assessment modification.
+
+Annotations
+
+1. At least one RFO must remain mapped to each selected Business Function.
+2. System validation error is displayed if all RFOs are removed from a Business Function.

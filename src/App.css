@@ -77,3 +77,16 @@ $FormattedTLS = (
         "$($_.Name) : $($_.Value)"
     }
 ) -join "`r`n"
+
+
+
+
+
+
+$FormattedInOut = (
+    $InOut | ForEach-Object {
+
+        "AD: $($_.AD) ; Metaverse: $($_.Metaverse) ; AAD: $($_.AAD)"
+
+    }
+) -join "`r`n"

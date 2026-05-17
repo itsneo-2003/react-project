@@ -1,95 +1,166 @@
-Term
+2. FRA Questionnaire – Background Stage
 
-Definition
+Use:
 
-COI
+* BIG screenshot layout
+* Right-side annotation box
 
-Conflict of Interest
+Because this screen has many mandatory fields + important business logic.
 
-CRA
+Title
 
-Central Risk Application
+FRA – Background Information Stage
 
-PM
+Annotation points
 
-Project Manager
+1. User initiates FRA assessment and completes background details.
+2. “Type of Change” is a mandatory dropdown selection.
+3. “Rationale for FRA” captures justification for initiating assessment.
+4. “Accountable Executive” auto-populates based on selected context.
+5. “Contact Point” requires valid bank ID entry and can be PM or RFO.
+6. Background description related to project/process/product is mandatory.
+7. Supporting documents can be uploaded as evidence.
+8. All fields except document upload are mandatory.
 
-RFO
+⸻
 
-Risk Framework Owner
+3. FRA Sheet – Fraud Scheme Configuration
 
-Initiative ID
+DO NOT use same layout as background.
 
-Identifier associated with a specific initiative record used during COI assessment creation
+This screen has modal popup + cascading logic.
 
-Programme ID
+Best layout:
 
-Programme reference linked to the selected initiative or programme
+“Two column multiple graphics”
 
-Case ID
+Why?
 
-Unique system-generated identifier for each COI assessment record
+* One side → main screen
+* Right stacked mini screenshots → popup screenshots
+* Great for explaining cascading dropdown logic
 
-Assessment
+Use:
 
-COI risk assessment initiated and managed within the workflow
+* Main large screenshot = FRA Sheet screen
+* Small screenshots:
+    * Add/Edit Fraud Scheme popup
+    * Cascading dropdown popup
 
-Mitigation Plan
+Title
 
-Action plan submitted to mitigate identified conflict risks
+FRA Sheet – Fraud Scheme & Control Assessment
 
-Refer Back
+Right-side content
 
-Review action where RFO sends assessment back for correction or update
+Fraud Scheme Configuration
 
-Endorsement
+* Fraud Scheme is mandatory.
+* Threat Event dropdown is dynamically filtered based on selected Fraud Scheme.
+* Recommended Controls are cascaded based on selected threat event.
+* Impact Category is independently selectable.
 
-Approval confirmation provided by RFO
+Control Assessment
 
-Offline Endorsement
+* Actual Controls is optional free-text input.
+* Applicable Process(es) is mandatory.
+* Control Gaps captures identified weaknesses.
+* Residual Risk is selected through dropdown.
 
-Endorsement obtained outside the system and uploaded as supporting evidence
+Additional Capability
 
-Pending Endorsement
+* Multiple fraud scheme entries can be added.
 
-Status indicating assessment is awaiting RFO review/approval
+⸻
 
-Endorsed by RFO
+4. Risk Assessment Stage
 
-Status indicating RFO approval is completed
+Use:
 
-Completed
+* Large screenshot + right annotation
+    OR
+* From → To if you want before/after risk movement emphasis.
 
-Final COI assessment successfully submitted and closed
+Since you have:
 
-Business Function
+* Current IRR/RR
+* Proposed IRR/RR
 
-Organizational area impacted by the initiative/change
+the From → To layout ACTUALLY makes sense here.
 
-Supporting Documents
+This is where that layout fits best.
 
-Evidence or attachments uploaded during assessment
+Left (FROM)
 
-Questionnaire
+Current IRR / Current RR
 
-COI-related assessment questions completed by PM
+Right (TO)
 
-Scope
+Proposed IRR / Proposed RR
 
-Applicable area, programme, or initiative boundary under assessment
+Middle
 
-Clone Assessment
+Risk reassessment logic
 
-Feature used to create a new assessment using an existing COI record
+Use popup screenshot for “Add Impacted Process”.
 
-Audit Trail
+Annotation Content
 
-System-generated activity history of assessment workflow
+1. Users can add impacted processes and associated risk ratings.
+2. Current and Proposed IRR/RR ratings are mandatory fields.
+3. Multiple impacted process rows can be added to the assessment grid.
+4. Overall Residual Risk Rating is mandatory.
+5. Risk Treatment Action Plans can be added with:
+    * Target date
+    * Action owner
+    * Status
+    * Supporting documents
+6. Action plans support mitigation tracking and ownership assignment.
 
-All Cases
+⸻
 
-Dashboard view displaying all accessible COI assessments
+5. Risk Treatment Action Plan Popup
 
-My Cases
+You can either:
 
-Dashboard view displaying assessments assigned to/logged by the user
+* merge into previous slide
+    OR
+* make mini subsection inside same slide
+
+No need dedicated full slide unless stakeholders specifically asked detailed workflow.
+
+⸻
+
+6. RFO / Coverage Comments
+
+This differs from COI because of Recommendation & Conclusion.
+
+Use:
+
+* Large screenshot left
+* Small popup screenshot right
+
+Title
+
+RFO Coverage Comments & Recommendation
+
+Annotation Content
+
+1. RFO/Coverage users review submitted FRA assessment.
+2. Recommendation & Conclusion section captures second-line challenge comments.
+3. Challenge Date and RFO details are mandatory.
+4. Status selection determines assessment progression.
+5. Multiple recommendation records can be maintained in the grid.
+
+⸻
+
+7. Final Endorsed Risk Assessment
+
+Reuse COI-style closure slide.
+
+Include:
+
+* endorsement completed
+* final submission
+* workflow closure
+* audit/history maintained

@@ -1,25 +1,52 @@
-Library
+LEFT BIG SECTION
 
-1 Entitlement
+Insert:
 
-* Role: Enables COI Admin users to view and manage configured COI user roles and role descriptions.
-* Role-user configuration: Enables COI Admin users to view configured user-role mappings and associated bank IDs.
+* Dashboard screenshot
+* Add numbered annotation circles (1–5)
 
-⸻
-
-2 Administration
-
-* Process data management: Enables COI Admin users to manage workflow timelines including due days, reminders, overdue, and escalation configurations.
-* Dropdown data management: Enables COI Admin users to manage Business Function hierarchy, country/group mappings, and RFO assignments.
+Use green outline boxes like old slide.
 
 ⸻
 
-3 Questionnaire Library
+RIGHT SIDE CONTENT
 
-* Conflict of interest – questionnaire management: Enables COI Admin users to view configured COI questionnaire sections, categories, and assessment questions used within the COI risk assessment workflow.
+1. Initiate Risk Assessment
+
+Users can initiate a new COI risk assessment using the “Initiate Risk Assessment” option.
 
 ⸻
 
-4 Template Management
+2. Dashboard Summary
 
-* Email: Enables COI Admin users to manage system-generated email template subject and body content used across COI workflow notifications.
+Summary section categorizes COI cases based on workflow status:
+
+* In Progress
+* Pending Endorsement
+* Refer Back
+* Endorsed by RFO
+* Completed
+
+⸻
+
+3. Assessment Dashboard
+
+Dashboard displays COI assessment records including:
+
+* Workflow status tracking
+* Questionnaire review
+* Assessment actions
+* Initiative and RFO details
+
+⸻
+
+4. Case Views
+
+* My Cases → Displays COI cases assigned to the logged-in user.
+* All Cases → Displays all available COI cases.
+
+⸻
+
+5. Search & Filter
+
+Users can search, sort, and filter COI assessment records for easier tracking and navigation.

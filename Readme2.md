@@ -1,52 +1,95 @@
-LEFT BIG SECTION
+Term
 
-Insert:
+Definition
 
-* Dashboard screenshot
-* Add numbered annotation circles (1–5)
+COI
 
-Use green outline boxes like old slide.
+Conflict of Interest
 
-⸻
+CRA
 
-RIGHT SIDE CONTENT
+Central Risk Application
 
-1. Initiate Risk Assessment
+PM
 
-Users can initiate a new COI risk assessment using the “Initiate Risk Assessment” option.
+Project Manager
 
-⸻
+RFO
 
-2. Dashboard Summary
+Risk Framework Owner
 
-Summary section categorizes COI cases based on workflow status:
+Initiative ID
 
-* In Progress
-* Pending Endorsement
-* Refer Back
-* Endorsed by RFO
-* Completed
+Identifier associated with a specific initiative record used during COI assessment creation
 
-⸻
+Programme ID
 
-3. Assessment Dashboard
+Programme reference linked to the selected initiative or programme
 
-Dashboard displays COI assessment records including:
+Case ID
 
-* Workflow status tracking
-* Questionnaire review
-* Assessment actions
-* Initiative and RFO details
+Unique system-generated identifier for each COI assessment record
 
-⸻
+Assessment
 
-4. Case Views
+COI risk assessment initiated and managed within the workflow
 
-* My Cases → Displays COI cases assigned to the logged-in user.
-* All Cases → Displays all available COI cases.
+Mitigation Plan
 
-⸻
+Action plan submitted to mitigate identified conflict risks
 
-5. Search & Filter
+Refer Back
 
-Users can search, sort, and filter COI assessment records for easier tracking and navigation.
+Review action where RFO sends assessment back for correction or update
+
+Endorsement
+
+Approval confirmation provided by RFO
+
+Offline Endorsement
+
+Endorsement obtained outside the system and uploaded as supporting evidence
+
+Pending Endorsement
+
+Status indicating assessment is awaiting RFO review/approval
+
+Endorsed by RFO
+
+Status indicating RFO approval is completed
+
+Completed
+
+Final COI assessment successfully submitted and closed
+
+Business Function
+
+Organizational area impacted by the initiative/change
+
+Supporting Documents
+
+Evidence or attachments uploaded during assessment
+
+Questionnaire
+
+COI-related assessment questions completed by PM
+
+Scope
+
+Applicable area, programme, or initiative boundary under assessment
+
+Clone Assessment
+
+Feature used to create a new assessment using an existing COI record
+
+Audit Trail
+
+System-generated activity history of assessment workflow
+
+All Cases
+
+Dashboard view displaying all accessible COI assessments
+
+My Cases
+
+Dashboard view displaying assessments assigned to/logged by the user

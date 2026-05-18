@@ -1,166 +1,105 @@
-2. FRA Questionnaire – Background Stage
+1. FRA Landing Page – Overall Dashboard View
 
-Use:
+Screen Navigation
 
-* BIG screenshot layout
-* Right-side annotation box
+CRA → FRA → Landing Page
 
-Because this screen has many mandatory fields + important business logic.
+Screen Usage
 
-Title
-
-FRA – Background Information Stage
-
-Annotation points
-
-1. User initiates FRA assessment and completes background details.
-2. “Type of Change” is a mandatory dropdown selection.
-3. “Rationale for FRA” captures justification for initiating assessment.
-4. “Accountable Executive” auto-populates based on selected context.
-5. “Contact Point” requires valid bank ID entry and can be PM or RFO.
-6. Background description related to project/process/product is mandatory.
-7. Supporting documents can be uploaded as evidence.
-8. All fields except document upload are mandatory.
+This screen provides users with a consolidated dashboard view of Fraud Risk Assessments, enabling users to initiate, track, review, and manage FRA cases based on their role access.
 
 ⸻
 
-3. FRA Sheet – Fraud Scheme Configuration
+2. FRA Questionnaire – Background Information Stage
 
-DO NOT use same layout as background.
+Screen Navigation
 
-This screen has modal popup + cascading logic.
+CRA → FRA → Initiate FRA Assessment → Background
 
-Best layout:
+Screen Usage
 
-“Two column multiple graphics”
+This screen allows users to provide mandatory background details, rationale, accountable stakeholders, and supporting information required to initiate a Fraud Risk Assessment.
 
-Why?
+⸻
 
-* One side → main screen
-* Right stacked mini screenshots → popup screenshots
-* Great for explaining cascading dropdown logic
+3. FRA Sheet – Fraud Scheme & Control Assessment
 
-Use:
+Screen Navigation
 
-* Main large screenshot = FRA Sheet screen
-* Small screenshots:
-    * Add/Edit Fraud Scheme popup
-    * Cascading dropdown popup
+CRA → FRA → FRA Sheet
 
-Title
+Screen Usage
 
-FRA Sheet – Fraud Scheme & Control Assessment
-
-Right-side content
-
-Fraud Scheme Configuration
-
-* Fraud Scheme is mandatory.
-* Threat Event dropdown is dynamically filtered based on selected Fraud Scheme.
-* Recommended Controls are cascaded based on selected threat event.
-* Impact Category is independently selectable.
-
-Control Assessment
-
-* Actual Controls is optional free-text input.
-* Applicable Process(es) is mandatory.
-* Control Gaps captures identified weaknesses.
-* Residual Risk is selected through dropdown.
-
-Additional Capability
-
-* Multiple fraud scheme entries can be added.
+This screen enables users to configure fraud schemes, map threat events and controls, capture process-level control gaps, and document residual fraud risks associated with the assessment.
 
 ⸻
 
 4. Risk Assessment Stage
 
-Use:
+Screen Navigation
 
-* Large screenshot + right annotation
-    OR
-* From → To if you want before/after risk movement emphasis.
+CRA → FRA → Risk Assessment
 
-Since you have:
+Screen Usage
 
-* Current IRR/RR
-* Proposed IRR/RR
-
-the From → To layout ACTUALLY makes sense here.
-
-This is where that layout fits best.
-
-Left (FROM)
-
-Current IRR / Current RR
-
-Right (TO)
-
-Proposed IRR / Proposed RR
-
-Middle
-
-Risk reassessment logic
-
-Use popup screenshot for “Add Impacted Process”.
-
-Annotation Content
-
-1. Users can add impacted processes and associated risk ratings.
-2. Current and Proposed IRR/RR ratings are mandatory fields.
-3. Multiple impacted process rows can be added to the assessment grid.
-4. Overall Residual Risk Rating is mandatory.
-5. Risk Treatment Action Plans can be added with:
-    * Target date
-    * Action owner
-    * Status
-    * Supporting documents
-6. Action plans support mitigation tracking and ownership assignment.
+This screen allows users to assess impacted processes, capture current and proposed risk ratings, evaluate residual risk exposure, and define treatment action plans for identified fraud risks.
 
 ⸻
 
-5. Risk Treatment Action Plan Popup
+5. Add/Edit Impacted Process Popup
 
-You can either:
+Screen Navigation
 
-* merge into previous slide
-    OR
-* make mini subsection inside same slide
+CRA → FRA → Risk Assessment → Add Impacted Process
 
-No need dedicated full slide unless stakeholders specifically asked detailed workflow.
+Screen Usage
 
-⸻
-
-6. RFO / Coverage Comments
-
-This differs from COI because of Recommendation & Conclusion.
-
-Use:
-
-* Large screenshot left
-* Small popup screenshot right
-
-Title
-
-RFO Coverage Comments & Recommendation
-
-Annotation Content
-
-1. RFO/Coverage users review submitted FRA assessment.
-2. Recommendation & Conclusion section captures second-line challenge comments.
-3. Challenge Date and RFO details are mandatory.
-4. Status selection determines assessment progression.
-5. Multiple recommendation records can be maintained in the grid.
+This popup enables users to add impacted processes and define current and proposed inherent/residual risk ratings associated with the fraud assessment.
 
 ⸻
 
-7. Final Endorsed Risk Assessment
+6. Risk Treatment Action Plan Popup
 
-Reuse COI-style closure slide.
+Screen Navigation
 
-Include:
+CRA → FRA → Risk Assessment → Add Risk Treatment Action Plan
 
-* endorsement completed
-* final submission
-* workflow closure
-* audit/history maintained
+Screen Usage
+
+This popup allows users to define mitigation actions, assign ownership, specify timelines, update status, and upload supporting documents for fraud risk treatment activities.
+
+⸻
+
+7. RFO / Coverage Comments Stage
+
+Screen Navigation
+
+CRA → FRA → RFO / Coverage Comments
+
+Screen Usage
+
+This screen enables RFO/Coverage users to review submitted assessments, provide second-line challenge comments, capture recommendations and conclusions, and update review status.
+
+⸻
+
+8. Recommendation & Conclusion Popup
+
+Screen Navigation
+
+CRA → FRA → RFO / Coverage Comments → Add Recommendation & Conclusion
+
+Screen Usage
+
+This popup allows RFO/Coverage users to document recommendation details, challenge conclusions, review dates, and assessment status updates as part of the endorsement workflow.
+
+⸻
+
+9. Final Endorsed Risk Assessment
+
+Screen Navigation
+
+CRA → FRA → Final Endorsed Risk Assessment
+
+Screen Usage
+
+This screen displays the finalized endorsed fraud risk assessment and provides users with the completed assessment outcome, workflow history, and final submission status 

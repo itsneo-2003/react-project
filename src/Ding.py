@@ -90,3 +90,18 @@ Invoke-MgGraphRequest `
 Write-Host "Completed successfully"
 Write-Host "Review Number: $NewRun"
 Write-Host "LastRunDateTime: $CurrentDateTime"
+
+
+
+
+
+
+
+
+
+
+
+Get-MgSiteListColumn `
+    -SiteId $SiteId `
+    -ListId $TrackerListId |
+Select Name, DisplayName

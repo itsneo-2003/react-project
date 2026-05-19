@@ -183,3 +183,103 @@ Invoke-MgGraphRequest `
     -ContentType "application/json"
 
 Write-Host "TLS Row Updated Successfully"
+
+
+
+
+
+# ==========================================
+# TLS CONTROL (BP-002)
+# ==========================================
+
+# Get TLS row from transaction list
+$TLSItem = Get-MgSiteListItem `
+    -SiteId $SiteId `
+    -ListId $TransactionListId `
+    -ExpandProperty "fields" -All |
+Where-Object {
+    $_.Fields.AdditionalProperties.field_2 -eq "BP-002"
+}
+
+# Get current review count
+$CurrentReview = $TLSItem.Fields.AdditionalProperties.Review
+
+if ([string]::IsNullOrEmpty($CurrentReview)) {
+    $NewReview = 1
+}
+else {
+    $NewReview = [int]$CurrentReview + 1
+}
+
+# Current timestamp
+$LastRunDateTime = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+
+# ==========================================
+# GET BASELINE TLS
+# ==========================================
+
+$BaselineItem = Get-MgSiteListItem `
+    -SiteId $SiteId `
+    -ListId $MasterListId `
+    -ExpandProperty "fields" -All |
+Where-Object {
+    $_.Fields.AdditionalProperties.field_2 -eq "BP-002"
+}
+
+$BaselineText = $BaselineItem.Fields.AdditionalProperties.field_5
+
+# ==========================================
+# EXTRACT CURRENT TLS VALUES
+# ==========================================
+
+$CurrentEnabled = $TLS.Enabled
+$CurrentDisabled = $TLS.DisabledByDefault
+
+# ==========================================
+# EXTRACT BASELINE TLS VALUES
+# ==========================================
+
+$BaselineEnabled = [regex]::Match(
+    $BaselineText,
+    'Enabled\s*:\s*(\d+)'
+).Groups[1].Value
+
+$BaselineDisabled = [regex]::Match(
+    $BaselineText,
+    'DisabledByDefault\s*:\s*(\d+)'
+).Groups[1].Value
+
+# ==========================================
+# COMPLIANCE CHECK
+# ==========================================
+
+if (($CurrentEnabled -eq $BaselineEnabled) -and
+    ($CurrentDisabled -eq $BaselineDisabled)) {
+
+    $ComplianceStatus = "Compliant"
+}
+else {
+    $ComplianceStatus = "Non Compliant"
+}
+
+# ==========================================
+# UPDATE TRANSACTION LIST
+# ==========================================
+
+$Body = @{
+    Review = $NewReview
+    LastRunDateTime = $LastRunDateTime
+    Status = $ComplianceStatus
+    field_5 = $FormattedTLS
+} | ConvertTo-Json
+
+Invoke-MgGraphRequest `
+    -Method PATCH `
+    -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TransactionListId/items/$($TLSItem.Id)/fields" `
+    -Body $Body `
+    -ContentType "application/json"
+
+Write-Host "TLS Updated Successfully"
+Write-Host "Status: $ComplianceStatus"
+Write-Host "Review Number: $NewReview"
+Write-Host "LastRunDateTime: $LastRunDateTime"

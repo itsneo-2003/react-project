@@ -1,193 +1,3 @@
-Get-MgSiteListColumn `
-    -SiteId $SiteId `
-    -ListId $TransactionListId |
-Select Name, DisplayName
-
-
-
-
-      
-Get-MgSiteListColumn `
-    -SiteId $SiteId `
-    -ListId $MasterListId |
-Select Name, DisplayName
-
-
-
-
-        # ============================
-# TLS Control (BP-002)
-# ============================
-
-$RefNumber = "BP-002"
-
-# Get transaction item
-$TransactionItem = Get-MgSiteListItem `
-    -SiteId $SiteId `
-    -ListId $TransactionListId `
-    -ExpandProperty "fields" -All |
-Where-Object {
-    $_.Fields.AdditionalProperties.field_2 -eq $RefNumber
-}
-
-# Get baseline item
-$BaselineItem = Get-MgSiteListItem `
-    -SiteId $SiteId `
-    -ListId $MasterListId `
-    -ExpandProperty "fields" -All |
-Where-Object {
-    $_.Fields.AdditionalProperties.field_2 -eq $RefNumber
-}
-
-# Current TLS value
-$CurrentTLS = ($FormattedTLS).Trim()
-
-# Baseline TLS value
-$BaselineTLS = (
-    $BaselineItem.Fields.AdditionalProperties.field_5
-).Trim()
-
-# Compliance check
-if ($CurrentTLS -eq $BaselineTLS) {
-    $ComplianceStatus = "Compliant"
-}
-else {
-    $ComplianceStatus = "Non Compliant"
-}
-
-# Update transaction list
-$Body = @{
-    field_5 = $CurrentTLS
-    Status = $ComplianceStatus
-} | ConvertTo-Json
-
-Invoke-MgGraphRequest `
-    -Method PATCH `
-    -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TransactionListId/items/$($TransactionItem.Id)/fields" `
-    -Body $Body `
-    -ContentType "application/json"
-
-Write-Host "TLS Updated Successfully"
-Write-Host "Status: $ComplianceStatus"
-
-
-
-
-
-
-
-# ============================
-# TLS Control (BP-002)
-# ============================
-
-$RefNumber = "BP-002"
-
-# ----------------------------
-# Get current TLS value
-# ----------------------------
-
-$key = "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client"
-
-if (Test-Path $key) {
-    $TLS = Get-ItemProperty $key
-}
-else {
-    Write-Host "TLS 1.2 Registry key not found"
-    return
-}
-
-# Convert TLS object to multiline text
-$FormattedTLS = (
-    $TLS.PSObject.Properties |
-    ForEach-Object {
-        "$($_.Name): $($_.Value)"
-    }
-) -join "`r`n"
-
-# ----------------------------
-# Get transaction item
-# ----------------------------
-
-$TransactionItem = Get-MgSiteListItem `
-    -SiteId $SiteId `
-    -ListId $TransactionListId `
-    -ExpandProperty "fields" `
-    -All |
-Where-Object {
-    $_.Fields.AdditionalProperties.field_2 -eq $RefNumber
-}
-
-# ----------------------------
-# Get baseline item
-# ----------------------------
-
-$BaselineItem = Get-MgSiteListItem `
-    -SiteId $SiteId `
-    -ListId $MasterListId `
-    -ExpandProperty "fields" `
-    -All |
-Where-Object {
-    $_.Fields.AdditionalProperties.field_2 -eq $RefNumber
-}
-
-# ----------------------------
-# Normalize current TLS
-# ----------------------------
-
-$CurrentTLS = (
-    ($FormattedTLS -replace '\r\n', "`n") `
-    -replace '\s+', ' '
-).Trim()
-
-# ----------------------------
-# Normalize baseline TLS
-# ----------------------------
-
-$BaselineTLS = (
-    (
-        $BaselineItem.Fields.AdditionalProperties.field_5 `
-        -replace '\r\n', "`n"
-    ) -replace '\s+', ' '
-).Trim()
-
-# Debug check
-Write-Host "Current Length: $($CurrentTLS.Length)"
-Write-Host "Baseline Length: $($BaselineTLS.Length)"
-
-# ----------------------------
-# Compliance check
-# ----------------------------
-
-if ($CurrentTLS -eq $BaselineTLS) {
-    $ComplianceStatus = "Compliant"
-}
-else {
-    $ComplianceStatus = "Non Compliant"
-}
-
-Write-Host "Compliance Status: $ComplianceStatus"
-
-# ----------------------------
-# Update transaction row
-# ----------------------------
-
-$Body = @{
-    field_5 = $FormattedTLS
-    Status = $ComplianceStatus
-} | ConvertTo-Json
-
-Invoke-MgGraphRequest `
-    -Method PATCH `
-    -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TransactionListId/items/$($TransactionItem.Id)/fields" `
-    -Body $Body `
-    -ContentType "application/json"
-
-Write-Host "TLS Row Updated Successfully"
-
-
-
-
-
 # ==========================================
 # TLS CONTROL (BP-002)
 # ==========================================
@@ -201,10 +11,13 @@ Where-Object {
     $_.Fields.AdditionalProperties.field_2 -eq "BP-002"
 }
 
-# Get current review count
+# ==========================================
+# GET CURRENT REVIEW COUNT
+# ==========================================
+
 $CurrentReview = $TLSItem.Fields.AdditionalProperties.Review
 
-if ([string]::IsNullOrEmpty($CurrentReview)) {
+if ([string]::IsNullOrWhiteSpace($CurrentReview)) {
     $NewReview = 1
 }
 else {
@@ -212,10 +25,10 @@ else {
 }
 
 # Current timestamp
-$LastRunDateTime = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+$LastRunDateTime = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 
 # ==========================================
-# GET BASELINE TLS
+# GET BASELINE TLS ITEM
 # ==========================================
 
 $BaselineItem = Get-MgSiteListItem `
@@ -229,37 +42,90 @@ Where-Object {
 $BaselineText = $BaselineItem.Fields.AdditionalProperties.field_5
 
 # ==========================================
-# EXTRACT CURRENT TLS VALUES
+# CONVERT CURRENT TLS TO HASH TABLE
 # ==========================================
 
-$CurrentEnabled = $TLS.Enabled
-$CurrentDisabled = $TLS.DisabledByDefault
+$CurrentTLSHash = @{}
+
+$TLS.PSObject.Properties | ForEach-Object {
+
+    # Ignore PowerShell metadata properties
+    if ($_.Name -notmatch "^PS") {
+
+        $Key = $_.Name.Trim()
+        $Value = "$($_.Value)".Trim()
+
+        $CurrentTLSHash[$Key] = $Value
+    }
+}
 
 # ==========================================
-# EXTRACT BASELINE TLS VALUES
+# CONVERT BASELINE TLS TO HASH TABLE
 # ==========================================
 
-$BaselineEnabled = [regex]::Match(
-    $BaselineText,
-    'Enabled\s*:\s*(\d+)'
-).Groups[1].Value
+$BaselineTLSHash = @{}
 
-$BaselineDisabled = [regex]::Match(
-    $BaselineText,
-    'DisabledByDefault\s*:\s*(\d+)'
-).Groups[1].Value
+$BaselineText -split "`r?`n" | ForEach-Object {
+
+    if ($_ -match "^(.*?)\s*:\s*(.*)$") {
+
+        $Key = $matches[1].Trim()
+        $Value = $matches[2].Trim()
+
+        $BaselineTLSHash[$Key] = $Value
+    }
+}
 
 # ==========================================
-# COMPLIANCE CHECK
+# COMPARE ALL TLS FIELDS
 # ==========================================
 
-if (($CurrentEnabled -eq $BaselineEnabled) -and
-    ($CurrentDisabled -eq $BaselineDisabled)) {
+$MismatchFound = $false
+$MismatchDetails = @()
 
-    $ComplianceStatus = "Compliant"
+foreach ($Key in $BaselineTLSHash.Keys) {
+
+    if ($CurrentTLSHash.ContainsKey($Key)) {
+
+        $CurrentValue = $CurrentTLSHash[$Key]
+        $BaselineValue = $BaselineTLSHash[$Key]
+
+        if ($CurrentValue -ne $BaselineValue) {
+
+            $MismatchFound = $true
+
+            $MismatchDetails +=
+            "$Key mismatch | Current: $CurrentValue | Baseline: $BaselineValue"
+        }
+    }
+    else {
+
+        $MismatchFound = $true
+        $MismatchDetails += "$Key missing in current TLS"
+    }
+}
+
+# ==========================================
+# SET COMPLIANCE STATUS
+# ==========================================
+
+if ($MismatchFound) {
+
+    $ComplianceStatus = "Non Compliant"
+
+    Write-Host ""
+    Write-Host "TLS mismatch found:" -ForegroundColor Red
+
+    $MismatchDetails | ForEach-Object {
+        Write-Host $_ -ForegroundColor Yellow
+    }
 }
 else {
-    $ComplianceStatus = "Non Compliant"
+
+    $ComplianceStatus = "Compliant"
+
+    Write-Host ""
+    Write-Host "TLS fully compliant" -ForegroundColor Green
 }
 
 # ==========================================
@@ -267,11 +133,11 @@ else {
 # ==========================================
 
 $Body = @{
-    Review = $NewReview
-    LastRunDateTime = $LastRunDateTime
-    Status = $ComplianceStatus
-    field_5 = $FormattedTLS
-} | ConvertTo-Json
+    Review           = $NewReview
+    LastRunDateTime  = $LastRunDateTime
+    Status            = $ComplianceStatus
+    field_5           = $FormattedTLS
+} | ConvertTo-Json -Depth 5
 
 Invoke-MgGraphRequest `
     -Method PATCH `
@@ -279,7 +145,12 @@ Invoke-MgGraphRequest `
     -Body $Body `
     -ContentType "application/json"
 
-Write-Host "TLS Updated Successfully"
+# ==========================================
+# FINAL OUTPUT
+# ==========================================
+
+Write-Host ""
+Write-Host "TLS Updated Successfully" -ForegroundColor Cyan
 Write-Host "Status: $ComplianceStatus"
 Write-Host "Review Number: $NewReview"
 Write-Host "LastRunDateTime: $LastRunDateTime"

@@ -45,12 +45,17 @@ $BaselineText = $BaselineItem.Fields.AdditionalProperties.field_5
 # CONVERT CURRENT TLS TO HASH TABLE
 # ==========================================
 
+$IgnoreFields = @(
+    "PSComputerName",
+    "RunspaceId",
+    "PSShowComputerName"
+)
+
 $CurrentTLSHash = @{}
 
 $TLS.PSObject.Properties | ForEach-Object {
 
-    # Ignore PowerShell metadata properties
-    if ($_.Name -notmatch "^PS") {
+    if ($_.Name -notin $IgnoreFields) {
 
         $Key = $_.Name.Trim()
         $Value = "$($_.Value)".Trim()
@@ -133,10 +138,10 @@ else {
 # ==========================================
 
 $Body = @{
-    Review           = $NewReview
-    LastRunDateTime  = $LastRunDateTime
-    Status            = $ComplianceStatus
-    field_5           = $FormattedTLS
+    Review          = $NewReview
+    LastRunDateTime = $LastRunDateTime
+    Status           = $ComplianceStatus
+    field_5          = $FormattedTLS
 } | ConvertTo-Json -Depth 5
 
 Invoke-MgGraphRequest `

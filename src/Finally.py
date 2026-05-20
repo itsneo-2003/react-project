@@ -171,3 +171,12 @@ function Test-ControlCompliance {
         -ForegroundColor Red
     }
 }
+
+
+
+
+
+
+
+$CurrentHash["TLS"] = $FormattedTLS
+Test-ControlCompliance -ConfigName "TLS"

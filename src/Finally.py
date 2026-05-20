@@ -100,3 +100,74 @@ $BaselineGlob = (
 Compare-Object `
     ($CurrentGlob -split "`r?`n") `
     ($BaselineGlob -split "`r?`n")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Test-ControlCompliance {
+
+    param (
+        [string]$ConfigName
+    )
+
+    # Get values
+    $CurrentValue = $CurrentHash[$ConfigName]
+    $BaselineValue = $BaselineHash[$ConfigName]
+
+    # Check for missing values
+    if ($null -eq $CurrentValue -or
+        $null -eq $BaselineValue) {
+
+        $StatusHash[$ConfigName] = "Non Compliant"
+
+        Write-Host ""
+        Write-Host "$ConfigName : Missing value" `
+        -ForegroundColor Red
+
+        return
+    }
+
+    # Normalize
+    # Remove spaces/tabs
+    # Ignore case
+    # Keep new lines
+
+    $CurrentNormalized = (
+        $CurrentValue.ToString().ToLower() `
+        -replace '[ \t]', ''
+    ).Trim()
+
+    $BaselineNormalized = (
+        $BaselineValue.ToString().ToLower() `
+        -replace '[ \t]', ''
+    ).Trim()
+
+    # Compare
+    if ($CurrentNormalized -eq
+        $BaselineNormalized) {
+
+        $StatusHash[$ConfigName] = "Compliant"
+
+        Write-Host "$ConfigName : Compliant" `
+        -ForegroundColor Green
+    }
+    else {
+
+        $StatusHash[$ConfigName] = "Non Compliant"
+
+        Write-Host "$ConfigName : Non Compliant" `
+        -ForegroundColor Red
+    }
+}

@@ -1,34 +1,46 @@
-# Get current deletion threshold value
+# Get current deletion threshold
 $CurrentDeletionThreshold = $Data.value.configuration.accidentalDeletionPrevention.alertThreshold
 
 # Get transaction list items
-$TransactionItems = Invoke-MgGraphRequest `
+$TransactionResponse = Invoke-MgGraphRequest `
 -Method GET `
 -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TransactionListId/items?expand=fields"
 
-# Find BP-001 row in transaction list
-$DeletionThresholdItem = $TransactionItems.value |
+# Find BP-001 in transaction list
+$DeletionThresholdItem = $TransactionResponse.value |
 Where-Object {
-    $_.fields.AdditionalProperties.field_2 -eq "BP-001"
+    $_.fields.additionalProperties.field_2 -eq "BP-001"
 } |
 Select-Object -First 1
 
+# Debug transaction row
+Write-Host ""
+Write-Host "Transaction Item ID: $($DeletionThresholdItem.id)" `
+-ForegroundColor Yellow
+
 # Get baseline list items
-$BaselineItems = Invoke-MgGraphRequest `
+$BaselineResponse = Invoke-MgGraphRequest `
 -Method GET `
 -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$MasterListId/items?expand=fields"
 
-# Find BP-001 row in baseline list
-$BaselineItem = $BaselineItems.value |
+# Find BP-001 in baseline list
+$BaselineItem = $BaselineResponse.value |
 Where-Object {
-    $_.fields.AdditionalProperties.field_2 -eq "BP-001"
+    $_.fields.additionalProperties.field_2 -eq "BP-001"
 } |
 Select-Object -First 1
 
-# Get baseline threshold
-$BaselineDeletionThreshold = [int]$BaselineItem.fields.AdditionalProperties.field_5
+# Debug baseline row
+Write-Host "Baseline Ref#: $($BaselineItem.fields.additionalProperties.field_2)" `
+-ForegroundColor Yellow
 
-# Compare values
+Write-Host "Baseline Value: $($BaselineItem.fields.additionalProperties.field_5)" `
+-ForegroundColor Yellow
+
+# Get baseline threshold
+$BaselineDeletionThreshold = [int]$BaselineItem.fields.additionalProperties.field_5
+
+# Compare
 if (
     [int]$CurrentDeletionThreshold -eq
     $BaselineDeletionThreshold
@@ -52,11 +64,9 @@ else {
 
 # Update transaction list
 $Body = @{
-    fields = @{
-        field_5 = "$CurrentDeletionThreshold"
-        Status = $ComplianceStatus
-    }
-} | ConvertTo-Json -Depth 5
+    field_5 = "$CurrentDeletionThreshold"
+    Status = $ComplianceStatus
+} | ConvertTo-Json
 
 Invoke-MgGraphRequest `
 -Method PATCH `

@@ -22,3 +22,33 @@ foreach ($Item in $BaselineItems) {
 # Test
 Write-Host "TLS Baseline Value:" -ForegroundColor Cyan
 $BaselineHash["TLS"]
+
+
+
+
+
+# Get current deletion threshold
+$CurrentDeletionThreshold =
+$Data.value.configuration.accidentalDeletionPrevention.alertThreshold
+
+# Get baseline value from hashtable
+$BaselineDeletionThreshold =
+$BaselineHash["DeletionThreshold"]
+
+# Compare
+if (
+    [int]$CurrentDeletionThreshold -eq
+    [int]$BaselineDeletionThreshold
+) {
+
+    Write-Host "Deletion Threshold is Compliant" `
+    -ForegroundColor Green
+}
+else {
+
+    Write-Host "Deletion Threshold is Non Compliant" `
+    -ForegroundColor Red
+
+    Write-Host "Current: $CurrentDeletionThreshold"
+    Write-Host "Baseline: $BaselineDeletionThreshold"
+}

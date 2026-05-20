@@ -81,3 +81,20 @@ if ($CurrentTLS -eq $BaselineTLS) {
 else {
     Write-Host "TLS is Non Compliant" -ForegroundColor Red
 }
+
+
+
+
+
+
+# Remove all spaces
+$CurrentTLS = ($FormattedTLS -replace '\s', '').Trim()
+$BaselineTLS = ($BaselineTLS -replace '\s', '').Trim()
+
+# Compare
+if ($CurrentTLS -eq $BaselineTLS) {
+    Write-Host "TLS is Compliant" -ForegroundColor Green
+}
+else {
+    Write-Host "TLS is Non Compliant" -ForegroundColor Red
+}

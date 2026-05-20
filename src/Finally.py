@@ -180,3 +180,81 @@ function Test-ControlCompliance {
 
 $CurrentHash["TLS"] = $FormattedTLS
 Test-ControlCompliance -ConfigName "TLS"
+
+
+
+
+
+
+function Test-ControlCompliance {
+
+    param (
+        [string]$ConfigName
+    )
+
+    # Get values
+    $CurrentValue = $CurrentHash[$ConfigName]
+    $BaselineValue = $BaselineHash[$ConfigName]
+
+    # Check missing values
+    if ($null -eq $CurrentValue -or
+        $null -eq $BaselineValue) {
+
+        $StatusHash[$ConfigName] = "Non Compliant"
+
+        Write-Host "$ConfigName : Missing value" `
+        -ForegroundColor Red
+
+        return
+    }
+
+    # Convert to string
+    $CurrentNormalized = $CurrentValue.ToString()
+    $BaselineNormalized = $BaselineValue.ToString()
+
+    # Normalize line endings
+    $CurrentNormalized = $CurrentNormalized `
+        -replace "`r`n", "`n"
+
+    $BaselineNormalized = $BaselineNormalized `
+        -replace "`r`n", "`n"
+
+    # Remove spaces/tabs only
+    # Ignore case
+    # Keep new lines
+
+    $CurrentNormalized = (
+        $CurrentNormalized.ToLower() `
+        -replace '[ \t]', ''
+    ).Trim()
+
+    $BaselineNormalized = (
+        $BaselineNormalized.ToLower() `
+        -replace '[ \t]', ''
+    ).Trim()
+
+    # Compare
+    if ($CurrentNormalized -eq
+        $BaselineNormalized) {
+
+        $StatusHash[$ConfigName] = "Compliant"
+
+        Write-Host "$ConfigName : Compliant" `
+        -ForegroundColor Green
+    }
+    else {
+
+        $StatusHash[$ConfigName] = "Non Compliant"
+
+        Write-Host "$ConfigName : Non Compliant" `
+        -ForegroundColor Red
+
+        Write-Host ""
+        Write-Host "Mismatch found in: $ConfigName" `
+        -ForegroundColor Yellow
+
+        Compare-Object `
+            ($CurrentNormalized -split "`n") `
+            ($BaselineNormalized -split "`n")
+    }
+}

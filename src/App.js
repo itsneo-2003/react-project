@@ -12,3 +12,18 @@ $BaselineTLS = $BaselineItem.Fields.AdditionalProperties.field_5
 
 # Test output
 Write-Host $BaselineTLS
+
+
+
+
+# Normalize both values
+$CurrentTLS = $FormattedTLS.Trim()
+$BaselineTLS = $BaselineTLS.Trim()
+
+# Compare
+if ($CurrentTLS -eq $BaselineTLS) {
+    Write-Host "TLS is Compliant" -ForegroundColor Green
+}
+else {
+    Write-Host "TLS is Non Compliant" -ForegroundColor Red
+}

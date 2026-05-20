@@ -4,11 +4,11 @@ $BaselineItem = Get-MgSiteListItem `
     -ListId $MasterListId `
     -ExpandProperty "fields" -All |
 Where-Object {
-    $_.fields.field_3 -eq "TLS"
+    $_.Fields.AdditionalProperties.field_3 -eq "TLS"
 }
 
 # Get TLS baseline value
-$BaselineTLS = $BaselineItem.fields.field_5
+$BaselineTLS = $BaselineItem.Fields.AdditionalProperties.field_5
 
 # Test output
 Write-Host $BaselineTLS

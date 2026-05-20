@@ -356,3 +356,15 @@ function Test-ControlCompliance {
         -ForegroundColor Red
     }
 }
+
+
+
+$CurrentHash["AD Sync Scheduler"] =
+$FormattedADSync
+
+Test-ControlCompliance `
+-ConfigName "AD Sync Scheduler" `
+-IgnoreFields @(
+    "NextSyncCycleStartTimeInUTC",
+    "SyncCycleInProgress"
+)

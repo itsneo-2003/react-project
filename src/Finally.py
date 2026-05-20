@@ -52,3 +52,36 @@ else {
     Write-Host "Current: $CurrentDeletionThreshold"
     Write-Host "Baseline: $BaselineDeletionThreshold"
 }
+
+
+
+
+
+
+# Get current Global Settings value
+$CurrentGlob = ($GlobValue -replace '\s', '').Trim()
+
+# Get baseline Global Settings value
+$BaselineGlob = (
+    $BaselineHash["Global Settings"] `
+    -replace '\s', ''
+).Trim()
+
+# Compare
+if ($CurrentGlob -eq $BaselineGlob) {
+
+    Write-Host "Global Settings is Compliant" `
+    -ForegroundColor Green
+}
+else {
+
+    Write-Host "Global Settings is Non Compliant" `
+    -ForegroundColor Red
+
+    Write-Host "Current Value:"
+    Write-Host $GlobValue
+
+    Write-Host ""
+    Write-Host "Baseline Value:"
+    Write-Host $BaselineHash["Global Settings"]
+}

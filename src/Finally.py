@@ -1,64 +1,112 @@
-# Get transaction list items
-$TransactionResponse = Invoke-MgGraphRequest `
--Method GET `
--Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TransactionListId/items?expand=fields"
+# BP-003 - AD Sync Scheduler
 
-# Get baseline list items
-$BaselineResponse = Invoke-MgGraphRequest `
--Method GET `
--Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$MasterListId/items?expand=fields"
+$RefNumber = "BP-003"
 
-# Find BP-001 in transaction list
-$DeletionThresholdItem = $TransactionResponse.value | Where-Object {
-    $_.fields.field_2 -eq "BP-001"
+# Get current AD Sync Scheduler
+$ADSync = Get-ADSyncScheduler
+
+# Fields to ignore (dynamic values)
+$IgnoreFields = @(
+    "NextSyncCycleStartTimeInUTC",
+    "SyncCycleInProgress"
+)
+
+# Convert current scheduler to hashtable
+$CurrentScheduler = @{}
+
+$ADSync.PSObject.Properties | ForEach-Object {
+    if ($IgnoreFields -notcontains $_.Name) {
+        $CurrentScheduler[$_.Name] = "$($_.Value)".Trim()
+    }
 }
 
-# Find BP-001 in baseline list
+# Format current value for transaction list
+$FormattedADSync = (
+    $CurrentScheduler.GetEnumerator() |
+    Sort-Object Name |
+    ForEach-Object {
+        "$($_.Key) : $($_.Value)"
+    }
+) -join "`r`n"
+
+# Get BP-003 transaction row
+$TransactionItem = $TransactionResponse.value | Where-Object {
+    $_.fields.field_2 -eq $RefNumber
+}
+
+# Get BP-003 baseline row
 $BaselineItem = $BaselineResponse.value | Where-Object {
-    $_.fields.field_2 -eq "BP-001"
+    $_.fields.field_2 -eq $RefNumber
 }
 
-# Debugging
-Write-Host ""
-Write-Host "Transaction Item ID: $($DeletionThresholdItem.id)"
-Write-Host "Baseline Ref#: $($BaselineItem.fields.field_2)"
-Write-Host "Baseline Value: $($BaselineItem.fields.field_5)"
+# Convert baseline into hashtable
+$BaselineScheduler = @{}
 
-# Current deletion threshold
-$CurrentDeletionThreshold = [int]$Data.value.configuration.accidentalDeletionPrevention.alertThreshold
+$BaselineText = $BaselineItem.fields.field_5
 
-# Baseline threshold
-$BaselineDeletionThreshold = [int]$BaselineItem.fields.field_5
+$BaselineText -split "`r?`n" | ForEach-Object {
 
-# Compare
-if ($CurrentDeletionThreshold -eq $BaselineDeletionThreshold) {
+    if ($_ -match "^(.*?)\s*:\s*(.*)$") {
+
+        $Name = $matches[1].Trim()
+        $Value = $matches[2].Trim()
+
+        if ($IgnoreFields -notcontains $Name) {
+            $BaselineScheduler[$Name] = $Value
+        }
+    }
+}
+
+# Compliance check
+$Mismatches = @()
+
+foreach ($Key in $BaselineScheduler.Keys) {
+
+    if (-not $CurrentScheduler.ContainsKey($Key)) {
+        $Mismatches += "$Key missing in current scheduler"
+        continue
+    }
+
+    if ($CurrentScheduler[$Key] -ne $BaselineScheduler[$Key]) {
+        $Mismatches += "$Key mismatch"
+        $Mismatches += "Current: $($CurrentScheduler[$Key])"
+        $Mismatches += "Baseline: $($BaselineScheduler[$Key])"
+    }
+}
+
+# Final compliance result
+if ($Mismatches.Count -eq 0) {
     $ComplianceStatus = "Compliant"
 }
 else {
     $ComplianceStatus = "Non Compliant"
+}
 
+# Debug output
+if ($Mismatches.Count -gt 0) {
     Write-Host ""
-    Write-Host "Deletion Threshold mismatch found" -ForegroundColor Red
-    Write-Host "Current: $CurrentDeletionThreshold"
-    Write-Host "Baseline: $BaselineDeletionThreshold"
+    Write-Host "AD Sync Scheduler mismatch found" -ForegroundColor Red
+    $Mismatches | ForEach-Object {
+        Write-Host $_ -ForegroundColor Yellow
+    }
 }
 
 # Update transaction list
 $Body = @{
+    field_5 = $FormattedADSync
     Status = $ComplianceStatus
-    field_5 = "$CurrentDeletionThreshold"
 } | ConvertTo-Json
 
 Invoke-MgGraphRequest `
--Method PATCH `
--Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TransactionListId/items/$($DeletionThresholdItem.id)/fields" `
--Body $Body `
--ContentType "application/json"
+    -Method PATCH `
+    -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TransactionListId/items/$($TransactionItem.id)/fields" `
+    -Body $Body `
+    -ContentType "application/json"
 
+# Final output
 Write-Host ""
-Write-Host "BP-001 Updated Successfully" -ForegroundColor Cyan
+Write-Host "BP-003 Updated Successfully" -ForegroundColor Cyan
 Write-Host "Status: $ComplianceStatus"
-Write-Host "Deletion Threshold: $CurrentDeletionThreshold"
 
 
 

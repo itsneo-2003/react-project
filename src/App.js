@@ -27,3 +27,15 @@ if ($CurrentTLS -eq $BaselineTLS) {
 else {
     Write-Host "TLS is Non Compliant" -ForegroundColor Red
 }
+
+
+
+
+
+
+Write-Host "Current Length: $($CurrentTLS.Length)"
+Write-Host "Baseline Length: $($BaselineTLS.Length)"
+
+Compare-Object `
+    ($CurrentTLS -split "`r?`n") `
+    ($BaselineTLS -split "`r?`n")

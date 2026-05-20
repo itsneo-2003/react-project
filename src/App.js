@@ -39,3 +39,30 @@ Write-Host "Baseline Length: $($BaselineTLS.Length)"
 Compare-Object `
     ($CurrentTLS -split "`r?`n") `
     ($BaselineTLS -split "`r?`n")
+
+
+
+
+
+
+# Normalize current TLS
+$CurrentTLS = (
+    $FormattedTLS.ToLower() `
+    -replace '\r\n', "`n" `
+    -replace '\s+', ' '
+).Trim()
+
+# Normalize baseline TLS
+$BaselineTLS = (
+    $BaselineTLS.ToLower() `
+    -replace '\r\n', "`n" `
+    -replace '\s+', ' '
+).Trim()
+
+# Compare
+if ($CurrentTLS -eq $BaselineTLS) {
+    Write-Host "TLS is Compliant" -ForegroundColor Green
+}
+else {
+    Write-Host "TLS is Non Compliant" -ForegroundColor Red
+}

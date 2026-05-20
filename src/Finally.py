@@ -1,34 +1,34 @@
 # Get current deletion threshold value
 $CurrentDeletionThreshold = $Data.value.configuration.accidentalDeletionPrevention.alertThreshold
 
-# Get BP-001 row from transaction list
-$DeletionThresholdItem = Invoke-MgGraphRequest `
+# Get transaction list items
+$TransactionItems = Invoke-MgGraphRequest `
 -Method GET `
--Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TransactionListId/items?expand=fields" |
-Select-Object -ExpandProperty value |
+-Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TransactionListId/items?expand=fields"
+
+# Find BP-001 row in transaction list
+$DeletionThresholdItem = $TransactionItems.value |
 Where-Object {
     $_.fields.AdditionalProperties.field_2 -eq "BP-001"
-}
+} |
+Select-Object -First 1
 
-# Get BP-001 row from baseline list
-$BaselineItem = Invoke-MgGraphRequest `
+# Get baseline list items
+$BaselineItems = Invoke-MgGraphRequest `
 -Method GET `
--Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$MasterListId/items?expand=fields" |
-Select-Object -ExpandProperty value |
+-Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$MasterListId/items?expand=fields"
+
+# Find BP-001 row in baseline list
+$BaselineItem = $BaselineItems.value |
 Where-Object {
     $_.fields.AdditionalProperties.field_2 -eq "BP-001"
-}
+} |
+Select-Object -First 1
 
-# Get baseline threshold value
-$BaselineDeletionThreshold = [int](
-    $BaselineItem |
-    Select-Object -First 1 |
-    ForEach-Object {
-        $_.Fields.AdditionalProperties.field_5
-    }
-)
+# Get baseline threshold
+$BaselineDeletionThreshold = [int]$BaselineItem.fields.AdditionalProperties.field_5
 
-# Compare current vs baseline
+# Compare values
 if (
     [int]$CurrentDeletionThreshold -eq
     $BaselineDeletionThreshold
@@ -47,7 +47,6 @@ else {
     -ForegroundColor Red
 
     Write-Host "Current: $CurrentDeletionThreshold"
-
     Write-Host "Baseline: $BaselineDeletionThreshold"
 }
 

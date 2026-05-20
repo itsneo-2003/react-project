@@ -85,3 +85,18 @@ else {
     Write-Host "Baseline Value:"
     Write-Host $BaselineHash["Global Settings"]
 }
+
+
+
+
+# Normalize both values
+$CurrentGlob = ($GlobValue -replace '\s', '').Trim()
+$BaselineGlob = (
+    $BaselineHash["Global Settings"] `
+    -replace '\s', ''
+).Trim()
+
+# Compare line by line
+Compare-Object `
+    ($CurrentGlob -split "`r?`n") `
+    ($BaselineGlob -split "`r?`n")

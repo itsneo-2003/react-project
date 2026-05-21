@@ -1,6 +1,34 @@
-$TransactionItems = Get-MgSiteListItem `
+# Get tracker row
+$TrackerItems = Get-MgSiteListItem `
     -SiteId $SiteId `
-    -ListId $TransactionListId `
+    -ListId $TrackerListId `
     -ExpandProperty "fields" -Top 1
 
-$TransactionItems.Fields.AdditionalProperties
+# Increment review
+$Review = (
+    [int]$TrackerItems.
+    Fields.
+    AdditionalProperties.
+    LastRun
+) + 1
+
+# Uniform timestamp
+$LastRunDateTime =
+Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+
+
+
+
+
+$TrackerItemId = $TrackerItems.Id
+
+$Json = @{
+    LastRun = $Review
+    ReviewReference = $LastRunDateTime
+} | ConvertTo-Json
+
+Invoke-MgGraphRequest `
+    -Method PATCH `
+    -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TrackerListId/items/$TrackerItemId/fields" `
+    -Body $Json `
+    -ContentType "application/json"

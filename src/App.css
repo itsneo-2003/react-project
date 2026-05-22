@@ -1,34 +1,27 @@
-# Get tracker row
-$TrackerItems = Get-MgSiteListItem `
-    -SiteId $SiteId `
-    -ListId $TrackerListId `
-    -ExpandProperty "fields" -Top 1
+function Add-TransactionItem {
+    param(
+        [string]$BPNumber,
+        [string]$ConfigName,
+        [string]$ConfigValue
+    )
 
-# Increment review
-$Review = (
-    [int]$TrackerItems.
-    Fields.
-    AdditionalProperties.
-    LastRun
-) + 1
+    $Json = @{
+        fields = @{
+            Title            = "EntraConnect"
+            field_1          = "Baseline"
+            field_2          = $BPNumber
+            field_3          = $ConfigName
+            field_5          = "$ConfigValue"
+            Status           = $StatusHash[$ConfigName]
+            LastRunDateTime  = $LastRunDateTime
+            Review           = $Review
+        }
+    } | ConvertTo-Json -Depth 5
 
-# Uniform timestamp
-$LastRunDateTime =
-Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    Invoke-MgGraphRequest `
+        -Method POST `
+        -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TransactionListId/items" `
+        -Body $Json `
+        -ContentType "application/json"
+}
 
-
-
-
-
-$TrackerItemId = $TrackerItems.Id
-
-$Json = @{
-    LastRun = $Review
-    ReviewReference = $LastRunDateTime
-} | ConvertTo-Json
-
-Invoke-MgGraphRequest `
-    -Method PATCH `
-    -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TrackerListId/items/$TrackerItemId/fields" `
-    -Body $Json `
-    -ContentType "application/json"

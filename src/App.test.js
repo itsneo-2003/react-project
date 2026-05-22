@@ -23,3 +23,12 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 </style>
+
+
+
+
+<p>Below is the TIP scanning report for Entra ID.</p>
+
+@{outputs('composeCssStyle')}
+
+@{outputs('Create_HTML_table')}

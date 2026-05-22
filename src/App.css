@@ -25,3 +25,27 @@ function Add-TransactionItem {
         -ContentType "application/json"
 }
 
+
+
+
+
+
+$TransactionRows = @()
+
+$TransactionRows += @{
+    BPNumber   = "BP-001"
+    ConfigName = "DeletionThreshold"
+    ConfigValue= $Deletionthresh
+}
+
+$TransactionRows += @{
+    BPNumber   = "BP-002"
+    ConfigName = "TLS"
+    ConfigValue= $FormattedTLS
+}
+
+$TransactionRows += @{
+    BPNumber   = "BP-006"
+    ConfigName = "Root Synced OUs"
+    ConfigValue= $RootValue
+}

@@ -29,6 +29,33 @@ function Add-TransactionItem {
 
 
 
+Add-TransactionItem `
+    -BPNumber "BP-001" `
+    -ConfigName "DeletionThreshold" `
+    -ConfigValue $Deletionthresh
+
+Add-TransactionItem `
+    -BPNumber "BP-002" `
+    -ConfigName "TLS" `
+    -ConfigValue $FormattedTLS
+
+Add-TransactionItem `
+    -BPNumber "BP-006" `
+    -ConfigName "Root Synced OUs" `
+    -ConfigValue $RootValue
+
+Add-TransactionItem `
+    -BPNumber "BP-007" `
+    -ConfigName "Zone1 Synced OUs" `
+    -ConfigValue $Zone1Value
+
+
+
+
+
+
+
+
 
 $TransactionRows = @()
 

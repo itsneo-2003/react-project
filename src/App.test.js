@@ -32,3 +32,9 @@ tr:nth-child(even) {
 @{outputs('composeCssStyle')}
 
 @{outputs('Create_HTML_table')}
+
+
+
+
+
+    concat('SCB - Entra Connect Configuration Validation Report - ', utcNow('dd MMM yyyy'))

@@ -1,105 +1,306 @@
-1. FRA Landing Page – Overall Dashboard View
+ [5/22, 10:26 AM] Jp SCB: Slide Title
 
-Screen Navigation
-
-CRA → FRA → Landing Page
-
-Screen Usage
-
-This screen provides users with a consolidated dashboard view of Fraud Risk Assessments, enabling users to initiate, track, review, and manage FRA cases based on their role access.
+COI Library – Entitlement
 
 ⸻
 
-2. FRA Questionnaire – Background Information Stage
-
 Screen Navigation
 
-CRA → FRA → Initiate FRA Assessment → Background
-
-Screen Usage
-
-This screen allows users to provide mandatory background details, rationale, accountable stakeholders, and supporting information required to initiate a Fraud Risk Assessment.
+Library → Entitlement → Role
+Library → Entitlement → Role-user configuration
 
 ⸻
 
-3. FRA Sheet – Fraud Scheme & Control Assessment
-
-Screen Navigation
-
-CRA → FRA → FRA Sheet
-
 Screen Usage
 
-This screen enables users to configure fraud schemes, map threat events and controls, capture process-level control gaps, and document residual fraud risks associated with the assessment.
+This screen allows COI Admin users to manage COI user roles, role descriptions, and configure user-role mappings with associated bank IDs.
 
 ⸻
 
-4. Risk Assessment Stage
+Suggested Annotation Structure
 
-Screen Navigation
+For Role screen
 
-CRA → FRA → Risk Assessment
+1
 
-Screen Usage
+Displays configured COI user roles available within the application.
 
-This screen allows users to assess impacted processes, capture current and proposed risk ratings, evaluate residual risk exposure, and define treatment action plans for identified fraud risks.
+2
 
-⸻
+Role description section explains responsibilities associated with each role.
 
-5. Add/Edit Impacted Process Popup
+3
 
-Screen Navigation
+Action menu allows users to Edit role details or view Audit logs.
 
-CRA → FRA → Risk Assessment → Add Impacted Process
+4
 
-Screen Usage
-
-This popup enables users to add impacted processes and define current and proposed inherent/residual risk ratings associated with the fraud assessment.
+Edit Role popup enables modification of role description details.
 
 ⸻
 
-6. Risk Treatment Action Plan Popup
+For Role-user configuration screen
 
-Screen Navigation
+5
 
-CRA → FRA → Risk Assessment → Add Risk Treatment Action Plan
+Displays configured role-to-user mappings with associated Bank IDs.
 
-Screen Usage
+6
 
-This popup allows users to define mitigation actions, assign ownership, specify timelines, update status, and upload supporting documents for fraud risk treatment activities.
-
-⸻
-
-7. RFO / Coverage Comments Stage
-
-Screen Navigation
-
-CRA → FRA → RFO / Coverage Comments
-
-Screen Usage
-
-This screen enables RFO/Coverage users to review submitted assessments, provide second-line challenge comments, capture recommendations and conclusions, and update review status.
+Search functionality allows filtering based on role or Bank ID.
 
 ⸻
 
-8. Recommendation & Conclusion Popup
+And your content section text at bottom can be:
+
+Entitlement
+
+Role
+
+Enables COI Admin users to view and manage configured COI user roles and role descriptions.
+
+Role-user configuration
+
+Enables COI Admin users to view configured user-role mappings and associated Bank IDs.
+[5/22, 2:04 PM] Jp SCB: Slide 1 — Administration Overview
+
+Pictures to Use
+
+1. Process data management main screen
+2. Dropdown data management main screen (Group tab)
+
+Layout
+
+* Process data management screenshot → Left side
+* Dropdown data management screenshot → Right side
+* Bottom/right → usage text box
+
+Annotations
+
+On Process Data Management screen
+
+1 → Table showing Due days, Reminder1, Reminder2, Overdue and Escalation values
+2 → Edit action available for updating workflow timelines
+
+On Dropdown Data Management screen
+
+3 → Group hierarchy view for Business/Function mapping
+4 → Add button to create new hierarchy entries
+5 → Three-dot menu for hierarchy actions
 
 Screen Navigation
 
-CRA → FRA → RFO / Coverage Comments → Add Recommendation & Conclusion
+Library → Administration → Process data management / Dropdown data management
 
 Screen Usage
 
-This popup allows RFO/Coverage users to document recommendation details, challenge conclusions, review dates, and assessment status updates as part of the endorsement workflow.
+1. Process Data Management enables COI Admin users to manage workflow timelines and escalation configurations.
+2. Dropdown Data Management enables COI Admin users to manage Business/Function hierarchy, Country hierarchy and RFO mappings.
+3. Escalation email functionality is reserved for future enhancement.
 
 ⸻
 
-9. Final Endorsed Risk Assessment
+Slide 2 — Process Data Management Actions
+
+Pictures to Use
+
+1. Process data management main screen
+2. Edit process data popup
+
+Layout
+
+* Main screen on top
+* Edit popup below OR popup on right side enlarged
+
+Annotations
+
+Main Screen
+
+1 → Edit option used to modify workflow timeline configuration
+
+Popup
+
+2 → Due days configuration for assessment completion timeline
+3 → Reminder1 and Reminder2 configuration for workflow notifications
+4 → Overdue and Escalated days configuration
 
 Screen Navigation
 
-CRA → FRA → Final Endorsed Risk Assessment
+Library → Administration → Process data management → Edit
 
 Screen Usage
 
-This screen displays the finalized endorsed fraud risk assessment and provides users with the completed assessment outcome, workflow history, and final submission status 
+1. Admin users can modify workflow timeline configurations.
+2. Reminder and overdue values control workflow notification stages.
+3. Escalation configuration is maintained for future enhancement requirements.
+
+⸻
+
+Slide 3 — Dropdown Data Management (Business/Function Level 1)
+
+Pictures to Use
+
+1. Dropdown data management main screen
+2. Add Business/Function popup
+3. Level 1 three-dot menu screenshot
+
+Layout
+
+* Main screen large on left/top
+* Popup and menu screenshots stacked on right
+
+Annotations
+
+Main Screen
+
+1 → Add button used to create new Business/Function Level 1 entries
+
+Add Popup
+
+2 → Business/Function Level 1 creation popup
+
+Three-dot Menu
+
+3 → Add Business/Function Level 2 option
+4 → Rename option
+5 → Delete option
+
+Screen Navigation
+
+Library → Administration → Dropdown data management → Add / Level 1 actions
+
+Screen Usage
+
+1. Admin users can create Business/Function Level 1 hierarchy entries.
+2. Three-dot menu provides hierarchy management actions.
+3. Level 1 hierarchy acts as parent structure for further mappings.
+
+⸻
+
+Slide 4 — Dropdown Data Management (Level 2 & RFO Mapping)
+
+Pictures to Use
+
+1. Add BF Level 2 popup
+2. Level 2 three-dot menu screenshot
+3. Add RFO popup
+
+Layout
+
+* Level 2 popup on left
+* Three-dot menu center
+* Add RFO popup right
+
+Annotations
+
+Level 2 Popup
+
+1 → Business/Function Level 2 creation popup
+
+Level 2 Menu
+
+2 → Add RFO option
+3 → Rename option
+4 → Delete option
+
+Add RFO Popup
+
+5 → RFO selection and mapping popup
+
+Screen Navigation
+
+Library → Administration → Dropdown data management → Level 2 actions
+
+Screen Usage
+
+1. Admin users can create Business/Function Level 2 hierarchy entries.
+2. RFO users can be mapped to Level 2 hierarchy.
+3. Rename and delete actions support hierarchy maintenance.
+
+⸻
+
+Slide 5 — Dropdown Data Management (Country View)
+
+Pictures to Use
+
+1. Country tab screen
+
+Layout
+
+* One large centered screenshot
+* Usage section on right/bottom
+
+Annotations
+
+1 → Country tab selection
+2 → Country hierarchy structure
+3 → Country-level RFO mapping view
+
+Screen Navigation
+
+Library → Administration → Dropdown data management → Country
+
+Screen Usage
+
+1. Admin users can switch between Group and Country hierarchy views.
+2. Country hierarchy supports regional RFO mapping.
+3. Enables country-level workflow ownership management.
+[5/22, 2:10 PM] Jp SCB: Slide 6 — Email Template Management
+
+Pictures to Use
+
+1. Email template management main screen
+2. Edit email template popup
+
+⸻
+
+Layout
+
+* Main screen → Left/top (larger)
+* Edit popup → Right/bottom (slightly enlarged)
+* Usage text → Bottom/right section
+
+This should be a simple clean slide since functionality is limited.
+
+⸻
+
+Annotations
+
+Main Screen
+
+1 → List of configured email templates used across COI workflow
+
+2 → Template status indicator
+
+3 → Three-dot menu providing Edit and Audit log actions
+
+⸻
+
+Edit Popup
+
+4 → Subject field used to modify email subject line
+
+5 → Body editor used to modify email template content
+
+6 → Rich text editor for formatting email body
+
+⸻
+
+Screen Navigation
+
+Library → Template Management → Email
+
+⸻
+
+Screen Usage
+
+1. Enables COI Admin users to manage workflow email templates.
+2. Admin users can modify:
+    * Email subject
+    * Email body content
+3. Email templates are used for workflow notifications such as:
+    * Reminder notifications
+    * Overdue notifications
+    * Endorsement notifications
+    * Refer back notifications
+4. Audit log option is available for tracking template modifications.

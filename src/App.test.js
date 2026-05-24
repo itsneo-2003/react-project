@@ -81,3 +81,14 @@ equals(item()?['Status'],'Compliant'),
 '🟢 Compliant',
 '🔴 Non Compliant'
 )
+
+
+
+
+
+
+if(
+equals(item()?['Status'],'Compliant'),
+'<span style="color:green;font-weight:bold;">Compliant</span>',
+'<span style="color:red;font-weight:bold;">Non Compliant</span>'
+)

@@ -7,7 +7,7 @@ table {
 }
 
 th {
-    background-color: #008CBA;
+    background-color: #0070A0;
     color: white;
     border: 1px solid #ddd;
     padding: 8px;
@@ -23,18 +23,3 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 </style>
-
-
-
-
-<p>Below is the TIP scanning report for Entra ID.</p>
-
-@{outputs('composeCssStyle')}
-
-@{outputs('Create_HTML_table')}
-
-
-
-
-
-    concat('SCB - Entra Connect Configuration Validation Report - ', utcNow('dd MMM yyyy'))

@@ -58,3 +58,12 @@ Automation Team</p>
 @{outputs('ComposeCssStyle')}
 
 @{body('Create_HTML_table')}
+
+
+
+
+<p>Below is the TIP scanning report for Entra Connect</p>
+
+[ComposeCssStyle Output]
+
+[Create HTML Table Output]

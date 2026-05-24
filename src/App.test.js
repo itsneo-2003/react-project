@@ -67,3 +67,17 @@ Automation Team</p>
 [ComposeCssStyle Output]
 
 [Create HTML Table Output]
+
+
+
+
+
+
+
+
+
+if(
+equals(item()?['Status'],'Compliant'),
+'🟢 Compliant',
+'🔴 Non Compliant'
+)

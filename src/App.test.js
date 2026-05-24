@@ -30,3 +30,18 @@ tr:nth-child(even) {
 if(equals(item()?['Status'],'Compliant'),
 '<span style="color:green;font-weight:bold;">Compliant</span>',
 '<span style="color:red;font-weight:bold;">Non Compliant</span>')
+
+
+
+
+
+<p>Hi Team,</p>
+
+<p>Below is the TIP scanning report for Entra Connect.</p>
+
+@{outputs('composeCssStyle')}
+
+@{body('Create_HTML_table')}
+
+<p>Regards,<br>
+Automation Team</p>

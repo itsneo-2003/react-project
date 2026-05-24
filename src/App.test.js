@@ -45,3 +45,16 @@ if(equals(item()?['Status'],'Compliant'),
 
 <p>Regards,<br>
 Automation Team</p>
+
+
+
+
+
+
+
+
+<p>Below is the TIP scanning report for Entra Connect</p>
+
+@{outputs('ComposeCssStyle')}
+
+@{body('Create_HTML_table')}

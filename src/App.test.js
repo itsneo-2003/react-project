@@ -102,3 +102,24 @@ concat(
 'SCB - Entra Connect Configuration Validation Report - ',
 formatDateTime(utcNow(),'MMMM dd, yyyy')
 )
+
+
+
+
+
+
+
+<p><strong>INTERNAL</strong></p>
+
+<br>
+
+<p>Dear Team,</p>
+
+<p>
+Below is the TIP scanning report for Entra Connect as of date
+<strong>@{formatDateTime(utcNow(),'MMMM dd, yyyy')}</strong>.
+</p>
+
+@{outputs('ComposeCssStyle')}
+
+@{body('Create_HTML_table')}

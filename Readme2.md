@@ -1,306 +1,115 @@
- [5/22, 10:26 AM] Jp SCB: Slide Title
-
-COI Library – Entitlement
-
-⸻
-
-Screen Navigation
-
-Library → Entitlement → Role
-Library → Entitlement → Role-user configuration
-
-⸻
-
-Screen Usage
-
-This screen allows COI Admin users to manage COI user roles, role descriptions, and configure user-role mappings with associated bank IDs.
-
-⸻
-
-Suggested Annotation Structure
-
-For Role screen
-
-1
-
-Displays configured COI user roles available within the application.
-
-2
-
-Role description section explains responsibilities associated with each role.
-
-3
-
-Action menu allows users to Edit role details or view Audit logs.
-
-4
-
-Edit Role popup enables modification of role description details.
-
-⸻
-
-For Role-user configuration screen
-
-5
-
-Displays configured role-to-user mappings with associated Bank IDs.
-
-6
-
-Search functionality allows filtering based on role or Bank ID.
-
-⸻
-
-And your content section text at bottom can be:
-
-Entitlement
-
-Role
-
-Enables COI Admin users to view and manage configured COI user roles and role descriptions.
-
-Role-user configuration
-
-Enables COI Admin users to view configured user-role mappings and associated Bank IDs.
-[5/22, 2:04 PM] Jp SCB: Slide 1 — Administration Overview
-
-Pictures to Use
-
-1. Process data management main screen
-2. Dropdown data management main screen (Group tab)
-
-Layout
-
-* Process data management screenshot → Left side
-* Dropdown data management screenshot → Right side
-* Bottom/right → usage text box
-
-Annotations
-
-On Process Data Management screen
-
-1 → Table showing Due days, Reminder1, Reminder2, Overdue and Escalation values
-2 → Edit action available for updating workflow timelines
-
-On Dropdown Data Management screen
-
-3 → Group hierarchy view for Business/Function mapping
-4 → Add button to create new hierarchy entries
-5 → Three-dot menu for hierarchy actions
-
-Screen Navigation
-
-Library → Administration → Process data management / Dropdown data management
-
-Screen Usage
-
-1. Process Data Management enables COI Admin users to manage workflow timelines and escalation configurations.
-2. Dropdown Data Management enables COI Admin users to manage Business/Function hierarchy, Country hierarchy and RFO mappings.
-3. Escalation email functionality is reserved for future enhancement.
-
-⸻
-
-Slide 2 — Process Data Management Actions
-
-Pictures to Use
-
-1. Process data management main screen
-2. Edit process data popup
-
-Layout
-
-* Main screen on top
-* Edit popup below OR popup on right side enlarged
-
-Annotations
+Slide 3 — Dropdown Data Management (Level 1)
 
 Main Screen
 
-1 → Edit option used to modify workflow timeline configuration
+Annotation 1
 
-Popup
-
-2 → Due days configuration for assessment completion timeline
-3 → Reminder1 and Reminder2 configuration for workflow notifications
-4 → Overdue and Escalated days configuration
-
-Screen Navigation
-
-Library → Administration → Process data management → Edit
-
-Screen Usage
-
-1. Admin users can modify workflow timeline configurations.
-2. Reminder and overdue values control workflow notification stages.
-3. Escalation configuration is maintained for future enhancement requirements.
+“Add button enables creation of Business/Function Level 1 entries.”
 
 ⸻
-
-Slide 3 — Dropdown Data Management (Business/Function Level 1)
-
-Pictures to Use
-
-1. Dropdown data management main screen
-2. Add Business/Function popup
-3. Level 1 three-dot menu screenshot
-
-Layout
-
-* Main screen large on left/top
-* Popup and menu screenshots stacked on right
-
-Annotations
-
-Main Screen
-
-1 → Add button used to create new Business/Function Level 1 entries
 
 Add Popup
 
-2 → Business/Function Level 1 creation popup
+Annotation 2
+
+“Popup used to create new Business/Function Level 1 hierarchy.”
+
+⸻
 
 Three-dot Menu
 
-3 → Add Business/Function Level 2 option
-4 → Rename option
-5 → Delete option
+Annotation 3
 
-Screen Navigation
+“Add Business/Function Level 2 under selected hierarchy.”
 
-Library → Administration → Dropdown data management → Add / Level 1 actions
+Annotation 4
 
-Screen Usage
+“Rename selected hierarchy entry.”
 
-1. Admin users can create Business/Function Level 1 hierarchy entries.
-2. Three-dot menu provides hierarchy management actions.
-3. Level 1 hierarchy acts as parent structure for further mappings.
+Annotation 5
+
+“Delete selected hierarchy entry.”
 
 ⸻
 
-Slide 4 — Dropdown Data Management (Level 2 & RFO Mapping)
-
-Pictures to Use
-
-1. Add BF Level 2 popup
-2. Level 2 three-dot menu screenshot
-3. Add RFO popup
-
-Layout
-
-* Level 2 popup on left
-* Three-dot menu center
-* Add RFO popup right
-
-Annotations
+Slide 4 — Dropdown Data Management (Level 2 & RFO)
 
 Level 2 Popup
 
-1 → Business/Function Level 2 creation popup
+Annotation 1
+
+“Popup used to create Business/Function Level 2 hierarchy.”
+
+⸻
 
 Level 2 Menu
 
-2 → Add RFO option
-3 → Rename option
-4 → Delete option
+Annotation 2
+
+“Add RFO mapping under selected hierarchy.”
+
+Annotation 3
+
+“Rename selected Level 2 hierarchy.”
+
+Annotation 4
+
+“Delete selected Level 2 hierarchy.”
+
+⸻
 
 Add RFO Popup
 
-5 → RFO selection and mapping popup
+Annotation 5
 
-Screen Navigation
-
-Library → Administration → Dropdown data management → Level 2 actions
-
-Screen Usage
-
-1. Admin users can create Business/Function Level 2 hierarchy entries.
-2. RFO users can be mapped to Level 2 hierarchy.
-3. Rename and delete actions support hierarchy maintenance.
+“Select and map RFO users to the hierarchy.”
 
 ⸻
 
-Slide 5 — Dropdown Data Management (Country View)
+Slide 5 — Country View
 
-Pictures to Use
+Annotation 1
 
-1. Country tab screen
+“Country tab switches hierarchy view from Group to Country.”
 
-Layout
+Annotation 2
 
-* One large centered screenshot
-* Usage section on right/bottom
+“Displays country-based hierarchy structure.”
 
-Annotations
+Annotation 3
 
-1 → Country tab selection
-2 → Country hierarchy structure
-3 → Country-level RFO mapping view
-
-Screen Navigation
-
-Library → Administration → Dropdown data management → Country
-
-Screen Usage
-
-1. Admin users can switch between Group and Country hierarchy views.
-2. Country hierarchy supports regional RFO mapping.
-3. Enables country-level workflow ownership management.
-[5/22, 2:10 PM] Jp SCB: Slide 6 — Email Template Management
-
-Pictures to Use
-
-1. Email template management main screen
-2. Edit email template popup
+“Displays RFO mappings configured under country hierarchy.”
 
 ⸻
 
-Layout
-
-* Main screen → Left/top (larger)
-* Edit popup → Right/bottom (slightly enlarged)
-* Usage text → Bottom/right section
-
-This should be a simple clean slide since functionality is limited.
-
-⸻
-
-Annotations
+Slide 6 — Email Template Management
 
 Main Screen
 
-1 → List of configured email templates used across COI workflow
+Annotation 1
 
-2 → Template status indicator
+“Displays configured email templates used in COI workflow notifications.”
 
-3 → Three-dot menu providing Edit and Audit log actions
+Annotation 2
+
+“Status indicates whether the email template is active.”
+
+Annotation 3
+
+“Three-dot menu provides Edit and Audit log actions.”
 
 ⸻
 
 Edit Popup
 
-4 → Subject field used to modify email subject line
+Annotation 4
 
-5 → Body editor used to modify email template content
+“Subject field enables modification of email subject line.”
 
-6 → Rich text editor for formatting email body
+Annotation 5
 
-⸻
+“Body editor enables modification of email template content.”
 
-Screen Navigation
+Annotation 6
 
-Library → Template Management → Email
-
-⸻
-
-Screen Usage
-
-1. Enables COI Admin users to manage workflow email templates.
-2. Admin users can modify:
-    * Email subject
-    * Email body content
-3. Email templates are used for workflow notifications such as:
-    * Reminder notifications
-    * Overdue notifications
-    * Endorsement notifications
-    * Refer back notifications
-4. Audit log option is available for tracking template modifications.
+“Rich text editor provides email content formatting options.”

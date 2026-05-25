@@ -92,3 +92,13 @@ equals(item()?['Status'],'Compliant'),
 '<span style="color:green;font-weight:bold;">Compliant</span>',
 '<span style="color:red;font-weight:bold;">Non Compliant</span>'
 )
+
+
+
+
+
+
+concat(
+'SCB - Entra Connect Configuration Validation Report - ',
+formatDateTime(utcNow(),'MMMM dd, yyyy')
+)

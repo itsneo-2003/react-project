@@ -1,125 +1,165 @@
-<style>
-table {
-    border-collapse: collapse;
-    width: 100%;
-    font-family: Arial, sans-serif;
-    font-size: 12px;
+function Test-ControlCompliance {
+
+    param (
+
+        [string]$ConfigName,
+
+        [string[]]$IgnoreFields = @(),
+
+        [string[]]$IgnoreBlocks = @()
+
+    )
+
+    # Get values
+    $CurrentValue = $CurrentHash[$ConfigName]
+
+    $BaselineValue = $BaselineHash[$ConfigName]
+
+    # Check missing values
+    if ($null -eq $CurrentValue -or
+        $null -eq $BaselineValue) {
+
+        $StatusHash[$ConfigName] =
+        "Non Compliant"
+
+        Write-Host ""
+
+        Write-Host "$ConfigName : Missing value" `
+        -ForegroundColor Red
+
+        return
+    }
+
+    # Convert to string
+    $CurrentValue =
+    $CurrentValue.ToString()
+
+    $BaselineValue =
+    $BaselineValue.ToString()
+
+    # Remove ignored fields
+    if ($IgnoreFields.Count -gt 0) {
+
+        foreach ($Field in $IgnoreFields) {
+
+            $CurrentValue = (
+
+                $CurrentValue -split "`r?`n" |
+
+                Where-Object {
+
+                    $_ -notmatch
+                    "^$Field\s*:"
+
+                }
+
+            ) -join "`n"
+
+            $BaselineValue = (
+
+                $BaselineValue -split "`r?`n" |
+
+                Where-Object {
+
+                    $_ -notmatch
+                    "^$Field\s*:"
+
+                }
+
+            ) -join "`n"
+        }
+    }
+
+    # Remove ignored JSON blocks
+    if ($IgnoreBlocks.Count -gt 0) {
+
+        foreach ($BlockName in
+            $IgnoreBlocks) {
+
+            $Pattern =
+            '(?s)\{.*?"Name"\s*:\s*"' +
+            [regex]::Escape(
+                $BlockName
+            ) +
+            '".*?\}'
+
+            $CurrentValue =
+            [regex]::Replace(
+
+                $CurrentValue,
+
+                $Pattern,
+
+                ''
+
+            )
+
+            $BaselineValue =
+            [regex]::Replace(
+
+                $BaselineValue,
+
+                $Pattern,
+
+                ''
+
+            )
+        }
+    }
+
+    # Normalize line endings
+    $CurrentNormalized = (
+
+        $CurrentValue `
+        -replace "`r`n", "`n"
+
+    )
+
+    $BaselineNormalized = (
+
+        $BaselineValue `
+        -replace "`r`n", "`n"
+
+    )
+
+    # Ignore spaces/tabs
+    # Ignore case
+    # Keep new lines
+
+    $CurrentNormalized = (
+
+        $CurrentNormalized
+        .ToLower() `
+        -replace '[ \t]', ''
+
+    ).Trim()
+
+    $BaselineNormalized = (
+
+        $BaselineNormalized
+        .ToLower() `
+        -replace '[ \t]', ''
+
+    ).Trim()
+
+    # Compare
+    if ($CurrentNormalized -eq
+        $BaselineNormalized) {
+
+        $StatusHash[$ConfigName] =
+        "Compliant"
+
+        Write-Host
+        "$ConfigName : Compliant" `
+        -ForegroundColor Green
+    }
+    else {
+
+        $StatusHash[$ConfigName] =
+        "Non Compliant"
+
+        Write-Host
+        "$ConfigName : Non Compliant" `
+        -ForegroundColor Red
+    }
 }
-
-th {
-    background-color: #0070A0;
-    color: white;
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-</style>
-
-
-
-
-if(equals(item()?['Status'],'Compliant'),
-'<span style="color:green;font-weight:bold;">Compliant</span>',
-'<span style="color:red;font-weight:bold;">Non Compliant</span>')
-
-
-
-
-
-<p>Hi Team,</p>
-
-<p>Below is the TIP scanning report for Entra Connect.</p>
-
-@{outputs('composeCssStyle')}
-
-@{body('Create_HTML_table')}
-
-<p>Regards,<br>
-Automation Team</p>
-
-
-
-
-
-
-
-
-<p>Below is the TIP scanning report for Entra Connect</p>
-
-@{outputs('ComposeCssStyle')}
-
-@{body('Create_HTML_table')}
-
-
-
-
-<p>Below is the TIP scanning report for Entra Connect</p>
-
-[ComposeCssStyle Output]
-
-[Create HTML Table Output]
-
-
-
-
-
-
-
-
-
-if(
-equals(item()?['Status'],'Compliant'),
-'🟢 Compliant',
-'🔴 Non Compliant'
-)
-
-
-
-
-
-
-if(
-equals(item()?['Status'],'Compliant'),
-'<span style="color:green;font-weight:bold;">Compliant</span>',
-'<span style="color:red;font-weight:bold;">Non Compliant</span>'
-)
-
-
-
-
-
-
-concat(
-'SCB - Entra Connect Configuration Validation Report - ',
-formatDateTime(utcNow(),'MMMM dd, yyyy')
-)
-
-
-
-
-
-
-
-<p><strong>INTERNAL</strong></p>
-
-<br>
-
-<p>Dear Team,</p>
-
-<p>
-Below is the TIP scanning report for Entra Connect as of date
-<strong>@{formatDateTime(utcNow(),'MMMM dd, yyyy')}</strong>.
-</p>
-
-@{outputs('ComposeCssStyle')}
-
-@{body('Create_HTML_table')}

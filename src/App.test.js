@@ -12,7 +12,6 @@ function Test-ControlCompliance {
 
     # Get values
     $CurrentValue = $CurrentHash[$ConfigName]
-
     $BaselineValue = $BaselineHash[$ConfigName]
 
     # Check missing values
@@ -85,41 +84,29 @@ function Test-ControlCompliance {
 
             $CurrentValue =
             [regex]::Replace(
-
                 $CurrentValue,
-
                 $Pattern,
-
                 ''
-
             )
 
             $BaselineValue =
             [regex]::Replace(
-
                 $BaselineValue,
-
                 $Pattern,
-
                 ''
-
             )
         }
     }
 
     # Normalize line endings
     $CurrentNormalized = (
-
         $CurrentValue `
         -replace "`r`n", "`n"
-
     )
 
     $BaselineNormalized = (
-
         $BaselineValue `
         -replace "`r`n", "`n"
-
     )
 
     # Ignore spaces/tabs
@@ -127,19 +114,13 @@ function Test-ControlCompliance {
     # Keep new lines
 
     $CurrentNormalized = (
-
-        $CurrentNormalized
-        .ToLower() `
+        $CurrentNormalized.ToLower() `
         -replace '[ \t]', ''
-
     ).Trim()
 
     $BaselineNormalized = (
-
-        $BaselineNormalized
-        .ToLower() `
+        $BaselineNormalized.ToLower() `
         -replace '[ \t]', ''
-
     ).Trim()
 
     # Compare

@@ -1,21 +1,16 @@
 function Test-ControlCompliance {
 
     param (
-
         [string]$ConfigName,
 
         [string[]]$IgnoreFields = @(),
 
         [string[]]$IgnoreBlocks = @()
-
     )
 
     # Get values
-    $CurrentValue =
-    $CurrentHash[$ConfigName]
-
-    $BaselineValue =
-    $BaselineHash[$ConfigName]
+    $CurrentValue = $CurrentHash[$ConfigName]
+    $BaselineValue = $BaselineHash[$ConfigName]
 
     # Check missing values
     if ($null -eq $CurrentValue -or
@@ -25,8 +20,8 @@ function Test-ControlCompliance {
         "Non Compliant"
 
         Write-Host `
-        "$ConfigName : Missing value" `
-        -ForegroundColor Red
+            "$ConfigName : Missing value" `
+            -ForegroundColor Red
 
         return
     }
@@ -41,33 +36,24 @@ function Test-ControlCompliance {
     # Remove ignored fields
     if ($IgnoreFields.Count -gt 0) {
 
-        foreach ($Field in
-            $IgnoreFields) {
+        foreach ($Field in $IgnoreFields) {
 
             $CurrentValue = (
-
-                $CurrentValue `
-                -split "`r?`n" |
+                $CurrentValue -split "`r?`n" |
 
                 Where-Object {
-
                     $_ -notmatch
                     "^$Field\s*:"
-
                 }
 
             ) -join "`n"
 
             $BaselineValue = (
-
-                $BaselineValue `
-                -split "`r?`n" |
+                $BaselineValue -split "`r?`n" |
 
                 Where-Object {
-
                     $_ -notmatch
                     "^$Field\s*:"
-
                 }
 
             ) -join "`n"
@@ -104,43 +90,37 @@ function Test-ControlCompliance {
     }
 
     # Normalize line endings
-    $CurrentNormalized = (
-
-        $CurrentValue `
+    $CurrentNormalized =
+    $CurrentValue `
         -replace "`r`n",
         "`n"
 
-    )
-
-    $BaselineNormalized = (
-
-        $BaselineValue `
+    $BaselineNormalized =
+    $BaselineValue `
         -replace "`r`n",
         "`n"
-
-    )
 
     # Ignore spaces/tabs
     # Ignore case
     # Keep new lines
 
-    $CurrentNormalized = (
+    $CurrentNormalized =
+    (
+        $CurrentNormalized.ToLower()
+    ) `
+    -replace '[ \t]', ''
 
-        $CurrentNormalized
-        .ToLower() `
-        -replace
-        '[ \t]', ''
+    $CurrentNormalized =
+    $CurrentNormalized.Trim()
 
-    ).Trim()
+    $BaselineNormalized =
+    (
+        $BaselineNormalized.ToLower()
+    ) `
+    -replace '[ \t]', ''
 
-    $BaselineNormalized = (
-
-        $BaselineNormalized
-        .ToLower() `
-        -replace
-        '[ \t]', ''
-
-    ).Trim()
+    $BaselineNormalized =
+    $BaselineNormalized.Trim()
 
     # Compare
     if ($CurrentNormalized -eq
@@ -150,8 +130,8 @@ function Test-ControlCompliance {
         "Compliant"
 
         Write-Host `
-        "$ConfigName : Compliant" `
-        -ForegroundColor Green
+            "$ConfigName : Compliant" `
+            -ForegroundColor Green
     }
     else {
 
@@ -159,7 +139,7 @@ function Test-ControlCompliance {
         "Non Compliant"
 
         Write-Host `
-        "$ConfigName : Non Compliant" `
-        -ForegroundColor Red
+            "$ConfigName : Non Compliant" `
+            -ForegroundColor Red
     }
-                }
+}

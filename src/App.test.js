@@ -11,8 +11,11 @@ function Test-ControlCompliance {
     )
 
     # Get values
-    $CurrentValue = $CurrentHash[$ConfigName]
-    $BaselineValue = $BaselineHash[$ConfigName]
+    $CurrentValue =
+    $CurrentHash[$ConfigName]
+
+    $BaselineValue =
+    $BaselineHash[$ConfigName]
 
     # Check missing values
     if ($null -eq $CurrentValue -or
@@ -21,9 +24,8 @@ function Test-ControlCompliance {
         $StatusHash[$ConfigName] =
         "Non Compliant"
 
-        Write-Host ""
-
-        Write-Host "$ConfigName : Missing value" `
+        Write-Host `
+        "$ConfigName : Missing value" `
         -ForegroundColor Red
 
         return
@@ -39,11 +41,13 @@ function Test-ControlCompliance {
     # Remove ignored fields
     if ($IgnoreFields.Count -gt 0) {
 
-        foreach ($Field in $IgnoreFields) {
+        foreach ($Field in
+            $IgnoreFields) {
 
             $CurrentValue = (
 
-                $CurrentValue -split "`r?`n" |
+                $CurrentValue `
+                -split "`r?`n" |
 
                 Where-Object {
 
@@ -56,7 +60,8 @@ function Test-ControlCompliance {
 
             $BaselineValue = (
 
-                $BaselineValue -split "`r?`n" |
+                $BaselineValue `
+                -split "`r?`n" |
 
                 Where-Object {
 
@@ -100,13 +105,19 @@ function Test-ControlCompliance {
 
     # Normalize line endings
     $CurrentNormalized = (
+
         $CurrentValue `
-        -replace "`r`n", "`n"
+        -replace "`r`n",
+        "`n"
+
     )
 
     $BaselineNormalized = (
+
         $BaselineValue `
-        -replace "`r`n", "`n"
+        -replace "`r`n",
+        "`n"
+
     )
 
     # Ignore spaces/tabs
@@ -114,13 +125,21 @@ function Test-ControlCompliance {
     # Keep new lines
 
     $CurrentNormalized = (
-        $CurrentNormalized.ToLower() `
-        -replace '[ \t]', ''
+
+        $CurrentNormalized
+        .ToLower() `
+        -replace
+        '[ \t]', ''
+
     ).Trim()
 
     $BaselineNormalized = (
-        $BaselineNormalized.ToLower() `
-        -replace '[ \t]', ''
+
+        $BaselineNormalized
+        .ToLower() `
+        -replace
+        '[ \t]', ''
+
     ).Trim()
 
     # Compare
@@ -130,7 +149,7 @@ function Test-ControlCompliance {
         $StatusHash[$ConfigName] =
         "Compliant"
 
-        Write-Host
+        Write-Host `
         "$ConfigName : Compliant" `
         -ForegroundColor Green
     }
@@ -139,8 +158,8 @@ function Test-ControlCompliance {
         $StatusHash[$ConfigName] =
         "Non Compliant"
 
-        Write-Host
+        Write-Host `
         "$ConfigName : Non Compliant" `
         -ForegroundColor Red
     }
-}
+                }

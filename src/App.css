@@ -1,78 +1,25 @@
-function Add-TransactionItem {
-    param(
-        [string]$BPNumber,
-        [string]$ConfigName,
-        [string]$ConfigValue
-    )
-
-    $Json = @{
-        fields = @{
-            Title            = "EntraConnect"
-            field_1          = "Baseline"
-            field_2          = $BPNumber
-            field_3          = $ConfigName
-            field_5          = "$ConfigValue"
-            Status           = $StatusHash[$ConfigName]
-            LastRunDateTime  = $LastRunDateTime
-            Review           = $Review
-        }
-    } | ConvertTo-Json -Depth 5
-
-    Invoke-MgGraphRequest `
-        -Method POST `
-        -Uri "https://graph.microsoft.com/v1.0/sites/$SiteId/lists/$TransactionListId/items" `
-        -Body $Json `
-        -ContentType "application/json"
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
 }
 
-
-
-
-
-Add-TransactionItem `
-    -BPNumber "BP-001" `
-    -ConfigName "DeletionThreshold" `
-    -ConfigValue $Deletionthresh
-
-Add-TransactionItem `
-    -BPNumber "BP-002" `
-    -ConfigName "TLS" `
-    -ConfigValue $FormattedTLS
-
-Add-TransactionItem `
-    -BPNumber "BP-006" `
-    -ConfigName "Root Synced OUs" `
-    -ConfigValue $RootValue
-
-Add-TransactionItem `
-    -BPNumber "BP-007" `
-    -ConfigName "Zone1 Synced OUs" `
-    -ConfigValue $Zone1Value
-
-
-
-
-
-
-
-
-
-$TransactionRows = @()
-
-$TransactionRows += @{
-    BPNumber   = "BP-001"
-    ConfigName = "DeletionThreshold"
-    ConfigValue= $Deletionthresh
+th {
+    background-color: #0070A0;
+    color: white;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
-$TransactionRows += @{
-    BPNumber   = "BP-002"
-    ConfigName = "TLS"
-    ConfigValue= $FormattedTLS
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
 }
 
-$TransactionRows += @{
-    BPNumber   = "BP-006"
-    ConfigName = "Root Synced OUs"
-    ConfigValue= $RootValue
+tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
+</style>

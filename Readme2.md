@@ -1,115 +1,64 @@
-Slide 3 — Dropdown Data Management (Level 1)
+Acceptance Criteria:
 
-Main Screen
+• User should be able to add one or more mitigation plans.
 
-Annotation 1
+• The Market Conduct Risk Area to Review dropdown should display only those risk areas containing at least one question answered as “Yes” in the Risk Assessment stage.
 
-“Add button enables creation of Business/Function Level 1 entries.”
+• Upon selection of a Market Conduct Risk Area, the system should display only the questions belonging to the selected risk area that were answered as “Yes” in the Risk Assessment stage.
 
-⸻
+• User should be able to select one or more questions within the selected Market Conduct Risk Area and map them to a mitigation plan.
 
-Add Popup
+• A single mitigation plan may be mapped to multiple selected questions within the selected Market Conduct Risk Area.
 
-Annotation 2
+• Each question can be mapped to only one mitigation plan.
 
-“Popup used to create new Business/Function Level 1 hierarchy.”
+• User should be able to view the mapped questions for each mitigation plan from the “Question(s) Selected” column.
 
-⸻
+• User should be able to enter mitigation plan details.
 
-Three-dot Menu
+• Conduct Outcome should be automatically populated based on the selected Market Conduct Risk Area and should be read-only.
 
-Annotation 3
+• User should be able to enter the Mitigation Plan.
 
-“Add Business/Function Level 2 under selected hierarchy.”
+• User should be able to select a Target Date.
 
-Annotation 4
+• Target Date should not be later than the Project Go-Live Date.
 
-“Rename selected hierarchy entry.”
+• User should be able to select an Action Owner from the configured list of RFO, Country Coverage users and PMs.
 
-Annotation 5
+• User should be able to select Status as:
 
-“Delete selected hierarchy entry.”
+* Not Started
+* In Progress
+* Completed
 
-⸻
+• User should be able to upload supporting documents.
 
-Slide 4 — Dropdown Data Management (Level 2 & RFO)
+• Uploading supporting documents should be optional.
 
-Level 2 Popup
+Completion and Submission
 
-Annotation 1
+1. Save as Draft should allow users to save progress even when all Yes-answered questions are not yet mapped to mitigation plans.
+2. System should validate that all questions answered as “Yes” in the Risk Assessment stage are mapped to a mitigation plan before submission.
+3. System should prevent submission when one or more Yes-answered questions remain unmapped.
+4. Appropriate validation message should be displayed when submission is attempted with unmapped Yes-answered questions.
+5. Submit to 2LOD button should be enabled only when all validations pass.
+6. Confirmation dialog should display a warning message before submission.
+7. Success message should be displayed after successful submission.
+8. System should prevent modifications after submission.
 
-“Popup used to create Business/Function Level 2 hierarchy.”
+Edit and Delete
 
-⸻
+1. User should be able to edit an existing mitigation plan.
+2. User should be able to delete an existing mitigation plan.
+3. Deleting a mitigation plan should remove the associated question mappings.
 
-Level 2 Menu
+Navigation
 
-Annotation 2
+1. Next and Previous buttons should allow navigation between assessment stages.
+2. Back button should display a warning message before leaving the page.
+3. Clear All should clear all entered mitigation plan details and display a warning message.
 
-“Add RFO mapping under selected hierarchy.”
+Progress Tracking
 
-Annotation 3
-
-“Rename selected Level 2 hierarchy.”
-
-Annotation 4
-
-“Delete selected Level 2 hierarchy.”
-
-⸻
-
-Add RFO Popup
-
-Annotation 5
-
-“Select and map RFO users to the hierarchy.”
-
-⸻
-
-Slide 5 — Country View
-
-Annotation 1
-
-“Country tab switches hierarchy view from Group to Country.”
-
-Annotation 2
-
-“Displays country-based hierarchy structure.”
-
-Annotation 3
-
-“Displays RFO mappings configured under country hierarchy.”
-
-⸻
-
-Slide 6 — Email Template Management
-
-Main Screen
-
-Annotation 1
-
-“Displays configured email templates used in COI workflow notifications.”
-
-Annotation 2
-
-“Status indicates whether the email template is active.”
-
-Annotation 3
-
-“Three-dot menu provides Edit and Audit log actions.”
-
-⸻
-
-Edit Popup
-
-Annotation 4
-
-“Subject field enables modification of email subject line.”
-
-Annotation 5
-
-“Body editor enables modification of email template content.”
-
-Annotation 6
-
-“Rich text editor provides email content formatting options.”
+1. Visual progress indicators should be displayed throughout the assessment journey.

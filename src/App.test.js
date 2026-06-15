@@ -99,3 +99,20 @@ function Compare-SyncedOUs {
         }
     }
 }
+
+
+
+
+
+
+
+
+# Fetch the succeeded snapshot content
+$snapshotContent = Invoke-RestMethod `
+    -Uri "https://graph.microsoft.com/beta/admin/configurationManagement/configurationSnapshots('45361b95-b5bb-4721-b7f1-ebfaafa3a6bb')" `
+    -Method GET `
+    -Headers $headers
+
+Write-Host "Snapshot display name: $($snapshotContent.displayName)"
+Write-Host "Resources count: $($snapshotContent.resources.Count)"
+$snapshotContent | ConvertTo-Json -Depth 10
